@@ -1044,152 +1044,104 @@ const NewsletterSection = () => (
   </section>
 );
 
-// Contact Section
-const ContactSection = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [loading, setLoading] = useState(false);
+// Contact Section - Links to email
+const ContactSection = () => (
+  <section className="py-20 md:py-28" style={{ backgroundColor: '#faf8f5' }} data-testid="contact-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div>
+          <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>Get in Touch</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+            Contact Us
+          </h2>
+          <p className="text-lg leading-relaxed mb-10 body-text" style={{ color: '#2d4a6f' }}>
+            Have questions about submissions, peer review, or general inquiries? 
+            We're here to help.
+          </p>
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error('Please fill in all required fields');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await axios.post(`${API}/contact`, formData);
-      toast.success('Message sent successfully! We will get back to you soon.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      toast.error('Failed to send message. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <section className="py-20 md:py-28" style={{ backgroundColor: '#faf8f5' }} data-testid="contact-section">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div>
-            <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>Get in Touch</span>
-            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
-              Contact Us
-            </h2>
-            <p className="text-lg leading-relaxed mb-10 body-text" style={{ color: '#2d4a6f' }}>
-              Have questions about submissions, peer review, or general inquiries? 
-              We're here to help.
-            </p>
-
-            {/* London Office */}
-            <div className="mb-8 pb-8" style={{ borderBottom: '1px solid #e8dcc8' }}>
-              <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.londonOffice.name}</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
-                  <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.londonOffice.address}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
-                  <a href={`tel:${contactInfo.londonOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
-                    {contactInfo.londonOffice.phone}
-                  </a>
-                </div>
+          {/* London Office */}
+          <div className="mb-8 pb-8" style={{ borderBottom: '1px solid #e8dcc8' }}>
+            <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.londonOffice.name}</h3>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
+                <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.londonOffice.address}</p>
               </div>
-            </div>
-
-            {/* Gulf Office */}
-            <div className="mb-8">
-              <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.gulfOffice.name}</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
-                  <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.gulfOffice.address}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
-                  <a href={`tel:${contactInfo.gulfOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
-                    {contactInfo.gulfOffice.phone}
-                  </a>
-                </div>
-                <p className="text-sm pl-8 body-text" style={{ color: '#a0522d' }}>Tax Number: {contactInfo.gulfOffice.taxNumber}</p>
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
+                <a href={`tel:${contactInfo.londonOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
+                  {contactInfo.londonOffice.phone}
+                </a>
               </div>
-            </div>
-
-            {/* Email */}
-            <div className="flex items-center gap-3">
-              <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
-              <a href={`mailto:${journalInfo.email}`} className="font-medium hover:underline" style={{ color: '#a0522d' }}>
-                {journalInfo.email}
-              </a>
             </div>
           </div>
 
-          {/* Contact Form */}
-          <div className="p-8 md:p-10" style={{ backgroundColor: '#f5f0e8', border: '1px solid #e8dcc8' }}>
-            <h3 className="text-xl font-semibold mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>Send a Message</h3>
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Name *</label>
-                <Input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-none"
-                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
-                  data-testid="contact-name-input"
-                />
+          {/* Gulf Office */}
+          <div className="mb-8">
+            <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.gulfOffice.name}</h3>
+            <div className="space-y-3">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
+                <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.gulfOffice.address}</p>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Email *</label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-none"
-                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
-                  data-testid="contact-email-input"
-                />
+              <div className="flex items-center gap-3">
+                <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
+                <a href={`tel:${contactInfo.gulfOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
+                  {contactInfo.gulfOffice.phone}
+                </a>
               </div>
-              <div>
-                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Subject</label>
-                <Input
-                  type="text"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full rounded-none"
-                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
-                  data-testid="contact-subject-input"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Message *</label>
-                <Textarea
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  rows={5}
-                  className="w-full rounded-none resize-none"
-                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
-                  data-testid="contact-message-input"
-                />
-              </div>
-              <Button 
-                type="submit" 
-                disabled={loading}
-                className="w-full py-6 text-sm font-medium tracking-wide uppercase btn-lift"
-                style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}
-                data-testid="contact-submit-btn"
-              >
-                {loading ? 'Sending...' : 'Send Message'}
-              </Button>
-            </form>
+              <p className="text-sm pl-8 body-text" style={{ color: '#a0522d' }}>Tax Number: {contactInfo.gulfOffice.taxNumber}</p>
+            </div>
+          </div>
+
+          {/* Email */}
+          <div className="flex items-center gap-3">
+            <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
+            <a href={`mailto:${journalInfo.email}`} className="font-medium hover:underline" style={{ color: '#a0522d' }}>
+              {journalInfo.email}
+            </a>
           </div>
         </div>
+
+        {/* Contact Card - Links to Email */}
+        <div className="p-8 md:p-10" style={{ backgroundColor: '#f5f0e8', border: '1px solid #e8dcc8' }}>
+          <h3 className="text-xl font-semibold mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>Send a Message</h3>
+          
+          <p className="body-text mb-8" style={{ color: '#2d4a6f' }}>
+            Click the button below to send us an email directly. Our editorial team will respond to your inquiry as soon as possible.
+          </p>
+
+          {/* Library Image */}
+          <div className="mb-8 relative overflow-hidden" style={{ height: '200px' }}>
+            <img 
+              src={LIBRARY_IMAGE_2} 
+              alt="Library"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(30, 58, 95, 0.3), transparent)' }} />
+          </div>
+
+          <a
+            href={`mailto:${journalInfo.email}?subject=Inquiry from JMLPH Website`}
+            data-testid="contact-email-btn"
+          >
+            <Button 
+              className="w-full py-6 text-sm font-medium tracking-wide uppercase btn-lift"
+              style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}
+            >
+              <Mail className="w-4 h-4 mr-2" />
+              Send Email to Editorial Board
+            </Button>
+          </a>
+
+          <p className="text-sm mt-4 text-center body-text" style={{ color: '#a0522d' }}>
+            {journalInfo.email}
+          </p>
+        </div>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // Policy Modal Component
 const PolicyModal = ({ isOpen, onClose, policy }) => {
