@@ -1,0 +1,188 @@
+{
+  "design_system": {
+    "identity": {
+      "name": "JMLPH",
+      "tone": "Authoritative, Academic, Prestigious, Sophisticated, Trustworthy",
+      "keywords": ["Intersection", "Research", "Justice", "Health", "Global"],
+      "brand_archetype": "The Sage (Knowledge/Truth) meets The Ruler (Order/Stability)"
+    },
+    "typography": {
+      "font_family": {
+        "primary": "Playfair Display, serif",
+        "secondary": "Inter, sans-serif",
+        "mono": "JetBrains Mono, monospace"
+      },
+      "scale": {
+        "h1": "text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-tight",
+        "h2": "text-4xl md:text-5xl font-semibold tracking-tight",
+        "h3": "text-2xl md:text-3xl font-medium",
+        "body_lg": "text-lg md:text-xl leading-relaxed text-slate-600",
+        "body": "text-base leading-relaxed text-slate-600",
+        "caption": "text-sm font-medium tracking-wide uppercase text-slate-500"
+      }
+    },
+    "colors": {
+      "palette": {
+        "primary": {
+          "DEFAULT": "#0f172a",
+          "foreground": "#f8fafc",
+          "50": "#f8fafc",
+          "100": "#f1f5f9",
+          "200": "#e2e8f0",
+          "300": "#cbd5e1",
+          "400": "#94a3b8",
+          "500": "#64748b",
+          "600": "#475569",
+          "700": "#334155",
+          "800": "#1e293b",
+          "900": "#0f172a",
+          "950": "#020617"
+        },
+        "accent": {
+          "DEFAULT": "#d97706",
+          "foreground": "#ffffff",
+          "50": "#fffbeb",
+          "100": "#fef3c7",
+          "200": "#fde68a",
+          "300": "#fcd34d",
+          "400": "#fbbf24",
+          "500": "#f59e0b",
+          "600": "#d97706",
+          "700": "#b45309",
+          "800": "#92400e",
+          "900": "#78350f"
+        },
+        "background": {
+          "DEFAULT": "#ffffff",
+          "secondary": "#f8fafc",
+          "dark": "#0b0f19"
+        },
+        "surface": {
+          "DEFAULT": "#ffffff",
+          "raised": "#ffffff",
+          "overlay": "rgba(15, 23, 42, 0.8)"
+        }
+      },
+      "usage": {
+        "text": {
+          "primary": "#0f172a",
+          "secondary": "#475569",
+          "inverse": "#f8fafc"
+        },
+        "border": {
+          "DEFAULT": "#e2e8f0",
+          "focus": "#d97706"
+        }
+      }
+    },
+    "layout": {
+      "spacing": {
+        "section_padding": "py-20 md:py-32",
+        "container_padding": "px-6 md:px-12 lg:px-24",
+        "element_gap": "gap-8"
+      },
+      "container": {
+        "max_width": "max-w-7xl mx-auto"
+      },
+      "grid_systems": {
+        "bento_articles": "grid grid-cols-1 md:grid-cols-12 gap-6",
+        "editorial_board": "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8",
+        "features": "grid grid-cols-1 md:grid-cols-3 gap-12"
+      }
+    },
+    "components": {
+      "buttons": {
+        "primary": "bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-8 py-4 text-sm font-semibold tracking-wide uppercase transition-all duration-300 shadow-sm",
+        "secondary": "bg-transparent border border-primary/20 text-primary hover:bg-primary/5 rounded-none px-8 py-4 text-sm font-semibold tracking-wide uppercase transition-all duration-300",
+        "accent": "bg-accent-600 text-white hover:bg-accent-700 rounded-none px-8 py-4 text-sm font-semibold tracking-wide uppercase shadow-md hover:shadow-lg transition-all transform hover:-translate-y-1"
+      },
+      "cards": {
+        "article": "group relative bg-white border border-slate-100 p-8 hover:shadow-xl hover:border-slate-200 transition-all duration-500 flex flex-col justify-between h-full rounded-sm overflow-hidden",
+        "profile": "bg-slate-50 p-6 border border-slate-100 rounded-sm hover:bg-white hover:shadow-md transition-all duration-300 text-center",
+        "feature": "p-0 bg-transparent border-l-2 border-slate-200 pl-6 hover:border-accent-600 transition-colors duration-300"
+      },
+      "inputs": {
+        "default": "rounded-none border-slate-200 focus:ring-accent-500 focus:border-accent-500 bg-slate-50 focus:bg-white transition-all duration-300"
+      }
+    },
+    "visual_enhancers": {
+      "shadows": {
+        "card": "0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)",
+        "hover": "0 20px 25px -5px rgba(0, 0, 0, 0.05), 0 10px 10px -5px rgba(0, 0, 0, 0.02)",
+        "glow": "0 0 20px rgba(217, 119, 6, 0.15)"
+      },
+      "textures": {
+        "noise": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E\")"
+      },
+      "borders": {
+        "subtle": "1px solid #e2e8f0",
+        "accent": "2px solid #d97706"
+      }
+    },
+    "animation": {
+      "micro_interactions": {
+        "hover_lift": "transition-transform duration-300 hover:-translate-y-1",
+        "text_reveal": "animate-in fade-in slide-in-from-bottom-4 duration-700"
+      }
+    }
+  },
+  "content_strategy": {
+    "images": [
+      {
+        "category": "hero_bg",
+        "url": "https://images.unsplash.com/photo-1646700611766-070d793c67c5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG1lZGljYWwlMjBzY2llbmNlJTIwY29ubmVjdGlvbiUyMGRhcmt8ZW58MHx8fHwxNzcxMzI5MzE4fDA&ixlib=rb-4.1.0&q=85",
+        "alt": "Abstract Medical Background",
+        "usage": "Hero section background with heavy overlay"
+      },
+      {
+        "category": "law_symbol",
+        "url": "https://images.unsplash.com/photo-1767972463877-b64ba4283cd0?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzB8MHwxfHNlYXJjaHwxfHxsZWdhbCUyMGdhdmVsJTIwanVzdGljZSUyMGNvdXJ0fGVufDB8fHx8MTc3MTMyOTMxN3ww&ixlib=rb-4.1.0&q=85",
+        "alt": "Legal Gavel",
+        "usage": "About section or Legal domain card"
+      },
+      {
+        "category": "medical_professional",
+        "url": "https://images.unsplash.com/photo-1576670159375-8beb7c963ead?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjAzNDR8MHwxfHNlYXJjaHwyfHxkb2N0b3IlMjBtZWRpY2FsJTIwcmVzZWFyY2glMjBsYWJvcmF0b3J5fGVufDB8fHx8MTc3MTMyOTMxNnww&ixlib=rb-4.1.0&q=85",
+        "alt": "Doctor with Microscope",
+        "usage": "Research section or Medical domain card"
+      },
+      {
+        "category": "public_health",
+        "url": "https://images.unsplash.com/photo-1655242233051-1925871d6555?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1Mjh8MHwxfHNlYXJjaHw0fHxwdWJsaWMlMjBoZWFsdGglMjBjb21tdW5pdHklMjBkaXZlcnNlfGVufDB8fHx8MTc3MTMyOTMxOXww&ixlib=rb-4.1.0&q=85",
+        "alt": "Public Health Worker",
+        "usage": "Community section or Public Health domain card"
+      }
+    ],
+    "sections": {
+      "header": {
+        "nav_items": ["Home", "About", "Current Issue", "Editorial Board", "Access Journal OJS"],
+        "logo_text": "JMLPH"
+      },
+      "hero": {
+        "tagline": "Bridging Medicine, Law, and Public Health",
+        "subline": "A leading peer-reviewed journal dedicated to the intersection of healthcare, legal frameworks, and global well-being.",
+        "primary_cta": "Submit Manuscript",
+        "secondary_cta": "Read Current Issue"
+      },
+      "ojs_portal": {
+        "title": "Access the OJS Portal",
+        "description": "Full access to current and archived issues, submission tracking, and peer review systems.",
+        "link": "https://www.jmlph.net/index.php/jmlph"
+      },
+      "about": {
+        "mission": "To provide a platform for interdisciplinary research that shapes policy and improves global health outcomes."
+      }
+    }
+  },
+  "instructions_to_main_agent": [
+    "INSTALLATION: Run 'yarn add lucide-react framer-motion clsx tailwind-merge @radix-ui/react-slot class-variance-authority' immediately.",
+    "FONTS: Add 'Playfair Display' and 'Inter' via Google Fonts in index.css.",
+    "THEME: Implement the 'Dark Sophisticated' look for the Header and Footer, but keep the Content sections (About, Articles) clean White/Light Grey for academic readability.",
+    "ACCENT: Use the Amber-600 (#d97706) sparingly for Buttons, Active States, and Borders. Do NOT overuse it.",
+    "BENTO GRID: Use a Bento Grid layout for the 'Current Issue' section. Make the main article occupy 2x2 cells.",
+    "OJS LINK: The OJS Portal link is CRITICAL. Create a dedicated, high-visibility section for it.",
+    "FORMS: Use Shadcn UI logic for the Newsletter and Contact forms, but style them with square borders (rounded-none) to match the academic aesthetic.",
+    "FOOTER: Make it large (py-20). Include columns for Policies, Contact, and Quick Links.",
+    "TESTING: Add 'data-testid' to all interactive elements."
+  ]
+}
