@@ -1211,26 +1211,25 @@ const Footer = () => {
         policy={activePolicy ? policyDocuments[activePolicy] : null}
       />
       <footer className="bg-slate-900 py-16" data-testid="footer">
-  <footer className="bg-slate-900 py-16" data-testid="footer">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
-        {/* Brand */}
-        <div className="lg:col-span-2">
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-10 h-10 bg-amber-600 flex items-center justify-center">
-              <span className="text-white font-bold text-lg font-serif">J</span>
+        <div className="max-w-7xl mx-auto px-6 md:px-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+            {/* Brand */}
+            <div className="lg:col-span-2">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-10 h-10 bg-amber-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-lg font-serif">J</span>
+                </div>
+                <span className="logo-text text-xl text-white">JMLPH</span>
+              </div>
+              <p className="text-slate-400 leading-relaxed mb-6 max-w-md">
+                The Journal of Medicine, Law & Public Health is an interdisciplinary, 
+                peer-reviewed publication exploring the intersection of medical practice, 
+                legal considerations, and public health policy.
+              </p>
+              <p className="text-slate-500 text-sm">
+                Published in partnership with Riyadh Second Health Cluster Research Center
+              </p>
             </div>
-            <span className="logo-text text-xl text-white">JMLPH</span>
-          </div>
-          <p className="text-slate-400 leading-relaxed mb-6 max-w-md">
-            The Journal of Medicine, Law & Public Health is an interdisciplinary, 
-            peer-reviewed publication exploring the intersection of medical practice, 
-            legal considerations, and public health policy.
-          </p>
-          <p className="text-slate-500 text-sm">
-            Published in partnership with Riyadh Second Health Cluster Research Center
-          </p>
-        </div>
 
         {/* Quick Links */}
         <div>
