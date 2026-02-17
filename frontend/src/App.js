@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import "@/App.css";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useInView } from "framer-motion";
 import { 
   Menu, 
   X, 
@@ -18,8 +18,13 @@ import {
   Calendar,
   Mail,
   MapPin,
-  Linkedin,
-  ArrowRight
+  Phone,
+  ArrowRight,
+  Clock,
+  BarChart3,
+  TrendingUp,
+  XCircle,
+  FileCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -42,13 +47,36 @@ const journalInfo = {
   issn_online: "2788-791X",
   frequency: "Quarterly",
   reviewType: "Double-blind Peer-review",
-  acceptanceRate: "55%",
   journalType: "Open Access",
   email: "editorial.board@jmlph.net",
-  address: "5810 Ambler Dr, Unit 14 | RUH 1529405 | Mississauga | L4W4J5 | Canada",
   registrationNo: "2198504",
   description: "The Journal of Medicine, Law & Public Health (JMLPH) is an interdisciplinary publication that explores the intersection of medical practice, legal considerations, and public health policy. It aims to serve as a platform for professionals and academics from various fields to discuss and disseminate research findings, legal analysis, and policy discussions that impact health outcomes and healthcare delivery."
 };
+
+// Contact Information
+const contactInfo = {
+  londonOffice: {
+    name: "London Office",
+    address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ",
+    phone: "+44 20 3985 0907"
+  },
+  gulfOffice: {
+    name: "Gulf Office",
+    address: "Innovation Boulevard, Al Aqeeq, King Abdullah Financial District, Building 7229, 13519, Riyadh, Saudi Arabia",
+    phone: "+966 11 525 6458",
+    taxNumber: "3131020665"
+  }
+};
+
+// Journal Metrics
+const journalMetrics = [
+  { value: 231, label: "Total Submissions", suffix: "", icon: FileText },
+  { value: 35, label: "Desk Rejections", suffix: "", icon: XCircle },
+  { value: 43, label: "Declined After Review", suffix: "", icon: FileCheck },
+  { value: 19, label: "Days to First Decision", suffix: "", icon: Clock },
+  { value: 109, label: "Days to Accept", suffix: "", icon: TrendingUp },
+  { value: 46, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
+];
 
 // Current Issue Articles (Vol. 6 No. 1 - 2026)
 const currentIssue = {
@@ -113,25 +141,6 @@ const currentIssue = {
   ]
 };
 
-// Editorial Board
-const editorialBoard = {
-  trustees: [
-    { name: "Dr. Dania AlJaroudi", role: "Executive Director of the Research Center", affiliation: "Obstetrics and Gynecology, Minimally Invasive Surgery, Reproductive Endocrine and Infertility. Second Healthcare Cluster, Saudi Arabia", linkedin: "https://sa.linkedin.com/in/dr-dania-al-jaroudi-b863742b" },
-    { name: "Dr. Erich Gregory Hanel", role: "Board of Trustees", affiliation: "Family Medicine and Emergency Medicine, McMaster University, ON, Canada", linkedin: "https://ca.linkedin.com/in/erich-hanel-66b3a528" },
-    { name: "Dr. Teresa Chan", role: "Board of Trustees", affiliation: "Emergency Medicine, Faculty of Health Sciences at McMaster University, ON, Canada", linkedin: "https://ca.linkedin.com/in/tchanmd" }
-  ],
-  editorInChief: { name: "Dr. Bandr Mzahim", role: "Editor-In-Chief", affiliation: "EMS/Disaster, Emergency Department & Disaster Department and Emergency Operation Center, King Fahd Medical City, Riyadh, Saudi Arabia", email: "Editor-in-chief@JMLPH.net", linkedin: "https://sa.linkedin.com/in/bandar-mzahim-b40b2526" },
-  deputyEditor: { name: "Dr. Nawaf Masaad Almutairi", role: "Deputy Editor-In-Chief", affiliation: "Anesthesia and Pain Management Department, Security Forces Hospital, Riyadh, Saudi Arabia", email: "Deputy-Editor@JMLPH.net" },
-  sectionEditors: [
-    { name: "Dr. Abdulrahman Yasin Sabbagh", affiliation: "Simulation, Emergency Medicine, Events Planning and Sports Medicine, King Fahd Medical City, Riyadh, Saudi Arabia" },
-    { name: "Dr. Adnan Ali S. AlMaghlouth", affiliation: "Research Services and Applied Clinical Administration, Periodontology, Oral Implant Rehabilitation, King Fahd Medical City, Riyadh, Saudi Arabia" },
-    { name: "Dr. Arslan Ahmed", affiliation: "Epidemiologist at College of Physicians & Surgeons, Pakistan" },
-    { name: "Dr. Rosario Barranco", affiliation: "Department of Legal and Forensic Medicine, University of Genoa, Italy" },
-    { name: "Dr. Mohammed Badawy", affiliation: "Emergency Medicine and Disaster Medicine Consultant, Royal Commission Hospital - Jubail" },
-    { name: "Dr. Saba Imdad", affiliation: "Biosciences Institute, APC Microbiome Ireland, College of Medicine & Health, University College Cork, Ireland" }
-  ]
-};
-
 // Indexing information
 const indexingInfo = [
   { name: "Google Scholar", status: "Indexed" },
@@ -140,6 +149,65 @@ const indexingInfo = [
   { name: "Scopus", status: "Applied" }
 ];
 
+// Count Up Animation Hook
+const useCountUp = (end, duration = 2000, startOnView = true) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (startOnView && !isInView) return;
+    if (hasAnimated.current) return;
+    
+    hasAnimated.current = true;
+    let startTime;
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function for smooth animation
+      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+      setCount(Math.floor(easeOutQuart * end));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, [end, duration, isInView, startOnView]);
+
+  return { count, ref };
+};
+
+// Metric Card Component with Count Up
+const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0 }) => {
+  const { count, ref } = useCountUp(value, 2000);
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.6, delay }}
+      className="bg-white border border-slate-200 p-8 text-center group hover:border-amber-500/50 hover:shadow-lg transition-all duration-300"
+    >
+      <div className="w-14 h-14 bg-slate-900 flex items-center justify-center mx-auto mb-5">
+        <Icon className="w-7 h-7 text-amber-500" />
+      </div>
+      <div className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mb-2">
+        {count}{suffix}
+      </div>
+      <p className="text-sm text-slate-500 uppercase tracking-wider font-medium">{label}</p>
+    </motion.div>
+  );
+};
+
 // Navigation component
 const Header = ({ scrolled }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -147,15 +215,15 @@ const Header = ({ scrolled }) => {
   const navItems = [
     { name: "Home", href: "#home" },
     { name: "About", href: "#about" },
+    { name: "Metrics", href: "#metrics" },
     { name: "Current Issue", href: "#current-issue" },
-    { name: "Editorial Board", href: "#editorial-board" },
     { name: "Submit", href: "#submission" }
   ];
 
   return (
     <header 
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-slate-900/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100' : 'bg-white'
       }`}
       data-testid="header"
     >
@@ -163,10 +231,13 @@ const Header = ({ scrolled }) => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-3" data-testid="logo">
-            <div className="w-10 h-10 bg-amber-600 flex items-center justify-center">
-              <span className="text-white font-bold text-lg font-serif">J</span>
+            <div className="w-10 h-10 bg-slate-900 flex items-center justify-center">
+              <span className="text-amber-500 font-bold text-lg font-serif">J</span>
             </div>
-            <span className="logo-text text-xl text-white">JMLPH</span>
+            <div className="hidden sm:block">
+              <span className="logo-text text-xl text-slate-900 block leading-tight">JMLPH</span>
+              <span className="text-xs text-slate-500">Medicine • Law • Public Health</span>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
@@ -175,7 +246,7 @@ const Header = ({ scrolled }) => {
               <a
                 key={item.name}
                 href={item.href}
-                className="nav-link text-sm font-medium text-slate-300 hover:text-white transition-colors"
+                className="nav-link text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
                 data-testid={`nav-${item.name.toLowerCase().replace(' ', '-')}`}
               >
                 {item.name}
@@ -185,7 +256,7 @@ const Header = ({ scrolled }) => {
               href={OJS_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-amber-600 hover:bg-amber-700 text-white px-5 py-2.5 text-sm font-semibold tracking-wide uppercase transition-all btn-lift"
+              className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 text-sm font-medium transition-all"
               data-testid="nav-ojs-portal"
             >
               Access Journal
@@ -195,7 +266,7 @@ const Header = ({ scrolled }) => {
 
           {/* Mobile menu button */}
           <button
-            className="lg:hidden text-white p-2"
+            className="lg:hidden text-slate-900 p-2"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             data-testid="mobile-menu-button"
           >
@@ -210,14 +281,14 @@ const Header = ({ scrolled }) => {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-slate-900/95 backdrop-blur-md pb-6"
+              className="lg:hidden bg-white border-t border-slate-100 pb-6"
               data-testid="mobile-nav"
             >
               {navItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block py-3 text-slate-300 hover:text-white transition-colors"
+                  className="block py-3 text-slate-600 hover:text-slate-900 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   {item.name}
@@ -227,7 +298,7 @@ const Header = ({ scrolled }) => {
                 href={OJS_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 mt-4 bg-amber-600 hover:bg-amber-700 text-white px-5 py-3 text-sm font-semibold tracking-wide uppercase w-full justify-center"
+                className="flex items-center gap-2 mt-4 bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 text-sm font-medium w-full justify-center"
                 data-testid="mobile-nav-ojs"
               >
                 Access Journal Portal
@@ -245,105 +316,210 @@ const Header = ({ scrolled }) => {
 const HeroSection = () => (
   <section 
     id="home" 
-    className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    className="relative min-h-screen flex items-center justify-center bg-slate-50 pt-20"
     data-testid="hero-section"
   >
-    {/* Background */}
-    <div 
-      className="absolute inset-0 bg-cover bg-center"
-      style={{
-        backgroundImage: `url('https://images.unsplash.com/photo-1646700611766-070d793c67c5?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDN8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMG1lZGljYWwlMjBzY2llbmNlJTIwY29ubmVjdGlvbiUyMGRhcmt8ZW58MHx8fHwxNzcxMzI5MzE4fDA&ixlib=rb-4.1.0&q=85')`
-      }}
-    />
-    <div className="hero-overlay absolute inset-0" />
+    {/* Subtle pattern */}
+    <div className="absolute inset-0 opacity-30" style={{
+      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23cbd5e1' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+    }} />
     
-    <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 text-center">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-      >
-        <p className="text-amber-500 text-sm font-semibold tracking-widest uppercase mb-6">
-          Peer-Reviewed • Open Access • Interdisciplinary
-        </p>
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight mb-6 font-serif">
-          Bridging Medicine,<br />
-          <span className="text-amber-500">Law</span>, and Public Health
-        </h1>
-        <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
-          A leading peer-reviewed journal dedicated to the intersection of healthcare, 
-          legal frameworks, and global well-being. Published in partnership with 
-          Riyadh Second Health Cluster Research Center.
-        </p>
-        
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href={`${OJS_URL}/about/submissions`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-full sm:w-auto"
-            data-testid="hero-submit-btn"
-          >
-            <Button className="w-full sm:w-auto bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none btn-lift">
-              <Send className="w-4 h-4 mr-2" />
-              Submit Your Manuscript
-            </Button>
-          </a>
-          <a
-            href="#current-issue"
-            className="w-full sm:w-auto"
-            data-testid="hero-explore-btn"
-          >
-            <Button variant="outline" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10 px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none">
-              <BookOpen className="w-4 h-4 mr-2" />
-              Explore Current Research
-            </Button>
-          </a>
-        </div>
-      </motion.div>
+    <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-4 py-2 text-sm font-medium mb-6">
+            <Award className="w-4 h-4" />
+            Peer-Reviewed • Open Access
+          </div>
+          
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6 font-serif">
+            The Journal of<br />
+            <span className="text-amber-600">Medicine, Law</span><br />
+            & Public Health
+          </h1>
+          
+          <p className="text-lg text-slate-600 max-w-xl mb-8 leading-relaxed">
+            An interdisciplinary peer-reviewed journal exploring the intersection of 
+            healthcare, legal frameworks, and public health policy. Published in partnership 
+            with Riyadh Second Health Cluster Research Center.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href={`${OJS_URL}/about/submissions`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="hero-submit-btn"
+            >
+              <Button className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase">
+                <Send className="w-4 h-4 mr-2" />
+                Submit Manuscript
+              </Button>
+            </a>
+            <a
+              href="#current-issue"
+              data-testid="hero-explore-btn"
+            >
+              <Button variant="outline" className="w-full sm:w-auto border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-6 text-sm font-medium tracking-wide uppercase">
+                <BookOpen className="w-4 h-4 mr-2" />
+                Current Issue
+              </Button>
+            </a>
+          </div>
+        </motion.div>
 
-      {/* Stats */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-10 border-t border-white/10"
-      >
-        <div className="text-center">
-          <p className="text-3xl md:text-4xl font-bold text-amber-500 font-serif">6</p>
-          <p className="text-sm text-slate-400 mt-2 uppercase tracking-wider">Volumes</p>
-        </div>
-        <div className="text-center">
-          <p className="text-3xl md:text-4xl font-bold text-amber-500 font-serif">55%</p>
-          <p className="text-sm text-slate-400 mt-2 uppercase tracking-wider">Acceptance Rate</p>
-        </div>
-        <div className="text-center">
-          <p className="text-3xl md:text-4xl font-bold text-amber-500 font-serif">Open</p>
-          <p className="text-sm text-slate-400 mt-2 uppercase tracking-wider">Access</p>
-        </div>
-        <div className="text-center">
-          <p className="text-3xl md:text-4xl font-bold text-amber-500 font-serif">Global</p>
-          <p className="text-sm text-slate-400 mt-2 uppercase tracking-wider">Reach</p>
-        </div>
-      </motion.div>
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="hidden lg:block"
+        >
+          <div className="relative">
+            <div className="absolute -top-4 -left-4 w-72 h-72 bg-amber-100 -z-10" />
+            <img 
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
+              alt="Medical Research"
+              className="w-full h-96 object-cover"
+            />
+            <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-6">
+              <p className="text-3xl font-bold font-serif text-amber-500">Vol. 6</p>
+              <p className="text-sm text-slate-300">Current Issue</p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
     </div>
+  </section>
+);
 
-    {/* Scroll indicator */}
-    <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-      <motion.div
-        animate={{ y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2 }}
-        className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center pt-2"
-      >
-        <div className="w-1.5 h-1.5 bg-amber-500 rounded-full" />
-      </motion.div>
+// Metrics Section with Count Up Animation
+const MetricsSection = () => (
+  <section id="metrics" className="py-20 md:py-28 bg-slate-50" data-testid="metrics-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="text-center mb-16">
+        <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">Performance</span>
+        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-4">
+          Journal Metrics
+        </h2>
+        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
+          Transparency in our editorial process and publication statistics
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {journalMetrics.map((metric, idx) => (
+          <MetricCard
+            key={metric.label}
+            value={metric.value}
+            label={metric.label}
+            suffix={metric.suffix}
+            icon={metric.icon}
+            delay={idx * 0.1}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+// About Section
+const AboutSection = () => (
+  <section id="about" className="py-20 md:py-28 bg-white" data-testid="about-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">About the Journal</span>
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-6">
+            Advancing Interdisciplinary Research
+          </h2>
+          <p className="text-slate-600 text-lg leading-relaxed mb-6">
+            {journalInfo.description}
+          </p>
+          <p className="text-slate-600 text-lg leading-relaxed mb-8">
+            The journal publishes a range of content, including original research, review articles, 
+            case studies, and commentaries, all of which undergo a rigorous double-blind peer-review 
+            process to ensure high-quality contributions.
+          </p>
+          
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2 bg-slate-100 px-4 py-2">
+              <span className="text-sm font-medium text-slate-700">ISSN (P): {journalInfo.issn_print}</span>
+            </div>
+            <div className="flex items-center gap-2 bg-slate-100 px-4 py-2">
+              <span className="text-sm font-medium text-slate-700">ISSN (E): {journalInfo.issn_online}</span>
+            </div>
+            <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2">
+              <span className="text-sm font-medium text-amber-700">{journalInfo.journalType}</span>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-2 gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-slate-900 p-8 text-white"
+          >
+            <Heart className="w-10 h-10 text-amber-500 mb-4" />
+            <h3 className="text-xl font-semibold font-serif mb-2">Medicine</h3>
+            <p className="text-slate-400 text-sm">Clinical research, healthcare delivery, and medical practice innovations.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="bg-slate-100 p-8"
+          >
+            <Scale className="w-10 h-10 text-amber-600 mb-4" />
+            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Law & Ethics</h3>
+            <p className="text-slate-600 text-sm">Legal analysis, medical ethics, and regulatory frameworks.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="bg-slate-100 p-8"
+          >
+            <Users className="w-10 h-10 text-amber-600 mb-4" />
+            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Public Health</h3>
+            <p className="text-slate-600 text-sm">Population health, epidemiology, and health policy.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="bg-slate-900 p-8 text-white"
+          >
+            <Globe className="w-10 h-10 text-amber-500 mb-4" />
+            <h3 className="text-xl font-semibold font-serif mb-2">Global Impact</h3>
+            <p className="text-slate-400 text-sm">International perspectives on healthcare challenges.</p>
+          </motion.div>
+        </div>
+      </div>
     </div>
   </section>
 );
 
 // OJS Portal Access Section
 const OJSPortalSection = () => (
-  <section className="py-16 bg-slate-900 relative overflow-hidden" data-testid="ojs-portal-section">
+  <section className="py-16 bg-slate-900" data-testid="ojs-portal-section">
     <div className="max-w-7xl mx-auto px-6 md:px-12">
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="flex-1">
@@ -366,7 +542,7 @@ const OJSPortalSection = () => (
             rel="noopener noreferrer"
             data-testid="ojs-portal-link"
           >
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none btn-lift">
+            <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase">
               Go to OJS Portal
               <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
@@ -377,7 +553,7 @@ const OJSPortalSection = () => (
             rel="noopener noreferrer"
             data-testid="ojs-archive-link"
           >
-            <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none">
+            <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 px-8 py-6 text-sm font-medium tracking-wide uppercase">
               Browse Archives
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
@@ -388,90 +564,9 @@ const OJSPortalSection = () => (
   </section>
 );
 
-// About Section
-const AboutSection = () => (
-  <section id="about" className="py-20 md:py-32 bg-white" data-testid="about-section">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <div>
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">About the Journal</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-6">
-              Where Healthcare, Law & Policy Converge
-            </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-6">
-              {journalInfo.description}
-            </p>
-            <p className="text-slate-600 text-lg leading-relaxed">
-              The journal publishes a range of content, including original research, review articles, 
-              case studies, and commentaries, all of which undergo a rigorous peer-review process to 
-              ensure high-quality and relevant contributions to the literature.
-            </p>
-          </motion.div>
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="feature-border pl-6 py-4"
-          >
-            <Heart className="w-10 h-10 text-amber-600 mb-4" />
-            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Medicine</h3>
-            <p className="text-slate-600">Clinical research, healthcare delivery, and medical practice innovations.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="feature-border pl-6 py-4"
-          >
-            <Scale className="w-10 h-10 text-amber-600 mb-4" />
-            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Law & Ethics</h3>
-            <p className="text-slate-600">Legal analysis, medical ethics, and regulatory frameworks.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="feature-border pl-6 py-4"
-          >
-            <Users className="w-10 h-10 text-amber-600 mb-4" />
-            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Public Health</h3>
-            <p className="text-slate-600">Population health, epidemiology, and health policy discussions.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="feature-border pl-6 py-4"
-          >
-            <Globe className="w-10 h-10 text-amber-600 mb-4" />
-            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Global Impact</h3>
-            <p className="text-slate-600">International perspectives on healthcare challenges and solutions.</p>
-          </motion.div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
 // Current Issue Section
 const CurrentIssueSection = () => (
-  <section id="current-issue" className="py-20 md:py-32 bg-slate-50" data-testid="current-issue-section">
+  <section id="current-issue" className="py-20 md:py-28 bg-white" data-testid="current-issue-section">
     <div className="max-w-7xl mx-auto px-6 md:px-12">
       <div className="text-center mb-16">
         <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">Latest Research</span>
@@ -480,9 +575,9 @@ const CurrentIssueSection = () => (
         </h2>
         <div className="flex items-center justify-center gap-4 text-slate-600">
           <span className="font-semibold">{currentIssue.volume}</span>
-          <span>•</span>
+          <span className="w-1 h-1 bg-slate-400 rounded-full" />
           <span>{currentIssue.subtitle}</span>
-          <span>•</span>
+          <span className="w-1 h-1 bg-slate-400 rounded-full" />
           <span className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
             Published: {currentIssue.published}
@@ -490,65 +585,35 @@ const CurrentIssueSection = () => (
         </div>
       </div>
 
-      {/* Bento Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
-        {/* Featured Article */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="md:col-span-7 md:row-span-2"
-        >
-          <a 
-            href={currentIssue.articles[0].url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="article-card block h-full bg-slate-900 text-white p-8 md:p-10"
-            data-testid="featured-article"
-          >
-            <span className="category-badge bg-amber-600/20 text-amber-400 border-amber-500/30">
-              {currentIssue.articles[0].category}
-            </span>
-            <h3 className="text-2xl md:text-3xl font-bold font-serif mt-6 mb-4 leading-snug">
-              {currentIssue.articles[0].title}
-            </h3>
-            <p className="text-slate-400 mb-6">{currentIssue.articles[0].authors}</p>
-            <div className="flex items-center gap-4 mt-auto">
-              <span className="text-sm text-slate-500">Pages {currentIssue.articles[0].pages}</span>
-              <span className="flex items-center gap-2 text-amber-500 font-medium">
-                Read Article <ArrowRight className="w-4 h-4" />
-              </span>
-            </div>
-          </a>
-        </motion.div>
-
-        {/* Secondary Articles */}
-        {currentIssue.articles.slice(1, 5).map((article, idx) => (
+      {/* Articles Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {currentIssue.articles.map((article, idx) => (
           <motion.div
             key={article.id}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: idx * 0.1 }}
-            className="md:col-span-5"
           >
             <a 
               href={article.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="article-card block h-full bg-white border border-slate-100 p-6"
+              className="group block h-full bg-slate-50 border border-slate-200 p-6 hover:bg-white hover:shadow-lg hover:border-slate-300 transition-all duration-300"
               data-testid={`article-${article.id}`}
             >
-              <span className="category-badge">{article.category}</span>
-              <h3 className="text-lg font-semibold font-serif mt-4 mb-3 text-slate-900 leading-snug line-clamp-2">
+              <span className="inline-block text-xs font-semibold tracking-wider uppercase text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1">
+                {article.category}
+              </span>
+              <h3 className="text-lg font-semibold font-serif mt-4 mb-3 text-slate-900 leading-snug group-hover:text-amber-700 transition-colors line-clamp-3">
                 {article.title}
               </h3>
               <p className="text-sm text-slate-500 mb-4 line-clamp-1">{article.authors}</p>
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-100">
+              <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-200">
                 <span className="text-xs text-slate-400">Pages {article.pages}</span>
-                <span className="flex items-center gap-1 text-amber-600 text-sm font-medium">
+                <span className="flex items-center gap-1 text-slate-600 text-sm font-medium group-hover:text-amber-600 transition-colors">
                   <FileText className="w-4 h-4" />
-                  PDF
+                  Read
                 </span>
               </div>
             </a>
@@ -564,7 +629,7 @@ const CurrentIssueSection = () => (
           rel="noopener noreferrer"
           data-testid="view-all-issues"
         >
-          <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none">
+          <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-6 text-sm font-medium tracking-wide uppercase">
             View All Issues
             <ExternalLink className="w-4 h-4 ml-2" />
           </Button>
@@ -576,7 +641,7 @@ const CurrentIssueSection = () => (
 
 // Submission Section
 const SubmissionSection = () => (
-  <section id="submission" className="py-20 md:py-32 bg-white" data-testid="submission-section">
+  <section id="submission" className="py-20 md:py-28 bg-slate-50" data-testid="submission-section">
     <div className="max-w-7xl mx-auto px-6 md:px-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
         <div>
@@ -590,43 +655,21 @@ const SubmissionSection = () => (
             process ensures the highest standards of academic integrity.
           </p>
 
-          <div className="space-y-6">
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-amber-100 flex items-center justify-center flex-shrink-0">
-                <CheckCircle className="w-5 h-5 text-amber-600" />
+          <div className="space-y-4">
+            {[
+              { title: "Original Research", desc: "Novel findings in medicine, law, and public health" },
+              { title: "Review Articles", desc: "Comprehensive literature reviews and analyses" },
+              { title: "Case Reports", desc: "Unique clinical cases with educational value" },
+              { title: "Commentaries", desc: "Expert opinions on current healthcare issues" }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-start gap-4 bg-white p-4 border border-slate-200">
+                <CheckCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div>
+                  <h3 className="font-semibold text-slate-900">{item.title}</h3>
+                  <p className="text-slate-500 text-sm">{item.desc}</p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-1">Original Research</h3>
-                <p className="text-slate-600 text-sm">Novel findings in medicine, law, and public health</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-amber-100 flex items-center justify-center flex-shrink-0">
-                <CheckCircle className="w-5 h-5 text-amber-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-1">Review Articles</h3>
-                <p className="text-slate-600 text-sm">Comprehensive literature reviews and analyses</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-amber-100 flex items-center justify-center flex-shrink-0">
-                <CheckCircle className="w-5 h-5 text-amber-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-1">Case Reports</h3>
-                <p className="text-slate-600 text-sm">Unique clinical cases with educational value</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-4">
-              <div className="w-10 h-10 bg-amber-100 flex items-center justify-center flex-shrink-0">
-                <CheckCircle className="w-5 h-5 text-amber-600" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-slate-900 mb-1">Commentaries</h3>
-                <p className="text-slate-600 text-sm">Expert opinions on current healthcare issues</p>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="mt-10">
@@ -636,7 +679,7 @@ const SubmissionSection = () => (
               rel="noopener noreferrer"
               data-testid="submission-guidelines-link"
             >
-              <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none btn-lift">
+              <Button className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase">
                 View Submission Guidelines
                 <ExternalLink className="w-4 h-4 ml-2" />
               </Button>
@@ -644,33 +687,29 @@ const SubmissionSection = () => (
           </div>
         </div>
 
-        {/* Journal Metrics */}
-        <div className="bg-slate-50 p-8 md:p-12">
-          <h3 className="text-2xl font-bold text-slate-900 font-serif mb-8">Journal Metrics</h3>
+        {/* Journal Info */}
+        <div className="bg-white border border-slate-200 p-8 md:p-10">
+          <h3 className="text-2xl font-bold text-slate-900 font-serif mb-8">Publication Information</h3>
           
-          <div className="space-y-6">
-            <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-              <span className="text-slate-600">ISSN (Print)</span>
+          <div className="space-y-5">
+            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
+              <span className="text-slate-500">ISSN (Print)</span>
               <span className="font-semibold text-slate-900">{journalInfo.issn_print}</span>
             </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-              <span className="text-slate-600">ISSN (Online)</span>
+            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
+              <span className="text-slate-500">ISSN (Online)</span>
               <span className="font-semibold text-slate-900">{journalInfo.issn_online}</span>
             </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-              <span className="text-slate-600">Publication Frequency</span>
+            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
+              <span className="text-slate-500">Publication Frequency</span>
               <span className="font-semibold text-slate-900">{journalInfo.frequency}</span>
             </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-              <span className="text-slate-600">Review Type</span>
+            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
+              <span className="text-slate-500">Review Type</span>
               <span className="font-semibold text-slate-900">{journalInfo.reviewType}</span>
             </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-200">
-              <span className="text-slate-600">Acceptance Rate</span>
-              <span className="font-semibold text-slate-900">{journalInfo.acceptanceRate}</span>
-            </div>
             <div className="flex justify-between items-center">
-              <span className="text-slate-600">Access Type</span>
+              <span className="text-slate-500">Access Type</span>
               <span className="font-semibold text-amber-600">{journalInfo.journalType}</span>
             </div>
           </div>
@@ -678,124 +717,17 @@ const SubmissionSection = () => (
           {/* Indexing */}
           <div className="mt-10 pt-8 border-t border-slate-200">
             <h4 className="text-lg font-semibold text-slate-900 mb-4">Indexing Status</h4>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-3">
               {indexingInfo.map((index, idx) => (
-                <div key={idx} className="flex items-center gap-2">
-                  <Award className="w-4 h-4 text-amber-600" />
-                  <span className="text-sm text-slate-600">{index.name}</span>
+                <div key={idx} className="flex items-center gap-3 text-sm">
+                  <Award className="w-4 h-4 text-amber-600 flex-shrink-0" />
+                  <span className="text-slate-600">{index.name}</span>
+                  <span className="text-xs text-slate-400 ml-auto">{index.status}</span>
                 </div>
               ))}
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-);
-
-// Editorial Board Section
-const EditorialBoardSection = () => (
-  <section id="editorial-board" className="py-20 md:py-32 bg-slate-50" data-testid="editorial-board-section">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="text-center mb-16">
-        <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">Our Team</span>
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-4">
-          Editorial Board
-        </h2>
-        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-          Distinguished experts from medicine, law, and public health guiding our publication standards.
-        </p>
-      </div>
-
-      {/* Editor in Chief */}
-      <div className="mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="bg-white p-8 md:p-10 border border-slate-100 max-w-3xl mx-auto"
-        >
-          <div className="text-center">
-            <div className="w-20 h-20 bg-slate-900 rounded-full flex items-center justify-center mx-auto mb-4">
-              <span className="text-2xl font-bold text-white font-serif">BM</span>
-            </div>
-            <span className="text-amber-600 text-sm font-semibold tracking-wider uppercase">Editor-In-Chief</span>
-            <h3 className="text-2xl font-bold text-slate-900 font-serif mt-2">{editorialBoard.editorInChief.name}</h3>
-            <p className="text-slate-600 mt-2">{editorialBoard.editorInChief.affiliation}</p>
-            {editorialBoard.editorInChief.linkedin && (
-              <a
-                href={editorialBoard.editorInChief.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-amber-600 mt-4 hover:underline"
-              >
-                <Linkedin className="w-4 h-4" />
-                LinkedIn Profile
-              </a>
-            )}
-          </div>
-        </motion.div>
-      </div>
-
-      {/* Board of Trustees */}
-      <div className="mb-12">
-        <h3 className="text-xl font-semibold text-slate-900 font-serif text-center mb-8">Board of Trustees</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {editorialBoard.trustees.map((member, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="profile-card bg-white p-6 border border-slate-100"
-            >
-              <div className="w-14 h-14 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <span className="text-lg font-semibold text-slate-600">
-                  {member.name.split(' ').slice(1).map(n => n[0]).join('')}
-                </span>
-              </div>
-              <h4 className="font-semibold text-slate-900 text-center">{member.name}</h4>
-              <p className="text-sm text-slate-500 text-center mt-1">{member.role}</p>
-              <p className="text-xs text-slate-400 text-center mt-2 line-clamp-2">{member.affiliation}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* Section Editors */}
-      <div>
-        <h3 className="text-xl font-semibold text-slate-900 font-serif text-center mb-8">Section Editors</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {editorialBoard.sectionEditors.map((editor, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.05 }}
-              className="profile-card bg-white p-6 border border-slate-100"
-            >
-              <h4 className="font-semibold text-slate-900">{editor.name}</h4>
-              <p className="text-sm text-slate-500 mt-2 line-clamp-2">{editor.affiliation}</p>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-
-      {/* View Full Team Link */}
-      <div className="text-center mt-12">
-        <a
-          href={`${OJS_URL}/about/editorialTeam`}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-testid="view-full-team"
-        >
-          <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none">
-            View Full Editorial Team
-            <ExternalLink className="w-4 h-4 ml-2" />
-          </Button>
-        </a>
       </div>
     </div>
   </section>
@@ -848,13 +780,13 @@ const NewsletterSection = () => {
               placeholder="Enter your email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 rounded-none py-6 input-academic"
+              className="flex-1 bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 rounded-none py-6"
               data-testid="newsletter-email-input"
             />
             <Button 
               type="submit" 
               disabled={loading}
-              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-semibold tracking-wide uppercase rounded-none btn-lift"
+              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase"
               data-testid="newsletter-submit-btn"
             >
               {loading ? 'Subscribing...' : 'Subscribe'}
@@ -895,7 +827,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="py-20 md:py-32 bg-white" data-testid="contact-section">
+    <section className="py-20 md:py-28 bg-white" data-testid="contact-section">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
@@ -903,63 +835,66 @@ const ContactSection = () => {
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-6">
               Contact Us
             </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-8">
+            <p className="text-slate-600 text-lg leading-relaxed mb-10">
               Have questions about submissions, peer review, or general inquiries? 
               We're here to help.
             </p>
 
-            <div className="space-y-6">
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-100 flex items-center justify-center flex-shrink-0">
-                  <Mail className="w-5 h-5 text-amber-600" />
+            {/* London Office */}
+            <div className="mb-8 pb-8 border-b border-slate-200">
+              <h3 className="font-semibold text-slate-900 text-lg mb-4">{contactInfo.londonOffice.name}</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-slate-600">{contactInfo.londonOffice.address}</p>
                 </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-1">Email</h3>
-                  <a href={`mailto:${journalInfo.email}`} className="text-amber-600 hover:underline">
-                    {journalInfo.email}
-                  </a>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-100 flex items-center justify-center flex-shrink-0">
-                  <MapPin className="w-5 h-5 text-amber-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-1">Address</h3>
-                  <p className="text-slate-600">{journalInfo.address}</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 bg-slate-100 flex items-center justify-center flex-shrink-0">
-                  <Linkedin className="w-5 h-5 text-amber-600" />
-                </div>
-                <div>
-                  <h3 className="font-semibold text-slate-900 mb-1">LinkedIn</h3>
-                  <a 
-                    href="https://www.linkedin.com/company/the-journal-of-medicine-law-public-health-jmlph/about/" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="text-amber-600 hover:underline"
-                  >
-                    Follow us on LinkedIn
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                  <a href={`tel:${contactInfo.londonOffice.phone}`} className="text-slate-600 hover:text-amber-600 transition-colors">
+                    {contactInfo.londonOffice.phone}
                   </a>
                 </div>
               </div>
             </div>
+
+            {/* Gulf Office */}
+            <div className="mb-8">
+              <h3 className="font-semibold text-slate-900 text-lg mb-4">{contactInfo.gulfOffice.name}</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                  <p className="text-slate-600">{contactInfo.gulfOffice.address}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-amber-600 flex-shrink-0" />
+                  <a href={`tel:${contactInfo.gulfOffice.phone}`} className="text-slate-600 hover:text-amber-600 transition-colors">
+                    {contactInfo.gulfOffice.phone}
+                  </a>
+                </div>
+                <p className="text-sm text-slate-500 pl-8">Tax Number: {contactInfo.gulfOffice.taxNumber}</p>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 text-amber-600 flex-shrink-0" />
+              <a href={`mailto:${journalInfo.email}`} className="text-amber-600 hover:underline font-medium">
+                {journalInfo.email}
+              </a>
+            </div>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-slate-50 p-8 md:p-10">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="bg-slate-50 border border-slate-200 p-8 md:p-10">
+            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-6">Send a Message</h3>
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-2">Name *</label>
                 <Input
                   type="text"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-none border-slate-200 input-academic"
+                  className="w-full rounded-none border-slate-300 bg-white"
                   data-testid="contact-name-input"
                 />
               </div>
@@ -969,7 +904,7 @@ const ContactSection = () => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-none border-slate-200 input-academic"
+                  className="w-full rounded-none border-slate-300 bg-white"
                   data-testid="contact-email-input"
                 />
               </div>
@@ -979,7 +914,7 @@ const ContactSection = () => {
                   type="text"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full rounded-none border-slate-200 input-academic"
+                  className="w-full rounded-none border-slate-300 bg-white"
                   data-testid="contact-subject-input"
                 />
               </div>
@@ -989,14 +924,14 @@ const ContactSection = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   rows={5}
-                  className="w-full rounded-none border-slate-200 input-academic resize-none"
+                  className="w-full rounded-none border-slate-300 bg-white resize-none"
                   data-testid="contact-message-input"
                 />
               </div>
               <Button 
                 type="submit" 
                 disabled={loading}
-                className="w-full bg-amber-600 hover:bg-amber-700 text-white py-6 text-sm font-semibold tracking-wide uppercase rounded-none btn-lift"
+                className="w-full bg-slate-900 hover:bg-slate-800 text-white py-6 text-sm font-medium tracking-wide uppercase"
                 data-testid="contact-submit-btn"
               >
                 {loading ? 'Sending...' : 'Send Message'}
@@ -1011,9 +946,9 @@ const ContactSection = () => {
 
 // Footer
 const Footer = () => (
-  <footer className="bg-slate-900 py-20" data-testid="footer">
+  <footer className="bg-slate-900 py-16" data-testid="footer">
     <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
         {/* Brand */}
         <div className="lg:col-span-2">
           <div className="flex items-center gap-3 mb-6">
@@ -1030,13 +965,6 @@ const Footer = () => (
           <p className="text-slate-500 text-sm">
             Published in partnership with Riyadh Second Health Cluster Research Center
           </p>
-          <div className="mt-6">
-            <img 
-              src="https://www.jmlph.net/public/site/images/admin/screenshot-2023-12-29-at-21.04.06.png" 
-              alt="Research Center Logo" 
-              className="h-12 opacity-70"
-            />
-          </div>
         </div>
 
         {/* Quick Links */}
@@ -1044,27 +972,27 @@ const Footer = () => (
           <h4 className="text-white font-semibold mb-6">Quick Links</h4>
           <ul className="space-y-3">
             <li>
-              <a href={OJS_URL} target="_blank" rel="noopener noreferrer" className="footer-link text-sm">
+              <a href={OJS_URL} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
                 OJS Portal
               </a>
             </li>
             <li>
-              <a href={`${OJS_URL}/about/submissions`} target="_blank" rel="noopener noreferrer" className="footer-link text-sm">
+              <a href={`${OJS_URL}/about/submissions`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
                 Submit Manuscript
               </a>
             </li>
             <li>
-              <a href={`${OJS_URL}/issue/archive`} target="_blank" rel="noopener noreferrer" className="footer-link text-sm">
+              <a href={`${OJS_URL}/issue/archive`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
                 Archives
               </a>
             </li>
             <li>
-              <a href={`${OJS_URL}/about/editorialTeam`} target="_blank" rel="noopener noreferrer" className="footer-link text-sm">
+              <a href={`${OJS_URL}/about/editorialTeam`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
                 Editorial Team
               </a>
             </li>
             <li>
-              <a href={`${OJS_URL}/information/authors`} target="_blank" rel="noopener noreferrer" className="footer-link text-sm">
+              <a href={`${OJS_URL}/information/authors`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
                 For Authors
               </a>
             </li>
@@ -1076,21 +1004,21 @@ const Footer = () => (
           <h4 className="text-white font-semibold mb-6">Policies</h4>
           <ul className="space-y-3">
             <li>
-              <a href={`${OJS_URL}/about`} target="_blank" rel="noopener noreferrer" className="footer-link text-sm">
+              <a href={`${OJS_URL}/about`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
                 About the Journal
               </a>
             </li>
             <li>
-              <a href="#" className="footer-link text-sm">Publication Ethics</a>
+              <a href="#" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">Publication Ethics</a>
             </li>
             <li>
-              <a href="#" className="footer-link text-sm">Privacy Policy</a>
+              <a href="#" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">Privacy Policy</a>
             </li>
             <li>
-              <a href="#" className="footer-link text-sm">Terms of Service</a>
+              <a href="#" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">Terms of Service</a>
             </li>
             <li>
-              <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="footer-link text-sm">
+              <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
                 CC BY 4.0 License
               </a>
             </li>
@@ -1128,7 +1056,7 @@ const BackToTop = ({ visible }) => (
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-amber-600 hover:bg-amber-700 text-white flex items-center justify-center shadow-lg transition-colors z-50"
+        className="fixed bottom-8 right-8 w-12 h-12 bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center shadow-lg transition-colors z-50"
         data-testid="back-to-top"
       >
         <ChevronUp className="w-6 h-6" />
@@ -1157,11 +1085,11 @@ function App() {
       <Toaster position="top-right" richColors />
       <Header scrolled={scrolled} />
       <HeroSection />
-      <OJSPortalSection />
+      <MetricsSection />
       <AboutSection />
+      <OJSPortalSection />
       <CurrentIssueSection />
       <SubmissionSection />
-      <EditorialBoardSection />
       <NewsletterSection />
       <ContactSection />
       <Footer />
