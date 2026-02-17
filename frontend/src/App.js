@@ -649,8 +649,8 @@ const HeroSection = () => (
           <div className="relative">
             <div className="absolute -top-4 -left-4 w-72 h-72 -z-10" style={{ backgroundColor: '#e8dcc8' }} />
             <img 
-              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
-              alt="Medical Research"
+              src={LIBRARY_IMAGE_1} 
+              alt="National Library of Finland"
               className="w-full h-96 object-cover"
             />
             <div className="absolute -bottom-6 -right-6 p-6" style={{ backgroundColor: '#1e3a5f' }}>
