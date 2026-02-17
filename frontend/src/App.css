@@ -226,3 +226,15 @@
 .counting {
   animation: pulse 0.1s ease-in-out;
 }
+
+/* Hide Emergent badge */
+[data-emergent-badge],
+.emergent-badge,
+#emergent-badge,
+a[href*="emergentagent"],
+div[class*="emergent"],
+iframe[src*="emergent"] {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+}
