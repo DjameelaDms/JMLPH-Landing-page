@@ -953,8 +953,264 @@ const ContactSection = () => {
   );
 };
 
+// Policy Documents Content
+const policyDocuments = {
+  privacyNotice: {
+    title: "Privacy Notice",
+    lastUpdated: "9 Feb 2026",
+    content: `We, ARETION & Company (the brand used on aretion.co.uk), understand that your privacy is important to you. We are committed to respecting your privacy and protecting your personal data. This Privacy Notice explains how we handle and protect personal data when we collect it through our website and through our externally facing activities, such as service enquiries, consultations, and communications.
+
+1. Data Controller
+
+When ARETION & Company collects and processes personal data in accordance with this Privacy Notice, we do so as a data controller (or joint controller where applicable). This means we determine how and why your personal data is collected, used, protected, disclosed, and disposed of.
+
+Company details:
+• Legal name: ARETION & Company
+• Registered office: 71-75 SHELTON STREET COVENT GARDEN, LONDON, WC2H 9JQ
+• Contact email: post@aretion.co.uk
+• Data Protection Officer (if appointed): dpo@aretion.co.uk
+
+2. Who This Notice Applies To
+
+This Privacy Notice applies to individuals who interact with us, including:
+• Website visitors
+• People who contact us with general enquiries, service enquiries, or partnership enquiries
+• Representatives of clients, partners, suppliers, and collaborators
+• Individuals who request or receive psychotherapy services (where offered)
+• Job applicants (where we receive application materials directly)
+
+3. How We Collect Personal Data
+
+We collect personal data:
+• Directly from you (for example, when you email us or submit an enquiry)
+• Automatically when you use our website (for example, through log files and similar technical records)
+• From your organisation (for example, where you are a representative of a client, partner, or supplier)
+• From third parties where appropriate (for example, professional advisers, or referees in recruitment), and only where permitted by law
+
+4. Categories of Personal Data
+
+Depending on how you interact with us, we may collect the following categories of personal data:
+• Name, email address, telephone number
+• Organisation and role (where relevant)
+• The content of your message and our correspondence with you
+• Website technical and usage data (IP address, browser information)
+
+5. Your Rights
+
+Subject to conditions and exceptions under UK GDPR, you may have the right to:
+• Request access to personal data we hold about you
+• Request rectification
+• Request erasure
+• Request restriction of processing
+• Object to processing
+• Request data portability
+• Withdraw consent where processing is based on consent
+
+6. Contact and Complaints
+
+Contact: post@aretion.co.uk (please include "Privacy" in the subject line).
+Complaints: You have the right to lodge a complaint with the UK supervisory authority, the Information Commissioner's Office (ICO).`
+  },
+  termsOfUse: {
+    title: "Terms of Use",
+    lastUpdated: "7 Feb 2026",
+    content: `These Terms of Use apply to your access to and use of the ARETION & Company website at aretion.org (the Site). By using the Site, you agree to these Terms. If you do not agree, you must not use the Site.
+
+1. About These Terms
+
+These Terms apply to your use of the Site and all content and functionality made available through the Site. Separate terms may apply to any services we provide to you. We may update these Terms from time to time without prior notice.
+
+2. About Us and Contact Details
+
+The Site is operated by ARETION & Company.
+Contact: Post@aretion.co.uk
+Company registered office: 71-75 SHELTON STREET COVENT GARDEN, LONDON, WC2H 9JQ
+
+3. Copyright and Intellectual Property
+
+All Site Content, including text, graphics, logos, icons, images, videos, and the selection and arrangement of the foregoing, is owned by or licensed to ARETION and is protected by applicable intellectual property laws. Except as expressly permitted by these Terms, you may not copy, reproduce, modify, reverse engineer, alter, publish, upload, post, transmit, distribute, or otherwise exploit any Site Content without our prior written permission.
+
+4. Trademarks
+
+The trademarks, service marks, designs, and logos displayed on the Site are the property of ARETION or its licensors. You must not use or reproduce any trademarks in any manner that is likely to cause confusion or imply endorsement by ARETION.
+
+5. Limited Licence
+
+We grant you a limited, non-exclusive, non-transferable, revocable licence to access and use the Site for your internal, non-commercial use.
+
+6. Restrictions
+
+You may not, without our express written permission:
+• Access, search, collect, mine, or extract data from the Site by any means (automated or otherwise)
+• "Mirror" the Site Content or any portion of it
+• Use the Site or Site Content to develop any software program, model, algorithm, or AI tool
+• Use the Site in violation of applicable laws
+
+7. Disclaimers
+
+The Site and Site Content are provided "as is" and "as available", without warranty of any kind. Site Content is provided for general information only and should not be relied upon as professional advice.
+
+8. Governing Law
+
+These Terms are governed by the laws of England and Wales, and the courts of England and Wales shall have exclusive jurisdiction.
+
+9. Contact
+
+Questions about these Terms should be sent to: compliance@aretion.co.uk`
+  },
+  codeOfConduct: {
+    title: "Code of Conduct",
+    lastUpdated: "10 Feb 2026",
+    content: `ARETION & Company and its Subsidiaries
+
+OPENING MESSAGE: OUR COMMITMENT TO INTEGRITY
+
+ARETION & Company and its subsidiaries—ARETION Informatics Solutions, ARETION Publishing Group, and ARETION Healthcare Consulting—are committed to the highest standards of ethical conduct, professional integrity, and legal compliance.
+
+This Code reflects our promise to:
+• Act with honesty and transparency in all dealings
+• Prioritise patient safety and wellbeing in all advice and recommendations
+• Provide independent, objective, evidence-based guidance free from conflicts of interest
+• Comply strictly with applicable laws and regulations
+• Respect human rights, dignity, and equality
+• Operate sustainably and responsibly
+• Speak up about misconduct without fear of retaliation
+
+This Code applies to everyone who works for or represents ARETION & Company and its subsidiaries—employees, officers, contractors, partners, and agents.
+
+CORE VALUES
+
+Integrity: We act with honesty, fairness, and transparency in all our dealings.
+
+Patient-Centred Impact: Everything we do must ultimately benefit patients and improve health outcomes.
+
+Independence and Objectivity: We provide impartial, evidence-based advice.
+
+Respect: We value the dignity, rights, autonomy, and wellbeing of everyone we work with.
+
+Accountability: We take responsibility for the quality and integrity of our work.
+
+Sustainability: We consider the long-term environmental and social impact of our work.
+
+Transparency: We communicate openly and honestly with clients, regulators, employees, and the public.
+
+COMPLIANCE
+
+ARETION & Company is committed to strict compliance with all applicable laws and regulations, including:
+• Anti-corruption: Bribery Act 2010
+• Data protection: UK GDPR and Data Protection Act 2018
+• Human rights: Modern Slavery Act 2015
+• Equality: Equality Act 2010
+• Health and safety: Health and Safety at Work Act 1974
+
+SPEAKING UP
+
+We encourage and support employees, contractors, and partners to speak up about concerns without fear of retaliation. Contact compliance@aretion.co.uk or the external whistleblowing hotline: +44 20 3985 0907
+
+For questions about this Code, contact: compliance@aretion.co.uk`
+  },
+  antiBriberyPolicy: {
+    title: "Anti-Bribery and Anti-Corruption Policy",
+    lastUpdated: "14 Feb 2026",
+    content: `ARETION & Company and its Subsidiaries
+
+1. Policy Statement
+
+ARETION & Company and its subsidiaries have zero tolerance for bribery and corruption in any form. We are committed to conducting business ethically, transparently, and in full compliance with all applicable anti-bribery and anti-corruption laws, including:
+
+• United Kingdom: Bribery Act 2010, Proceeds of Crime Act 2002
+• Gulf Countries: Saudi Arabia Anti-Bribery Law, UAE Federal Decree-Law No. 20 of 2016, Qatar Law No. 11 of 2004, Kuwait Law No. 1 of 1993
+
+This policy applies to all employees, officers, directors, contractors, consultants, agents, partners, and anyone acting on behalf of ARETION & Company.
+
+2. What is Bribery and Corruption?
+
+Bribery is the offer, promise, giving, requesting, or acceptance of any advantage (financial or non-financial) with the intention of:
+• Inducing someone to perform an improper function or activity
+• Rewarding them for having done so
+• Influencing them to act improperly in their position of trust
+
+An advantage can include: cash payments, gifts, hospitality, entertainment, travel, employment opportunities, donations, sponsorships, preferential treatment, or any other benefit.
+
+3. Prohibited Conduct
+
+ARETION & Company strictly prohibits:
+• Offering or giving bribes
+• Receiving or soliciting bribes
+• Using third parties for bribery
+• Facilitation payments (small payments to expedite routine administrative actions)
+
+4. Gifts and Hospitality
+
+Modest, reasonable gifts and hospitality may be appropriate provided they:
+• Are of modest value (typically under £50 GBP)
+• Are not cash or cash equivalents
+• Are not connected to a pending business decision
+• Are transparent and properly recorded
+• Do not create a perception of impropriety
+
+5. Third-Party Intermediaries
+
+We conduct due diligence on all third parties and include anti-bribery clauses in all contracts. We will not engage third parties who refuse to commit to anti-bribery compliance.
+
+6. Reporting Suspected Bribery
+
+If you suspect, become aware of, or are offered a bribe, report it immediately to:
+• Your manager
+• Compliance and Ethics team: compliance@aretion.co.uk
+• External Whistleblowing Hotline: +44 20 3985 0907
+
+ARETION prohibits retaliation against anyone who reports concerns in good faith.
+
+7. Consequences of Breaches
+
+Breaches may result in:
+• Disciplinary action, up to and including dismissal
+• Referral to law enforcement authorities
+• Criminal prosecution (imprisonment, fines)
+• Civil liability and damages
+
+This policy reflects ARETION & Company's commitment to conducting business with integrity, transparency, and in full compliance with UK and Gulf countries' laws.`
+  }
+};
+
+// Policy Modal Component
+const PolicyModal = ({ isOpen, onClose, policy }) => {
+  if (!policy) return null;
+  
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-3xl max-h-[85vh] p-0">
+        <DialogHeader className="p-6 pb-0">
+          <DialogTitle className="text-2xl font-serif text-slate-900">{policy.title}</DialogTitle>
+          <p className="text-sm text-slate-500">Last updated: {policy.lastUpdated}</p>
+        </DialogHeader>
+        <ScrollArea className="h-[60vh] px-6 pb-6">
+          <div className="prose prose-slate prose-sm max-w-none">
+            {policy.content.split('\n\n').map((paragraph, idx) => (
+              <p key={idx} className="text-slate-600 leading-relaxed mb-4 whitespace-pre-line">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        </ScrollArea>
+      </DialogContent>
+    </Dialog>
+  );
+};
+
 // Footer
-const Footer = () => (
+const Footer = () => {
+  const [activePolicy, setActivePolicy] = useState(null);
+  
+  return (
+    <>
+      <PolicyModal 
+        isOpen={!!activePolicy} 
+        onClose={() => setActivePolicy(null)} 
+        policy={activePolicy ? policyDocuments[activePolicy] : null}
+      />
+      <footer className="bg-slate-900 py-16" data-testid="footer">
   <footer className="bg-slate-900 py-16" data-testid="footer">
     <div className="max-w-7xl mx-auto px-6 md:px-12">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
