@@ -1292,17 +1292,52 @@ const Footer = () => {
       </div>
 
       {/* Bottom */}
-      <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-slate-500 text-sm">
-          © {new Date().getFullYear()} Journal of Medicine, Law & Public Health. All rights reserved.
-        </p>
-        <div className="flex items-center gap-6">
-          <span className="text-slate-500 text-sm">Registration No. {journalInfo.registrationNo}</span>
+      <div className="pt-8 border-t border-slate-800">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+          <p className="text-slate-400 text-sm">
+            © 2026 ARETION & Company. All rights reserved.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+            <button 
+              onClick={() => setActivePolicy('privacyNotice')}
+              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+              data-testid="footer-privacy-notice"
+            >
+              Privacy Notice
+            </button>
+            <span className="text-slate-700 hidden md:inline">|</span>
+            <button 
+              onClick={() => setActivePolicy('termsOfUse')}
+              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+              data-testid="footer-terms-of-use"
+            >
+              Terms of Use
+            </button>
+            <span className="text-slate-700 hidden md:inline">|</span>
+            <button 
+              onClick={() => setActivePolicy('codeOfConduct')}
+              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+              data-testid="footer-code-of-conduct"
+            >
+              Code of Conduct
+            </button>
+            <span className="text-slate-700 hidden md:inline">|</span>
+            <button 
+              onClick={() => setActivePolicy('antiBriberyPolicy')}
+              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+              data-testid="footer-anti-bribery"
+            >
+              Anti-Bribery Policy
+            </button>
+          </div>
+        </div>
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800/50">
+          <span className="text-slate-500 text-xs">Registration No. {journalInfo.registrationNo}</span>
           <a 
             href="https://aretion.co.uk/" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="text-slate-500 hover:text-amber-500 text-sm transition-colors"
+            className="text-slate-500 hover:text-amber-500 text-xs transition-colors"
           >
             An Aretion Publishing Group Journal
           </a>
@@ -1310,7 +1345,9 @@ const Footer = () => {
       </div>
     </div>
   </footer>
+  </>
 );
+};
 
 // Back to Top Button
 const BackToTop = ({ visible }) => (
