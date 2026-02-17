@@ -1,50 +1,49 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&family=Source+Sans+3:wght@300;400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --font-primary: 'Playfair Display', serif;
-  --font-secondary: 'Inter', sans-serif;
+  --font-primary: 'Cormorant Garamond', serif;
+  --font-secondary: 'Montserrat', sans-serif;
+  --font-body: 'Source Sans 3', sans-serif;
   
-  /* Primary - Dark Navy */
-  --primary-50: #f8fafc;
-  --primary-100: #f1f5f9;
-  --primary-200: #e2e8f0;
-  --primary-300: #cbd5e1;
-  --primary-400: #94a3b8;
-  --primary-500: #64748b;
-  --primary-600: #475569;
-  --primary-700: #334155;
-  --primary-800: #1e293b;
-  --primary-900: #0f172a;
-  --primary-950: #020617;
-  
-  /* Accent - Amber/Orange */
-  --accent-50: #fffbeb;
-  --accent-100: #fef3c7;
-  --accent-200: #fde68a;
-  --accent-300: #fcd34d;
-  --accent-400: #fbbf24;
-  --accent-500: #f59e0b;
-  --accent-600: #d97706;
-  --accent-700: #b45309;
-  --accent-800: #92400e;
-  --accent-900: #78350f;
+  /* Aretion Brand Colors */
+  --navy-dark: #1a2f4a;
+  --navy-primary: #1e3a5f;
+  --navy-light: #2d4a6f;
+  --copper-dark: #8b4513;
+  --copper-primary: #a0522d;
+  --copper-light: #b8733d;
+  --beige-dark: #c9a77d;
+  --beige-primary: #d4b896;
+  --beige-light: #e8dcc8;
+  --burgundy-dark: #3d1a1a;
+  --burgundy-primary: #5c2626;
+  --cream: #faf8f5;
+  --cream-dark: #f5f0e8;
 }
 
 body {
   margin: 0;
-  font-family: var(--font-secondary);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
-  color: var(--primary-900);
+  background-color: var(--cream);
+  color: var(--navy-dark);
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-primary);
+  font-weight: 600;
+}
+
+.subheader {
+  font-family: var(--font-secondary);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 
 code {
@@ -58,30 +57,30 @@ html {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 222 47% 11%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 36 100% 44%;
-    --accent-foreground: 0 0% 100%;
+    --background: 40 33% 97%;
+    --foreground: 213 45% 20%;
+    --card: 40 33% 97%;
+    --card-foreground: 213 45% 20%;
+    --popover: 40 33% 97%;
+    --popover-foreground: 213 45% 20%;
+    --primary: 213 45% 24%;
+    --primary-foreground: 40 33% 97%;
+    --secondary: 30 35% 65%;
+    --secondary-foreground: 213 45% 20%;
+    --muted: 40 20% 90%;
+    --muted-foreground: 213 20% 40%;
+    --accent: 20 60% 40%;
+    --accent-foreground: 40 33% 97%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 98%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 36 100% 44%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --border: 30 20% 80%;
+    --input: 30 20% 80%;
+    --ring: 20 60% 40%;
+    --chart-1: 20 60% 40%;
+    --chart-2: 213 45% 24%;
+    --chart-3: 30 35% 65%;
+    --chart-4: 0 30% 25%;
+    --chart-5: 40 33% 85%;
     --radius: 0rem;
   }
 }
@@ -101,22 +100,22 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--primary-100);
+  background: var(--cream-dark);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--primary-400);
+  background: var(--beige-dark);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-500);
+  background: var(--copper-primary);
 }
 
 /* Custom selection */
 ::selection {
-  background-color: var(--accent-200);
-  color: var(--primary-900);
+  background-color: var(--beige-primary);
+  color: var(--navy-dark);
 }
 
 @layer base {
