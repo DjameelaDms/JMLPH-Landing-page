@@ -1,0 +1,142 @@
+{
+  "timestamp": "2026-02-17T12:02:46.477954",
+  "total_tests": 9,
+  "passed_tests": 9,
+  "success_rate": 100.0,
+  "results": [
+    {
+      "test": "Health Check",
+      "status": "PASSED",
+      "details": "Status: 200",
+      "response_data": {
+        "status": "healthy",
+        "service": "JMLPH Landing Page API"
+      }
+    },
+    {
+      "test": "Root Endpoint",
+      "status": "PASSED",
+      "details": "Status: 200",
+      "response_data": {
+        "message": "JMLPH Landing Page API",
+        "version": "1.0.0"
+      }
+    },
+    {
+      "test": "Newsletter Subscribe - Valid Email",
+      "status": "PASSED",
+      "details": "Status: 200",
+      "response_data": {
+        "id": "2fa8dbec-5631-492e-bc9b-eccb52025392",
+        "email": "test_20260217_120245@example.com",
+        "subscribed_at": "2026-02-17T12:02:45.452749Z",
+        "is_active": true
+      }
+    },
+    {
+      "test": "Newsletter Subscribe - Duplicate Email",
+      "status": "PASSED",
+      "details": "Status: 409",
+      "response_data": {
+        "detail": "Email already subscribed"
+      }
+    },
+    {
+      "test": "Newsletter Subscribe - Invalid Email",
+      "status": "PASSED",
+      "details": "Status: 422",
+      "response_data": {
+        "detail": [
+          {
+            "type": "value_error",
+            "loc": [
+              "body",
+              "email"
+            ],
+            "msg": "value is not a valid email address: An email address must have an @-sign.",
+            "input": "invalid-email",
+            "ctx": {
+              "reason": "An email address must have an @-sign."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "test": "Get Newsletter Subscriptions",
+      "status": "PASSED",
+      "details": "Status: 200",
+      "response_data": [
+        {
+          "id": "2fa8dbec-5631-492e-bc9b-eccb52025392",
+          "email": "test_20260217_120245@example.com",
+          "subscribed_at": "2026-02-17T12:02:45.452749Z",
+          "is_active": true
+        }
+      ]
+    },
+    {
+      "test": "Contact Form Submit - Valid Data",
+      "status": "PASSED",
+      "details": "Status: 200",
+      "response_data": {
+        "id": "179eafbb-ece2-41d7-95ea-2881ed46da79",
+        "name": "Test User",
+        "email": "test@example.com",
+        "subject": "Test Inquiry",
+        "message": "This is a test message for the JMLPH contact form.",
+        "created_at": "2026-02-17T12:02:46.184474Z",
+        "is_read": false
+      }
+    },
+    {
+      "test": "Contact Form Submit - Missing Fields",
+      "status": "PASSED",
+      "details": "Status: 422",
+      "response_data": {
+        "detail": [
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "email"
+            ],
+            "msg": "Field required",
+            "input": {
+              "name": "Test User"
+            },
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          },
+          {
+            "type": "missing",
+            "loc": [
+              "body",
+              "message"
+            ],
+            "msg": "Field required",
+            "input": {
+              "name": "Test User"
+            },
+            "url": "https://errors.pydantic.dev/2.12/v/missing"
+          }
+        ]
+      }
+    },
+    {
+      "test": "Get Contact Messages",
+      "status": "PASSED",
+      "details": "Status: 200",
+      "response_data": [
+        {
+          "id": "179eafbb-ece2-41d7-95ea-2881ed46da79",
+          "name": "Test User",
+          "email": "test@example.com",
+          "subject": "Test Inquiry",
+          "message": "This is a test message for the JMLPH contact form.",
+          "created_at": "2026-02-17T12:02:46.184474Z",
+          "is_read": false
+        }
+      ]
+    }
+  ]
+}
