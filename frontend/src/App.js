@@ -796,26 +796,26 @@ const OJSPortalSection = () => (
       <div className="flex flex-col md:flex-row items-center justify-between gap-8">
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-4">
-            <Globe className="w-6 h-6" style={{ color: '#c9a77d' }} />
-            <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#c9a77d' }}>OJS Portal</span>
+            <Send className="w-6 h-6" style={{ color: '#c9a77d' }} />
+            <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#c9a77d' }}>Submit</span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}>
-            Access the Journal's Full Content
+            Submit Your Article
           </h2>
           <p className="text-lg leading-relaxed body-text" style={{ color: '#d4b896' }}>
-            Visit our Open Journal Systems portal for complete access to all current and archived issues, 
-            article submissions, peer review tracking, and comprehensive submission guidelines.
+            Ready to share your research? Submit your manuscript through our Open Journal Systems portal. 
+            Access submission guidelines, track your peer review status, and browse our complete archive.
           </p>
         </div>
         <div className="flex flex-col sm:flex-row gap-4">
           <a
-            href={OJS_URL}
+            href={SUBMIT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            data-testid="ojs-portal-link"
+            data-testid="submit-article-link"
           >
             <Button className="px-8 py-6 text-sm font-medium tracking-wide uppercase btn-lift" style={{ backgroundColor: '#a0522d', color: '#faf8f5' }}>
-              Go to OJS Portal
+              Submit Your Article
               <ExternalLink className="w-4 h-4 ml-2" />
             </Button>
           </a>
