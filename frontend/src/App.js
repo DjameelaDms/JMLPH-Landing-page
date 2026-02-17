@@ -1013,75 +1013,36 @@ const SubmissionSection = () => (
 );
 
 // Newsletter Section
-const NewsletterSection = () => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
+const NewsletterSection = () => (
+  <section className="py-20" style={{ backgroundColor: '#1e3a5f' }} data-testid="newsletter-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-2xl mx-auto text-center">
+        <Mail className="w-12 h-12 mx-auto mb-6" style={{ color: '#c9a77d' }} />
+        <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}>
+          Stay Updated
+        </h2>
+        <p className="text-lg mb-8 body-text" style={{ color: '#d4b896' }}>
+          Get notifications about new issues, call for papers, 
+          and important journal announcements directly from our editorial team.
+        </p>
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!email) {
-      toast.error('Please enter your email address');
-      return;
-    }
-    
-    setLoading(true);
-    try {
-      await axios.post(`${API}/newsletter/subscribe`, { email });
-      toast.success('Successfully subscribed to the newsletter!');
-      setEmail('');
-    } catch (error) {
-      if (error.response?.status === 409) {
-        toast.info('This email is already subscribed');
-      } else {
-        toast.error('Failed to subscribe. Please try again.');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+        <a
+          href={`mailto:${journalInfo.email}?subject=Newsletter Subscription&body=I would like to subscribe to the JMLPH newsletter.`}
+          data-testid="newsletter-email-link"
+        >
+          <Button className="px-10 py-6 text-sm font-medium tracking-wide uppercase btn-lift" style={{ backgroundColor: '#a0522d', color: '#faf8f5' }}>
+            <Mail className="w-4 h-4 mr-2" />
+            Subscribe via Email
+          </Button>
+        </a>
 
-  return (
-    <section className="py-20" style={{ backgroundColor: '#1e3a5f' }} data-testid="newsletter-section">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="max-w-2xl mx-auto text-center">
-          <Mail className="w-12 h-12 mx-auto mb-6" style={{ color: '#c9a77d' }} />
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}>
-            Stay Updated
-          </h2>
-          <p className="text-lg mb-8 body-text" style={{ color: '#d4b896' }}>
-            Subscribe to receive notifications about new issues, call for papers, 
-            and important journal announcements.
-          </p>
-
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
-            <Input
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 rounded-none py-6 body-text"
-              style={{ backgroundColor: '#2d4a6f', borderColor: '#3d5a7f', color: '#faf8f5' }}
-              data-testid="newsletter-email-input"
-            />
-            <Button 
-              type="submit" 
-              disabled={loading}
-              className="px-8 py-6 text-sm font-medium tracking-wide uppercase btn-lift"
-              style={{ backgroundColor: '#a0522d', color: '#faf8f5' }}
-              data-testid="newsletter-submit-btn"
-            >
-              {loading ? 'Subscribing...' : 'Subscribe'}
-            </Button>
-          </form>
-
-          <p className="text-sm mt-4 body-text" style={{ color: '#6b8ab0' }}>
-            We respect your privacy. Unsubscribe at any time.
-          </p>
-        </div>
+        <p className="text-sm mt-6 body-text" style={{ color: '#6b8ab0' }}>
+          Contact us at: <a href={`mailto:${journalInfo.email}`} className="underline hover:text-[#c9a77d] transition-colors">{journalInfo.email}</a>
+        </p>
       </div>
-    </section>
-  );
-};
+    </div>
+  </section>
+);
 
 // Contact Section
 const ContactSection = () => {
