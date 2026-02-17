@@ -24,9 +24,7 @@ import {
   BarChart3,
   TrendingUp,
   XCircle,
-  FileCheck,
-  Shield,
-  FileWarning
+  FileCheck
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -47,6 +45,9 @@ const API = `${BACKEND_URL}/api`;
 
 // OJS Portal URL
 const OJS_URL = "https://www.jmlph.net/index.php/jmlph";
+
+// Logo URL
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/bi964nle_A_Logo-09%20copy%202.jpg";
 
 // Journal Data
 const journalInfo = {
@@ -157,801 +158,6 @@ const indexingInfo = [
   { name: "PubMed Central", status: "In Progress" },
   { name: "Scopus", status: "Applied" }
 ];
-
-// Count Up Animation Hook
-const useCountUp = (end, duration = 2000, startOnView = true) => {
-  const [count, setCount] = useState(0);
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
-  const hasAnimated = useRef(false);
-
-  useEffect(() => {
-    if (startOnView && !isInView) return;
-    if (hasAnimated.current) return;
-    
-    hasAnimated.current = true;
-    let startTime;
-    const animate = (currentTime) => {
-      if (!startTime) startTime = currentTime;
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      
-      // Easing function for smooth animation
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      setCount(Math.floor(easeOutQuart * end));
-      
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        setCount(end);
-      }
-    };
-    
-    requestAnimationFrame(animate);
-  }, [end, duration, isInView, startOnView]);
-
-  return { count, ref };
-};
-
-// Metric Card Component with Count Up
-const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0 }) => {
-  const { count, ref } = useCountUp(value, 2000);
-  
-  return (
-    <motion.div
-      ref={ref}
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.6, delay }}
-      className="bg-white border border-slate-200 p-8 text-center group hover:border-amber-500/50 hover:shadow-lg transition-all duration-300"
-    >
-      <div className="w-14 h-14 bg-slate-900 flex items-center justify-center mx-auto mb-5">
-        <Icon className="w-7 h-7 text-amber-500" />
-      </div>
-      <div className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mb-2">
-        {count}{suffix}
-      </div>
-      <p className="text-sm text-slate-500 uppercase tracking-wider font-medium">{label}</p>
-    </motion.div>
-  );
-};
-
-// Navigation component
-const Header = ({ scrolled }) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  
-  const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Metrics", href: "#metrics" },
-    { name: "Current Issue", href: "#current-issue" },
-    { name: "Submit", href: "#submission" }
-  ];
-
-  return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100' : 'bg-white'
-      }`}
-      data-testid="header"
-    >
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <a href="#home" className="flex items-center gap-3" data-testid="logo">
-            <div className="w-10 h-10 bg-slate-900 flex items-center justify-center">
-              <span className="text-amber-500 font-bold text-lg font-serif">J</span>
-            </div>
-            <div className="hidden sm:block">
-              <span className="logo-text text-xl text-slate-900 block leading-tight">JMLPH</span>
-              <span className="text-xs text-slate-500">Medicine • Law • Public Health</span>
-            </div>
-          </a>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8" data-testid="desktop-nav">
-            {navItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="nav-link text-sm font-medium text-slate-600 hover:text-slate-900 transition-colors"
-                data-testid={`nav-${item.name.toLowerCase().replace(' ', '-')}`}
-              >
-                {item.name}
-              </a>
-            ))}
-            <a
-              href={OJS_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-6 py-2.5 text-sm font-medium transition-all"
-              data-testid="nav-ojs-portal"
-            >
-              Access Journal
-              <ExternalLink className="w-4 h-4" />
-            </a>
-          </nav>
-
-          {/* Mobile menu button */}
-          <button
-            className="lg:hidden text-slate-900 p-2"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            data-testid="mobile-menu-button"
-          >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        <AnimatePresence>
-          {mobileMenuOpen && (
-            <motion.nav
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
-              exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-t border-slate-100 pb-6"
-              data-testid="mobile-nav"
-            >
-              {navItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block py-3 text-slate-600 hover:text-slate-900 transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
-              ))}
-              <a
-                href={OJS_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 mt-4 bg-slate-900 hover:bg-slate-800 text-white px-6 py-3 text-sm font-medium w-full justify-center"
-                data-testid="mobile-nav-ojs"
-              >
-                Access Journal Portal
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </motion.nav>
-          )}
-        </AnimatePresence>
-      </div>
-    </header>
-  );
-};
-
-// Hero Section
-const HeroSection = () => (
-  <section 
-    id="home" 
-    className="relative min-h-screen flex items-center justify-center bg-slate-50 pt-20"
-    data-testid="hero-section"
-  >
-    {/* Subtle pattern */}
-    <div className="absolute inset-0 opacity-30" style={{
-      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23cbd5e1' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-    }} />
-    
-    <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
-        >
-          <div className="inline-flex items-center gap-2 bg-amber-50 border border-amber-200 text-amber-700 px-4 py-2 text-sm font-medium mb-6">
-            <Award className="w-4 h-4" />
-            Peer-Reviewed • Open Access
-          </div>
-          
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6 font-serif">
-            The Journal of<br />
-            <span className="text-amber-600">Medicine, Law</span><br />
-            & Public Health
-          </h1>
-          
-          <p className="text-lg text-slate-600 max-w-xl mb-8 leading-relaxed">
-            An interdisciplinary peer-reviewed journal exploring the intersection of 
-            healthcare, legal frameworks, and public health policy. Published in partnership 
-            with Riyadh Second Health Cluster Research Center.
-          </p>
-          
-          <div className="flex flex-col sm:flex-row gap-4">
-            <a
-              href={`${OJS_URL}/about/submissions`}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="hero-submit-btn"
-            >
-              <Button className="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase">
-                <Send className="w-4 h-4 mr-2" />
-                Submit Manuscript
-              </Button>
-            </a>
-            <a
-              href="#current-issue"
-              data-testid="hero-explore-btn"
-            >
-              <Button variant="outline" className="w-full sm:w-auto border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-6 text-sm font-medium tracking-wide uppercase">
-                <BookOpen className="w-4 h-4 mr-2" />
-                Current Issue
-              </Button>
-            </a>
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, x: 30 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="hidden lg:block"
-        >
-          <div className="relative">
-            <div className="absolute -top-4 -left-4 w-72 h-72 bg-amber-100 -z-10" />
-            <img 
-              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
-              alt="Medical Research"
-              className="w-full h-96 object-cover"
-            />
-            <div className="absolute -bottom-6 -right-6 bg-slate-900 text-white p-6">
-              <p className="text-3xl font-bold font-serif text-amber-500">Vol. 6</p>
-              <p className="text-sm text-slate-300">Current Issue</p>
-            </div>
-          </div>
-        </motion.div>
-      </div>
-    </div>
-  </section>
-);
-
-// Metrics Section with Count Up Animation
-const MetricsSection = () => (
-  <section id="metrics" className="py-20 md:py-28 bg-slate-50" data-testid="metrics-section">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="text-center mb-16">
-        <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">Performance</span>
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-4">
-          Journal Metrics
-        </h2>
-        <p className="text-slate-600 text-lg max-w-2xl mx-auto">
-          Transparency in our editorial process and publication statistics
-        </p>
-      </div>
-
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-        {journalMetrics.map((metric, idx) => (
-          <MetricCard
-            key={metric.label}
-            value={metric.value}
-            label={metric.label}
-            suffix={metric.suffix}
-            icon={metric.icon}
-            delay={idx * 0.1}
-          />
-        ))}
-      </div>
-    </div>
-  </section>
-);
-
-// About Section
-const AboutSection = () => (
-  <section id="about" className="py-20 md:py-28 bg-white" data-testid="about-section">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">About the Journal</span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-6">
-            Advancing Interdisciplinary Research
-          </h2>
-          <p className="text-slate-600 text-lg leading-relaxed mb-6">
-            {journalInfo.description}
-          </p>
-          <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            The journal publishes a range of content, including original research, review articles, 
-            case studies, and commentaries, all of which undergo a rigorous double-blind peer-review 
-            process to ensure high-quality contributions.
-          </p>
-          
-          <div className="flex flex-wrap gap-4">
-            <div className="flex items-center gap-2 bg-slate-100 px-4 py-2">
-              <span className="text-sm font-medium text-slate-700">ISSN (P): {journalInfo.issn_print}</span>
-            </div>
-            <div className="flex items-center gap-2 bg-slate-100 px-4 py-2">
-              <span className="text-sm font-medium text-slate-700">ISSN (E): {journalInfo.issn_online}</span>
-            </div>
-            <div className="flex items-center gap-2 bg-amber-50 border border-amber-200 px-4 py-2">
-              <span className="text-sm font-medium text-amber-700">{journalInfo.journalType}</span>
-            </div>
-          </div>
-        </motion.div>
-
-        <div className="grid grid-cols-2 gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-            className="bg-slate-900 p-8 text-white"
-          >
-            <Heart className="w-10 h-10 text-amber-500 mb-4" />
-            <h3 className="text-xl font-semibold font-serif mb-2">Medicine</h3>
-            <p className="text-slate-400 text-sm">Clinical research, healthcare delivery, and medical practice innovations.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="bg-slate-100 p-8"
-          >
-            <Scale className="w-10 h-10 text-amber-600 mb-4" />
-            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Law & Ethics</h3>
-            <p className="text-slate-600 text-sm">Legal analysis, medical ethics, and regulatory frameworks.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="bg-slate-100 p-8"
-          >
-            <Users className="w-10 h-10 text-amber-600 mb-4" />
-            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-2">Public Health</h3>
-            <p className="text-slate-600 text-sm">Population health, epidemiology, and health policy.</p>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            className="bg-slate-900 p-8 text-white"
-          >
-            <Globe className="w-10 h-10 text-amber-500 mb-4" />
-            <h3 className="text-xl font-semibold font-serif mb-2">Global Impact</h3>
-            <p className="text-slate-400 text-sm">International perspectives on healthcare challenges.</p>
-          </motion.div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-// OJS Portal Access Section
-const OJSPortalSection = () => (
-  <section className="py-16 bg-slate-900" data-testid="ojs-portal-section">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-        <div className="flex-1">
-          <div className="flex items-center gap-3 mb-4">
-            <Globe className="w-6 h-6 text-amber-500" />
-            <span className="text-amber-500 text-sm font-semibold tracking-widest uppercase">OJS Portal</span>
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-white font-serif mb-4">
-            Access the Journal's Full Content
-          </h2>
-          <p className="text-slate-400 text-lg leading-relaxed">
-            Visit our Open Journal Systems portal for complete access to all current and archived issues, 
-            article submissions, peer review tracking, and comprehensive submission guidelines.
-          </p>
-        </div>
-        <div className="flex flex-col sm:flex-row gap-4">
-          <a
-            href={OJS_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="ojs-portal-link"
-          >
-            <Button className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase">
-              Go to OJS Portal
-              <ExternalLink className="w-4 h-4 ml-2" />
-            </Button>
-          </a>
-          <a
-            href={`${OJS_URL}/issue/archive`}
-            target="_blank"
-            rel="noopener noreferrer"
-            data-testid="ojs-archive-link"
-          >
-            <Button variant="outline" className="border-slate-600 text-slate-300 hover:bg-slate-800 px-8 py-6 text-sm font-medium tracking-wide uppercase">
-              Browse Archives
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-// Current Issue Section
-const CurrentIssueSection = () => (
-  <section id="current-issue" className="py-20 md:py-28 bg-white" data-testid="current-issue-section">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="text-center mb-16">
-        <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">Latest Research</span>
-        <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-4">
-          Current Issue
-        </h2>
-        <div className="flex items-center justify-center gap-4 text-slate-600">
-          <span className="font-semibold">{currentIssue.volume}</span>
-          <span className="w-1 h-1 bg-slate-400 rounded-full" />
-          <span>{currentIssue.subtitle}</span>
-          <span className="w-1 h-1 bg-slate-400 rounded-full" />
-          <span className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
-            Published: {currentIssue.published}
-          </span>
-        </div>
-      </div>
-
-      {/* Articles Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {currentIssue.articles.map((article, idx) => (
-          <motion.div
-            key={article.id}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-          >
-            <a 
-              href={article.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group block h-full bg-slate-50 border border-slate-200 p-6 hover:bg-white hover:shadow-lg hover:border-slate-300 transition-all duration-300"
-              data-testid={`article-${article.id}`}
-            >
-              <span className="inline-block text-xs font-semibold tracking-wider uppercase text-amber-700 bg-amber-50 border border-amber-200 px-3 py-1">
-                {article.category}
-              </span>
-              <h3 className="text-lg font-semibold font-serif mt-4 mb-3 text-slate-900 leading-snug group-hover:text-amber-700 transition-colors line-clamp-3">
-                {article.title}
-              </h3>
-              <p className="text-sm text-slate-500 mb-4 line-clamp-1">{article.authors}</p>
-              <div className="flex items-center justify-between mt-auto pt-4 border-t border-slate-200">
-                <span className="text-xs text-slate-400">Pages {article.pages}</span>
-                <span className="flex items-center gap-1 text-slate-600 text-sm font-medium group-hover:text-amber-600 transition-colors">
-                  <FileText className="w-4 h-4" />
-                  Read
-                </span>
-              </div>
-            </a>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* View All Link */}
-      <div className="text-center mt-12">
-        <a
-          href={`${OJS_URL}/issue/archive`}
-          target="_blank"
-          rel="noopener noreferrer"
-          data-testid="view-all-issues"
-        >
-          <Button variant="outline" className="border-slate-300 text-slate-700 hover:bg-slate-100 px-8 py-6 text-sm font-medium tracking-wide uppercase">
-            View All Issues
-            <ExternalLink className="w-4 h-4 ml-2" />
-          </Button>
-        </a>
-      </div>
-    </div>
-  </section>
-);
-
-// Submission Section
-const SubmissionSection = () => (
-  <section id="submission" className="py-20 md:py-28 bg-slate-50" data-testid="submission-section">
-    <div className="max-w-7xl mx-auto px-6 md:px-12">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-        <div>
-          <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">For Authors</span>
-          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-6">
-            Submit Your Research
-          </h2>
-          <p className="text-slate-600 text-lg leading-relaxed mb-8">
-            JMLPH welcomes submissions from healthcare providers, legal experts, public health 
-            practitioners, researchers, and policymakers worldwide. Our double-blind peer-review 
-            process ensures the highest standards of academic integrity.
-          </p>
-
-          <div className="space-y-4">
-            {[
-              { title: "Original Research", desc: "Novel findings in medicine, law, and public health" },
-              { title: "Review Articles", desc: "Comprehensive literature reviews and analyses" },
-              { title: "Case Reports", desc: "Unique clinical cases with educational value" },
-              { title: "Commentaries", desc: "Expert opinions on current healthcare issues" }
-            ].map((item, idx) => (
-              <div key={idx} className="flex items-start gap-4 bg-white p-4 border border-slate-200">
-                <CheckCircle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="font-semibold text-slate-900">{item.title}</h3>
-                  <p className="text-slate-500 text-sm">{item.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10">
-            <a
-              href={`${OJS_URL}/about/submissions`}
-              target="_blank"
-              rel="noopener noreferrer"
-              data-testid="submission-guidelines-link"
-            >
-              <Button className="bg-slate-900 hover:bg-slate-800 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase">
-                View Submission Guidelines
-                <ExternalLink className="w-4 h-4 ml-2" />
-              </Button>
-            </a>
-          </div>
-        </div>
-
-        {/* Journal Info */}
-        <div className="bg-white border border-slate-200 p-8 md:p-10">
-          <h3 className="text-2xl font-bold text-slate-900 font-serif mb-8">Publication Information</h3>
-          
-          <div className="space-y-5">
-            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-              <span className="text-slate-500">ISSN (Print)</span>
-              <span className="font-semibold text-slate-900">{journalInfo.issn_print}</span>
-            </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-              <span className="text-slate-500">ISSN (Online)</span>
-              <span className="font-semibold text-slate-900">{journalInfo.issn_online}</span>
-            </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-              <span className="text-slate-500">Publication Frequency</span>
-              <span className="font-semibold text-slate-900">{journalInfo.frequency}</span>
-            </div>
-            <div className="flex justify-between items-center pb-4 border-b border-slate-100">
-              <span className="text-slate-500">Review Type</span>
-              <span className="font-semibold text-slate-900">{journalInfo.reviewType}</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-slate-500">Access Type</span>
-              <span className="font-semibold text-amber-600">{journalInfo.journalType}</span>
-            </div>
-          </div>
-
-          {/* Indexing */}
-          <div className="mt-10 pt-8 border-t border-slate-200">
-            <h4 className="text-lg font-semibold text-slate-900 mb-4">Indexing Status</h4>
-            <div className="grid grid-cols-1 gap-3">
-              {indexingInfo.map((index, idx) => (
-                <div key={idx} className="flex items-center gap-3 text-sm">
-                  <Award className="w-4 h-4 text-amber-600 flex-shrink-0" />
-                  <span className="text-slate-600">{index.name}</span>
-                  <span className="text-xs text-slate-400 ml-auto">{index.status}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-);
-
-// Newsletter Section
-const NewsletterSection = () => {
-  const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!email) {
-      toast.error('Please enter your email address');
-      return;
-    }
-    
-    setLoading(true);
-    try {
-      await axios.post(`${API}/newsletter/subscribe`, { email });
-      toast.success('Successfully subscribed to the newsletter!');
-      setEmail('');
-    } catch (error) {
-      if (error.response?.status === 409) {
-        toast.info('This email is already subscribed');
-      } else {
-        toast.error('Failed to subscribe. Please try again.');
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <section className="py-20 bg-slate-900" data-testid="newsletter-section">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="max-w-2xl mx-auto text-center">
-          <Mail className="w-12 h-12 text-amber-500 mx-auto mb-6" />
-          <h2 className="text-3xl md:text-4xl font-bold text-white font-serif mb-4">
-            Stay Updated
-          </h2>
-          <p className="text-slate-400 text-lg mb-8">
-            Subscribe to receive notifications about new issues, call for papers, 
-            and important journal announcements.
-          </p>
-
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
-            <Input
-              type="email"
-              placeholder="Enter your email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="flex-1 bg-slate-800 border-slate-700 text-white placeholder:text-slate-500 rounded-none py-6"
-              data-testid="newsletter-email-input"
-            />
-            <Button 
-              type="submit" 
-              disabled={loading}
-              className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-6 text-sm font-medium tracking-wide uppercase"
-              data-testid="newsletter-submit-btn"
-            >
-              {loading ? 'Subscribing...' : 'Subscribe'}
-            </Button>
-          </form>
-
-          <p className="text-slate-500 text-sm mt-4">
-            We respect your privacy. Unsubscribe at any time.
-          </p>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// Contact Section
-const ContactSection = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
-  const [loading, setLoading] = useState(false);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-      toast.error('Please fill in all required fields');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await axios.post(`${API}/contact`, formData);
-      toast.success('Message sent successfully! We will get back to you soon.');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
-      toast.error('Failed to send message. Please try again.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  return (
-    <section className="py-20 md:py-28 bg-white" data-testid="contact-section">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          <div>
-            <span className="text-amber-600 text-sm font-semibold tracking-widest uppercase">Get in Touch</span>
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 font-serif mt-4 mb-6">
-              Contact Us
-            </h2>
-            <p className="text-slate-600 text-lg leading-relaxed mb-10">
-              Have questions about submissions, peer review, or general inquiries? 
-              We're here to help.
-            </p>
-
-            {/* London Office */}
-            <div className="mb-8 pb-8 border-b border-slate-200">
-              <h3 className="font-semibold text-slate-900 text-lg mb-4">{contactInfo.londonOffice.name}</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-slate-600">{contactInfo.londonOffice.address}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                  <a href={`tel:${contactInfo.londonOffice.phone}`} className="text-slate-600 hover:text-amber-600 transition-colors">
-                    {contactInfo.londonOffice.phone}
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            {/* Gulf Office */}
-            <div className="mb-8">
-              <h3 className="font-semibold text-slate-900 text-lg mb-4">{contactInfo.gulfOffice.name}</h3>
-              <div className="space-y-3">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-slate-600">{contactInfo.gulfOffice.address}</p>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-amber-600 flex-shrink-0" />
-                  <a href={`tel:${contactInfo.gulfOffice.phone}`} className="text-slate-600 hover:text-amber-600 transition-colors">
-                    {contactInfo.gulfOffice.phone}
-                  </a>
-                </div>
-                <p className="text-sm text-slate-500 pl-8">Tax Number: {contactInfo.gulfOffice.taxNumber}</p>
-              </div>
-            </div>
-
-            {/* Email */}
-            <div className="flex items-center gap-3">
-              <Mail className="w-5 h-5 text-amber-600 flex-shrink-0" />
-              <a href={`mailto:${journalInfo.email}`} className="text-amber-600 hover:underline font-medium">
-                {journalInfo.email}
-              </a>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="bg-slate-50 border border-slate-200 p-8 md:p-10">
-            <h3 className="text-xl font-semibold text-slate-900 font-serif mb-6">Send a Message</h3>
-            <form onSubmit={handleSubmit} className="space-y-5">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Name *</label>
-                <Input
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full rounded-none border-slate-300 bg-white"
-                  data-testid="contact-name-input"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Email *</label>
-                <Input
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full rounded-none border-slate-300 bg-white"
-                  data-testid="contact-email-input"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Subject</label>
-                <Input
-                  type="text"
-                  value={formData.subject}
-                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  className="w-full rounded-none border-slate-300 bg-white"
-                  data-testid="contact-subject-input"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-2">Message *</label>
-                <Textarea
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  rows={5}
-                  className="w-full rounded-none border-slate-300 bg-white resize-none"
-                  data-testid="contact-message-input"
-                />
-              </div>
-              <Button 
-                type="submit" 
-                disabled={loading}
-                className="w-full bg-slate-900 hover:bg-slate-800 text-white py-6 text-sm font-medium tracking-wide uppercase"
-                data-testid="contact-submit-btn"
-              >
-                {loading ? 'Sending...' : 'Send Message'}
-              </Button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
 
 // Policy Documents Content
 const policyDocuments = {
@@ -1174,21 +380,830 @@ This policy reflects ARETION & Company's commitment to conducting business with 
   }
 };
 
+// Enhanced Count Up Animation Hook with faster animation
+const useCountUp = (end, duration = 2500, startOnView = true) => {
+  const [count, setCount] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-50px" });
+  const hasAnimated = useRef(false);
+
+  useEffect(() => {
+    if (startOnView && !isInView) return;
+    if (hasAnimated.current) return;
+    
+    hasAnimated.current = true;
+    setIsAnimating(true);
+    let startTime;
+    
+    const animate = (currentTime) => {
+      if (!startTime) startTime = currentTime;
+      const elapsed = currentTime - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      
+      // Easing function - starts slow, speeds up in middle, slows at end
+      const easeInOutQuart = progress < 0.5
+        ? 8 * progress * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 4) / 2;
+      
+      setCount(Math.floor(easeInOutQuart * end));
+      
+      if (progress < 1) {
+        requestAnimationFrame(animate);
+      } else {
+        setCount(end);
+        setIsAnimating(false);
+      }
+    };
+    
+    requestAnimationFrame(animate);
+  }, [end, duration, isInView, startOnView]);
+
+  return { count, ref, isAnimating };
+};
+
+// Metric Card Component with enhanced Count Up
+const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0 }) => {
+  const { count, ref, isAnimating } = useCountUp(value, 2500);
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ duration: 0.7, delay }}
+      className="metric-card p-8 text-center group"
+    >
+      <div className="w-14 h-14 bg-[#1e3a5f] flex items-center justify-center mx-auto mb-5">
+        <Icon className="w-7 h-7 text-[#c9a77d]" />
+      </div>
+      <div className={`stat-number text-5xl md:text-6xl mb-3 ${isAnimating ? 'counting' : ''}`} style={{ color: '#1a2f4a' }}>
+        {count}{suffix}
+      </div>
+      <p className="stat-label">{label}</p>
+    </motion.div>
+  );
+};
+
+// Navigation component
+const Header = ({ scrolled }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  const navItems = [
+    { name: "Home", href: "#home" },
+    { name: "About", href: "#about" },
+    { name: "Metrics", href: "#metrics" },
+    { name: "Current Issue", href: "#current-issue" },
+    { name: "Submit", href: "#submission" }
+  ];
+
+  return (
+    <header 
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'bg-[#faf8f5]/95 backdrop-blur-md shadow-sm border-b border-[#e8dcc8]' : 'bg-[#faf8f5]'
+      }`}
+      data-testid="header"
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="flex items-center justify-between h-20">
+          {/* Logo */}
+          <a href="#home" className="flex items-center gap-4" data-testid="logo">
+            <img src={LOGO_URL} alt="JMLPH Logo" className="h-14 w-auto" />
+            <div className="hidden sm:block">
+              <span className="logo-text text-xl block leading-tight" style={{ color: '#1a2f4a' }}>JMLPH</span>
+              <span className="text-xs subheader-text" style={{ color: '#a0522d', letterSpacing: '0.08em' }}>Medicine • Law • Public Health</span>
+            </div>
+          </a>
+
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-8" data-testid="desktop-nav">
+            {navItems.map((item) => (
+              <a
+                key={item.name}
+                href={item.href}
+                className="nav-link text-sm body-text font-medium transition-colors"
+                style={{ color: '#1e3a5f' }}
+                data-testid={`nav-${item.name.toLowerCase().replace(' ', '-')}`}
+              >
+                {item.name}
+              </a>
+            ))}
+            <a
+              href={OJS_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-6 py-2.5 text-sm font-medium transition-all btn-lift"
+              style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}
+              data-testid="nav-ojs-portal"
+            >
+              Access Journal
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </nav>
+
+          {/* Mobile menu button */}
+          <button
+            className="lg:hidden p-2"
+            style={{ color: '#1a2f4a' }}
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            data-testid="mobile-menu-button"
+          >
+            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
+        </div>
+
+        {/* Mobile Navigation */}
+        <AnimatePresence>
+          {mobileMenuOpen && (
+            <motion.nav
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="lg:hidden pb-6 border-t"
+              style={{ backgroundColor: '#faf8f5', borderColor: '#e8dcc8' }}
+              data-testid="mobile-nav"
+            >
+              {navItems.map((item) => (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block py-3 transition-colors body-text"
+                  style={{ color: '#1e3a5f' }}
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </a>
+              ))}
+              <a
+                href={OJS_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 mt-4 px-6 py-3 text-sm font-medium w-full justify-center"
+                style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}
+                data-testid="mobile-nav-ojs"
+              >
+                Access Journal Portal
+                <ExternalLink className="w-4 h-4" />
+              </a>
+            </motion.nav>
+          )}
+        </AnimatePresence>
+      </div>
+    </header>
+  );
+};
+
+// Hero Section
+const HeroSection = () => (
+  <section 
+    id="home" 
+    className="relative min-h-screen flex items-center justify-center pt-20"
+    style={{ backgroundColor: '#faf8f5' }}
+    data-testid="hero-section"
+  >
+    {/* Subtle pattern */}
+    <div className="absolute inset-0 opacity-20" style={{
+      backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23c9a77d' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+    }} />
+    
+    <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 py-20">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <motion.div
+          initial={{ opacity: 0, x: -30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8 }}
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium mb-6 subheader-text" style={{ backgroundColor: 'rgba(160, 82, 45, 0.1)', border: '1px solid rgba(160, 82, 45, 0.2)', color: '#8b4513' }}>
+            <Award className="w-4 h-4" />
+            Peer-Reviewed • Open Access
+          </div>
+          
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+            The Journal of<br />
+            <span style={{ color: '#a0522d' }}>Medicine, Law</span><br />
+            & Public Health
+          </h1>
+          
+          <p className="text-lg max-w-xl mb-8 leading-relaxed body-text" style={{ color: '#2d4a6f' }}>
+            An interdisciplinary peer-reviewed journal exploring the intersection of 
+            healthcare, legal frameworks, and public health policy. Published in partnership 
+            with Riyadh Second Health Cluster Research Center.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4">
+            <a
+              href={`${OJS_URL}/about/submissions`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="hero-submit-btn"
+            >
+              <Button className="w-full sm:w-auto px-8 py-6 text-sm font-medium tracking-wide uppercase btn-lift" style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}>
+                <Send className="w-4 h-4 mr-2" />
+                Submit Manuscript
+              </Button>
+            </a>
+            <a
+              href="#current-issue"
+              data-testid="hero-explore-btn"
+            >
+              <Button variant="outline" className="w-full sm:w-auto px-8 py-6 text-sm font-medium tracking-wide uppercase" style={{ borderColor: '#c9a77d', color: '#1e3a5f' }}>
+                <BookOpen className="w-4 h-4 mr-2" />
+                Current Issue
+              </Button>
+            </a>
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, x: 30 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="hidden lg:block"
+        >
+          <div className="relative">
+            <div className="absolute -top-4 -left-4 w-72 h-72 -z-10" style={{ backgroundColor: '#e8dcc8' }} />
+            <img 
+              src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" 
+              alt="Medical Research"
+              className="w-full h-96 object-cover"
+            />
+            <div className="absolute -bottom-6 -right-6 p-6" style={{ backgroundColor: '#1e3a5f' }}>
+              <p className="text-3xl font-bold" style={{ color: '#c9a77d', fontFamily: "'Cormorant Garamond', serif" }}>Vol. 6</p>
+              <p className="text-sm" style={{ color: '#d4b896' }}>Current Issue</p>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  </section>
+);
+
+// Metrics Section with enhanced Count Up Animation
+const MetricsSection = () => (
+  <section id="metrics" className="py-20 md:py-28" style={{ backgroundColor: '#f5f0e8' }} data-testid="metrics-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="text-center mb-16">
+        <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>Performance</span>
+        <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+          Journal Metrics
+        </h2>
+        <p className="text-lg max-w-2xl mx-auto body-text" style={{ color: '#2d4a6f' }}>
+          Transparency in our editorial process and publication statistics
+        </p>
+      </div>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+        {journalMetrics.map((metric, idx) => (
+          <MetricCard
+            key={metric.label}
+            value={metric.value}
+            label={metric.label}
+            suffix={metric.suffix}
+            icon={metric.icon}
+            delay={idx * 0.1}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+// About Section
+const AboutSection = () => (
+  <section id="about" className="py-20 md:py-28" style={{ backgroundColor: '#faf8f5' }} data-testid="about-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>About the Journal</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+            Advancing Interdisciplinary Research
+          </h2>
+          <p className="text-lg leading-relaxed mb-6 body-text" style={{ color: '#2d4a6f' }}>
+            {journalInfo.description}
+          </p>
+          <p className="text-lg leading-relaxed mb-8 body-text" style={{ color: '#2d4a6f' }}>
+            The journal publishes a range of content, including original research, review articles, 
+            case studies, and commentaries, all of which undergo a rigorous double-blind peer-review 
+            process to ensure high-quality contributions.
+          </p>
+          
+          <div className="flex flex-wrap gap-4">
+            <div className="flex items-center gap-2 px-4 py-2" style={{ backgroundColor: '#f5f0e8' }}>
+              <span className="text-sm font-medium" style={{ color: '#1e3a5f' }}>ISSN (P): {journalInfo.issn_print}</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2" style={{ backgroundColor: '#f5f0e8' }}>
+              <span className="text-sm font-medium" style={{ color: '#1e3a5f' }}>ISSN (E): {journalInfo.issn_online}</span>
+            </div>
+            <div className="flex items-center gap-2 px-4 py-2" style={{ backgroundColor: 'rgba(160, 82, 45, 0.1)', border: '1px solid rgba(160, 82, 45, 0.2)' }}>
+              <span className="text-sm font-medium" style={{ color: '#8b4513' }}>{journalInfo.journalType}</span>
+            </div>
+          </div>
+        </motion.div>
+
+        <div className="grid grid-cols-2 gap-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="p-8"
+            style={{ backgroundColor: '#1e3a5f' }}
+          >
+            <Heart className="w-10 h-10 mb-4" style={{ color: '#c9a77d' }} />
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}>Medicine</h3>
+            <p className="text-sm body-text" style={{ color: '#d4b896' }}>Clinical research, healthcare delivery, and medical practice innovations.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="p-8"
+            style={{ backgroundColor: '#f5f0e8' }}
+          >
+            <Scale className="w-10 h-10 mb-4" style={{ color: '#a0522d' }} />
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>Law & Ethics</h3>
+            <p className="text-sm body-text" style={{ color: '#2d4a6f' }}>Legal analysis, medical ethics, and regulatory frameworks.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="p-8"
+            style={{ backgroundColor: '#f5f0e8' }}
+          >
+            <Users className="w-10 h-10 mb-4" style={{ color: '#a0522d' }} />
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>Public Health</h3>
+            <p className="text-sm body-text" style={{ color: '#2d4a6f' }}>Population health, epidemiology, and health policy.</p>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="p-8"
+            style={{ backgroundColor: '#1e3a5f' }}
+          >
+            <Globe className="w-10 h-10 mb-4" style={{ color: '#c9a77d' }} />
+            <h3 className="text-xl font-semibold mb-2" style={{ color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}>Global Impact</h3>
+            <p className="text-sm body-text" style={{ color: '#d4b896' }}>International perspectives on healthcare challenges.</p>
+          </motion.div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+// OJS Portal Access Section
+const OJSPortalSection = () => (
+  <section className="py-16" style={{ backgroundColor: '#1e3a5f' }} data-testid="ojs-portal-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+        <div className="flex-1">
+          <div className="flex items-center gap-3 mb-4">
+            <Globe className="w-6 h-6" style={{ color: '#c9a77d' }} />
+            <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#c9a77d' }}>OJS Portal</span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}>
+            Access the Journal's Full Content
+          </h2>
+          <p className="text-lg leading-relaxed body-text" style={{ color: '#d4b896' }}>
+            Visit our Open Journal Systems portal for complete access to all current and archived issues, 
+            article submissions, peer review tracking, and comprehensive submission guidelines.
+          </p>
+        </div>
+        <div className="flex flex-col sm:flex-row gap-4">
+          <a
+            href={OJS_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="ojs-portal-link"
+          >
+            <Button className="px-8 py-6 text-sm font-medium tracking-wide uppercase btn-lift" style={{ backgroundColor: '#a0522d', color: '#faf8f5' }}>
+              Go to OJS Portal
+              <ExternalLink className="w-4 h-4 ml-2" />
+            </Button>
+          </a>
+          <a
+            href={`${OJS_URL}/issue/archive`}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="ojs-archive-link"
+          >
+            <Button variant="outline" className="px-8 py-6 text-sm font-medium tracking-wide uppercase" style={{ borderColor: '#c9a77d', color: '#c9a77d' }}>
+              Browse Archives
+              <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+// Current Issue Section
+const CurrentIssueSection = () => (
+  <section id="current-issue" className="py-20 md:py-28" style={{ backgroundColor: '#faf8f5' }} data-testid="current-issue-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="text-center mb-16">
+        <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>Latest Research</span>
+        <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+          Current Issue
+        </h2>
+        <div className="flex items-center justify-center gap-4 body-text" style={{ color: '#2d4a6f' }}>
+          <span className="font-semibold">{currentIssue.volume}</span>
+          <span className="w-1 h-1 rounded-full" style={{ backgroundColor: '#c9a77d' }} />
+          <span>{currentIssue.subtitle}</span>
+          <span className="w-1 h-1 rounded-full" style={{ backgroundColor: '#c9a77d' }} />
+          <span className="flex items-center gap-1">
+            <Calendar className="w-4 h-4" />
+            Published: {currentIssue.published}
+          </span>
+        </div>
+      </div>
+
+      {/* Articles Grid */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {currentIssue.articles.map((article, idx) => (
+          <motion.div
+            key={article.id}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: idx * 0.1 }}
+          >
+            <a 
+              href={article.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="article-card group block h-full p-6"
+              style={{ backgroundColor: '#f5f0e8', border: '1px solid #e8dcc8' }}
+              data-testid={`article-${article.id}`}
+            >
+              <span className="category-badge">{article.category}</span>
+              <h3 className="text-lg font-semibold mt-4 mb-3 leading-snug transition-colors line-clamp-3" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+                {article.title}
+              </h3>
+              <p className="text-sm mb-4 line-clamp-1 body-text" style={{ color: '#2d4a6f' }}>{article.authors}</p>
+              <div className="flex items-center justify-between mt-auto pt-4" style={{ borderTop: '1px solid #e8dcc8' }}>
+                <span className="text-xs" style={{ color: '#a0522d' }}>Pages {article.pages}</span>
+                <span className="flex items-center gap-1 text-sm font-medium transition-colors" style={{ color: '#1e3a5f' }}>
+                  <FileText className="w-4 h-4" />
+                  Read
+                </span>
+              </div>
+            </a>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* View All Link */}
+      <div className="text-center mt-12">
+        <a
+          href={`${OJS_URL}/issue/archive`}
+          target="_blank"
+          rel="noopener noreferrer"
+          data-testid="view-all-issues"
+        >
+          <Button variant="outline" className="px-8 py-6 text-sm font-medium tracking-wide uppercase" style={{ borderColor: '#c9a77d', color: '#1e3a5f' }}>
+            View All Issues
+            <ExternalLink className="w-4 h-4 ml-2" />
+          </Button>
+        </a>
+      </div>
+    </div>
+  </section>
+);
+
+// Submission Section
+const SubmissionSection = () => (
+  <section id="submission" className="py-20 md:py-28" style={{ backgroundColor: '#f5f0e8' }} data-testid="submission-section">
+    <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+        <div>
+          <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>For Authors</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+            Submit Your Research
+          </h2>
+          <p className="text-lg leading-relaxed mb-8 body-text" style={{ color: '#2d4a6f' }}>
+            JMLPH welcomes submissions from healthcare providers, legal experts, public health 
+            practitioners, researchers, and policymakers worldwide. Our double-blind peer-review 
+            process ensures the highest standards of academic integrity.
+          </p>
+
+          <div className="space-y-4">
+            {[
+              { title: "Original Research", desc: "Novel findings in medicine, law, and public health" },
+              { title: "Review Articles", desc: "Comprehensive literature reviews and analyses" },
+              { title: "Case Reports", desc: "Unique clinical cases with educational value" },
+              { title: "Commentaries", desc: "Expert opinions on current healthcare issues" }
+            ].map((item, idx) => (
+              <div key={idx} className="flex items-start gap-4 p-4" style={{ backgroundColor: '#faf8f5', border: '1px solid #e8dcc8' }}>
+                <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
+                <div>
+                  <h3 className="font-semibold" style={{ color: '#1a2f4a' }}>{item.title}</h3>
+                  <p className="text-sm body-text" style={{ color: '#2d4a6f' }}>{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10">
+            <a
+              href={`${OJS_URL}/about/submissions`}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-testid="submission-guidelines-link"
+            >
+              <Button className="px-8 py-6 text-sm font-medium tracking-wide uppercase btn-lift" style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}>
+                View Submission Guidelines
+                <ExternalLink className="w-4 h-4 ml-2" />
+              </Button>
+            </a>
+          </div>
+        </div>
+
+        {/* Journal Info */}
+        <div className="p-8 md:p-10" style={{ backgroundColor: '#faf8f5', border: '1px solid #e8dcc8' }}>
+          <h3 className="text-2xl font-bold mb-8" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>Publication Information</h3>
+          
+          <div className="space-y-5">
+            {[
+              { label: "ISSN (Print)", value: journalInfo.issn_print },
+              { label: "ISSN (Online)", value: journalInfo.issn_online },
+              { label: "Publication Frequency", value: journalInfo.frequency },
+              { label: "Review Type", value: journalInfo.reviewType },
+              { label: "Access Type", value: journalInfo.journalType, highlight: true }
+            ].map((item, idx) => (
+              <div key={idx} className="flex justify-between items-center pb-4" style={{ borderBottom: idx < 4 ? '1px solid #e8dcc8' : 'none' }}>
+                <span className="body-text" style={{ color: '#2d4a6f' }}>{item.label}</span>
+                <span className="font-semibold" style={{ color: item.highlight ? '#a0522d' : '#1a2f4a' }}>{item.value}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Indexing */}
+          <div className="mt-10 pt-8" style={{ borderTop: '1px solid #e8dcc8' }}>
+            <h4 className="text-lg font-semibold mb-4" style={{ color: '#1a2f4a' }}>Indexing Status</h4>
+            <div className="grid grid-cols-1 gap-3">
+              {indexingInfo.map((index, idx) => (
+                <div key={idx} className="flex items-center gap-3 text-sm">
+                  <Award className="w-4 h-4 flex-shrink-0" style={{ color: '#a0522d' }} />
+                  <span className="body-text" style={{ color: '#2d4a6f' }}>{index.name}</span>
+                  <span className="text-xs ml-auto" style={{ color: '#a0522d' }}>{index.status}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+// Newsletter Section
+const NewsletterSection = () => {
+  const [email, setEmail] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!email) {
+      toast.error('Please enter your email address');
+      return;
+    }
+    
+    setLoading(true);
+    try {
+      await axios.post(`${API}/newsletter/subscribe`, { email });
+      toast.success('Successfully subscribed to the newsletter!');
+      setEmail('');
+    } catch (error) {
+      if (error.response?.status === 409) {
+        toast.info('This email is already subscribed');
+      } else {
+        toast.error('Failed to subscribe. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section className="py-20" style={{ backgroundColor: '#1e3a5f' }} data-testid="newsletter-section">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="max-w-2xl mx-auto text-center">
+          <Mail className="w-12 h-12 mx-auto mb-6" style={{ color: '#c9a77d' }} />
+          <h2 className="text-3xl md:text-4xl font-bold mb-4" style={{ color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}>
+            Stay Updated
+          </h2>
+          <p className="text-lg mb-8 body-text" style={{ color: '#d4b896' }}>
+            Subscribe to receive notifications about new issues, call for papers, 
+            and important journal announcements.
+          </p>
+
+          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-4">
+            <Input
+              type="email"
+              placeholder="Enter your email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="flex-1 rounded-none py-6 body-text"
+              style={{ backgroundColor: '#2d4a6f', borderColor: '#3d5a7f', color: '#faf8f5' }}
+              data-testid="newsletter-email-input"
+            />
+            <Button 
+              type="submit" 
+              disabled={loading}
+              className="px-8 py-6 text-sm font-medium tracking-wide uppercase btn-lift"
+              style={{ backgroundColor: '#a0522d', color: '#faf8f5' }}
+              data-testid="newsletter-submit-btn"
+            >
+              {loading ? 'Subscribing...' : 'Subscribe'}
+            </Button>
+          </form>
+
+          <p className="text-sm mt-4 body-text" style={{ color: '#6b8ab0' }}>
+            We respect your privacy. Unsubscribe at any time.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Contact Section
+const ContactSection = () => {
+  const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
+  const [loading, setLoading] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.message) {
+      toast.error('Please fill in all required fields');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await axios.post(`${API}/contact`, formData);
+      toast.success('Message sent successfully! We will get back to you soon.');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      toast.error('Failed to send message. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <section className="py-20 md:py-28" style={{ backgroundColor: '#faf8f5' }} data-testid="contact-section">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div>
+            <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>Get in Touch</span>
+            <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+              Contact Us
+            </h2>
+            <p className="text-lg leading-relaxed mb-10 body-text" style={{ color: '#2d4a6f' }}>
+              Have questions about submissions, peer review, or general inquiries? 
+              We're here to help.
+            </p>
+
+            {/* London Office */}
+            <div className="mb-8 pb-8" style={{ borderBottom: '1px solid #e8dcc8' }}>
+              <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.londonOffice.name}</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
+                  <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.londonOffice.address}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
+                  <a href={`tel:${contactInfo.londonOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
+                    {contactInfo.londonOffice.phone}
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Gulf Office */}
+            <div className="mb-8">
+              <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.gulfOffice.name}</h3>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
+                  <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.gulfOffice.address}</p>
+                </div>
+                <div className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
+                  <a href={`tel:${contactInfo.gulfOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
+                    {contactInfo.gulfOffice.phone}
+                  </a>
+                </div>
+                <p className="text-sm pl-8 body-text" style={{ color: '#a0522d' }}>Tax Number: {contactInfo.gulfOffice.taxNumber}</p>
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="flex items-center gap-3">
+              <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
+              <a href={`mailto:${journalInfo.email}`} className="font-medium hover:underline" style={{ color: '#a0522d' }}>
+                {journalInfo.email}
+              </a>
+            </div>
+          </div>
+
+          {/* Contact Form */}
+          <div className="p-8 md:p-10" style={{ backgroundColor: '#f5f0e8', border: '1px solid #e8dcc8' }}>
+            <h3 className="text-xl font-semibold mb-6" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>Send a Message</h3>
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div>
+                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Name *</label>
+                <Input
+                  type="text"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full rounded-none"
+                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
+                  data-testid="contact-name-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Email *</label>
+                <Input
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full rounded-none"
+                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
+                  data-testid="contact-email-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Subject</label>
+                <Input
+                  type="text"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  className="w-full rounded-none"
+                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
+                  data-testid="contact-subject-input"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium mb-2 body-text" style={{ color: '#1e3a5f' }}>Message *</label>
+                <Textarea
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  rows={5}
+                  className="w-full rounded-none resize-none"
+                  style={{ borderColor: '#d4b896', backgroundColor: '#faf8f5' }}
+                  data-testid="contact-message-input"
+                />
+              </div>
+              <Button 
+                type="submit" 
+                disabled={loading}
+                className="w-full py-6 text-sm font-medium tracking-wide uppercase btn-lift"
+                style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}
+                data-testid="contact-submit-btn"
+              >
+                {loading ? 'Sending...' : 'Send Message'}
+              </Button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Policy Modal Component
 const PolicyModal = ({ isOpen, onClose, policy }) => {
   if (!policy) return null;
   
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-3xl max-h-[85vh] p-0">
+      <DialogContent className="max-w-3xl max-h-[85vh] p-0" style={{ backgroundColor: '#faf8f5' }}>
         <DialogHeader className="p-6 pb-0">
-          <DialogTitle className="text-2xl font-serif text-slate-900">{policy.title}</DialogTitle>
-          <p className="text-sm text-slate-500">Last updated: {policy.lastUpdated}</p>
+          <DialogTitle className="text-2xl" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>{policy.title}</DialogTitle>
+          <p className="text-sm body-text" style={{ color: '#a0522d' }}>Last updated: {policy.lastUpdated}</p>
         </DialogHeader>
         <ScrollArea className="h-[60vh] px-6 pb-6">
           <div className="prose prose-slate prose-sm max-w-none">
             {policy.content.split('\n\n').map((paragraph, idx) => (
-              <p key={idx} className="text-slate-600 leading-relaxed mb-4 whitespace-pre-line">
+              <p key={idx} className="leading-relaxed mb-4 whitespace-pre-line body-text" style={{ color: '#2d4a6f' }}>
                 {paragraph}
               </p>
             ))}
@@ -1210,80 +1225,66 @@ const Footer = () => {
         onClose={() => setActivePolicy(null)} 
         policy={activePolicy ? policyDocuments[activePolicy] : null}
       />
-      <footer className="bg-slate-900 py-16" data-testid="footer">
+      <footer className="py-16" style={{ backgroundColor: '#1a2f4a' }} data-testid="footer">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
             {/* Brand */}
             <div className="lg:col-span-2">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 bg-amber-600 flex items-center justify-center">
-                  <span className="text-white font-bold text-lg font-serif">J</span>
-                </div>
-                <span className="logo-text text-xl text-white">JMLPH</span>
+              <div className="flex items-center gap-4 mb-6">
+                <img src={LOGO_URL} alt="JMLPH Logo" className="h-12 w-auto bg-white p-1" />
+                <span className="logo-text text-xl" style={{ color: '#faf8f5' }}>JMLPH</span>
               </div>
-              <p className="text-slate-400 leading-relaxed mb-6 max-w-md">
+              <p className="leading-relaxed mb-6 max-w-md body-text" style={{ color: '#d4b896' }}>
                 The Journal of Medicine, Law & Public Health is an interdisciplinary, 
                 peer-reviewed publication exploring the intersection of medical practice, 
                 legal considerations, and public health policy.
               </p>
-              <p className="text-slate-500 text-sm">
+              <p className="text-sm body-text" style={{ color: '#6b8ab0' }}>
                 Published in partnership with Riyadh Second Health Cluster Research Center
               </p>
             </div>
 
             {/* Quick Links */}
             <div>
-              <h4 className="text-white font-semibold mb-6">Quick Links</h4>
+              <h4 className="font-semibold mb-6" style={{ color: '#faf8f5' }}>Quick Links</h4>
               <ul className="space-y-3">
-                <li>
-                  <a href={OJS_URL} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                    OJS Portal
-                  </a>
-                </li>
-                <li>
-                  <a href={`${OJS_URL}/about/submissions`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                    Submit Manuscript
-                  </a>
-                </li>
-                <li>
-                  <a href={`${OJS_URL}/issue/archive`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                    Archives
-                  </a>
-                </li>
-                <li>
-                  <a href={`${OJS_URL}/about/editorialTeam`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                    Editorial Team
-                  </a>
-                </li>
-                <li>
-                  <a href={`${OJS_URL}/information/authors`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                    For Authors
-                  </a>
-                </li>
+                {[
+                  { name: 'OJS Portal', url: OJS_URL },
+                  { name: 'Submit Manuscript', url: `${OJS_URL}/about/submissions` },
+                  { name: 'Archives', url: `${OJS_URL}/issue/archive` },
+                  { name: 'Editorial Team', url: `${OJS_URL}/about/editorialTeam` },
+                  { name: 'For Authors', url: `${OJS_URL}/information/authors` }
+                ].map((link, idx) => (
+                  <li key={idx}>
+                    <a href={link.url} target="_blank" rel="noopener noreferrer" className="footer-link text-sm body-text">
+                      {link.name}
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
 
             {/* Policies */}
             <div>
-              <h4 className="text-white font-semibold mb-6">Policies</h4>
+              <h4 className="font-semibold mb-6" style={{ color: '#faf8f5' }}>Policies</h4>
               <ul className="space-y-3">
                 <li>
-                  <a href={`${OJS_URL}/about`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                  <a href={`${OJS_URL}/about`} target="_blank" rel="noopener noreferrer" className="footer-link text-sm body-text">
                     About the Journal
                   </a>
                 </li>
                 <li>
-                  <button onClick={() => setActivePolicy('privacyNotice')} className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                  <button onClick={() => setActivePolicy('privacyNotice')} className="footer-link text-sm body-text">
                     Privacy Notice
                   </button>
                 </li>
                 <li>
-                  <button onClick={() => setActivePolicy('termsOfUse')} className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                  <button onClick={() => setActivePolicy('termsOfUse')} className="footer-link text-sm body-text">
                     Terms of Use
                   </button>
                 </li>
                 <li>
-                  <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                  <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="footer-link text-sm body-text">
                     CC BY 4.0 License
                   </a>
                 </li>
@@ -1292,52 +1293,57 @@ const Footer = () => {
           </div>
 
           {/* Bottom */}
-          <div className="pt-8 border-t border-slate-800">
+          <div className="pt-8" style={{ borderTop: '1px solid #2d4a6f' }}>
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-              <p className="text-slate-400 text-sm">
+              <p className="text-sm body-text" style={{ color: '#c9a77d' }}>
                 © 2026 ARETION & Company. All rights reserved.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
                 <button 
                   onClick={() => setActivePolicy('privacyNotice')}
-                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  className="text-sm transition-colors body-text"
+                  style={{ color: '#d4b896' }}
                   data-testid="footer-privacy-notice"
                 >
                   Privacy Notice
                 </button>
-                <span className="text-slate-700 hidden md:inline">|</span>
+                <span style={{ color: '#2d4a6f' }} className="hidden md:inline">|</span>
                 <button 
                   onClick={() => setActivePolicy('termsOfUse')}
-                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  className="text-sm transition-colors body-text"
+                  style={{ color: '#d4b896' }}
                   data-testid="footer-terms-of-use"
                 >
                   Terms of Use
                 </button>
-                <span className="text-slate-700 hidden md:inline">|</span>
+                <span style={{ color: '#2d4a6f' }} className="hidden md:inline">|</span>
                 <button 
                   onClick={() => setActivePolicy('codeOfConduct')}
-                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  className="text-sm transition-colors body-text"
+                  style={{ color: '#d4b896' }}
                   data-testid="footer-code-of-conduct"
                 >
                   Code of Conduct
                 </button>
-                <span className="text-slate-700 hidden md:inline">|</span>
+                <span style={{ color: '#2d4a6f' }} className="hidden md:inline">|</span>
                 <button 
                   onClick={() => setActivePolicy('antiBriberyPolicy')}
-                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  className="text-sm transition-colors body-text"
+                  style={{ color: '#d4b896' }}
                   data-testid="footer-anti-bribery"
                 >
                   Anti-Bribery Policy
                 </button>
               </div>
             </div>
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800/50">
-              <span className="text-slate-500 text-xs">Registration No. {journalInfo.registrationNo}</span>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6" style={{ borderTop: '1px solid rgba(45, 74, 111, 0.5)' }}>
+              <span className="text-xs body-text" style={{ color: '#6b8ab0' }}>Registration No. {journalInfo.registrationNo}</span>
               <a 
                 href="https://aretion.co.uk/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-slate-500 hover:text-amber-500 text-xs transition-colors"
+                className="text-xs transition-colors body-text"
+                style={{ color: '#6b8ab0' }}
               >
                 An Aretion Publishing Group Journal
               </a>
@@ -1358,7 +1364,8 @@ const BackToTop = ({ visible }) => (
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.8 }}
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="fixed bottom-8 right-8 w-12 h-12 bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center shadow-lg transition-colors z-50"
+        className="fixed bottom-8 right-8 w-12 h-12 flex items-center justify-center shadow-lg transition-colors z-50"
+        style={{ backgroundColor: '#1e3a5f', color: '#faf8f5' }}
         data-testid="back-to-top"
       >
         <ChevronUp className="w-6 h-6" />
