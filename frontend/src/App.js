@@ -24,7 +24,8 @@ import {
   BarChart3,
   TrendingUp,
   XCircle,
-  FileCheck
+  FileCheck,
+  Database
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,9 +46,14 @@ const API = `${BACKEND_URL}/api`;
 
 // OJS Portal URL
 const OJS_URL = "https://www.jmlph.net/index.php/jmlph";
+const SUBMIT_URL = "https://www.jmlph.net/index.php/jmlph/login";
 
 // Logo URL
 const LOGO_URL = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/bi964nle_A_Logo-09%20copy%202.jpg";
+
+// Library Images
+const LIBRARY_IMAGE_1 = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/emwzjfeh_Beautifully%20captured%20by%20%40ruiaugusto%20-%20NATIONAL%20LIBRARY%20OF%20FINLAND%20-%20Tucked%20in%20the%20heart%20of%20Helsi.jpg";
+const LIBRARY_IMAGE_2 = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/1hwguk53_La%20bibliothe%CC%80que%20de%20l%E2%80%99Assemble%CC%81e%20nationale%20%21%20%F0%9F%93%9ACre%CC%81e%CC%81e%20par%20la%20Loi%20du%2014%20Vento%CC%82se%20an%20IV%20%284%20mars%201796%29%2C.jpg";
 
 // Journal Data
 const journalInfo = {
@@ -58,7 +64,7 @@ const journalInfo = {
   frequency: "Quarterly",
   reviewType: "Double-blind Peer-review",
   journalType: "Open Access",
-  email: "editorial.board@jmlph.net",
+  email: "Editorial.Board@JMLPH.net",
   registrationNo: "2198504",
   description: "The Journal of Medicine, Law & Public Health (JMLPH) is an interdisciplinary publication that explores the intersection of medical practice, legal considerations, and public health policy. It aims to serve as a platform for professionals and academics from various fields to discuss and disseminate research findings, legal analysis, and policy discussions that impact health outcomes and healthcare delivery."
 };
@@ -77,6 +83,25 @@ const contactInfo = {
     taxNumber: "3131020665"
   }
 };
+
+// Indexing Databases
+const indexingDatabases = [
+  { name: "DOAJ", url: "https://doaj.org/toc/2788-791X" },
+  { name: "MIAR", url: "https://miar.ub.edu/issn/2788-791X" },
+  { name: "Google Scholar", url: "https://scholar.google.com/citations?hl=en&user=cLVVO24AAAAJ" },
+  { name: "Crossref", url: "https://search.crossref.org/?q=+2788-791X" },
+  { name: "OpenAlex", url: "https://openalex.org/sources/S4210209193" },
+  { name: "WorldCat", url: "https://search.worldcat.org/title/1427524091" },
+  { name: "BASE", url: "https://www.base-search.net/Search/Results?lookfor=The+Journal+of+Medicine%2C+Law+%26+Public+Health" },
+  { name: "Sherpa Romeo", url: "https://v2.sherpa.ac.uk/id/publication/42301" },
+  { name: "EuroPub", url: "https://europub.co.uk/journals/the-journal-of-medicine-law-public-health-jmlph-J-30910" },
+  { name: "Scilit", url: "https://www.scilit.net/publishers/17465" },
+  { name: "Semantic Scholar", url: "https://www.semanticscholar.org/search?q=The%20Journal%20of%20Medicine%2C%20Law%20Public%20Health" },
+  { name: "Internet Archive", url: "https://archive.org/details/@editorial_board_jmlph_" },
+  { name: "Ulrichsweb", url: "#" },
+  { name: "ROAD", url: "#" },
+  { name: "Academia", url: "#" }
+];
 
 // Journal Metrics
 const journalMetrics = [
