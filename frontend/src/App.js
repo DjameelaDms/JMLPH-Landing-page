@@ -977,18 +977,34 @@ const SubmissionSection = () => (
             ))}
           </div>
 
-          {/* Indexing */}
+          {/* Indexing Databases */}
           <div className="mt-10 pt-8" style={{ borderTop: '1px solid #e8dcc8' }}>
-            <h4 className="text-lg font-semibold mb-4" style={{ color: '#1a2f4a' }}>Indexing Status</h4>
-            <div className="grid grid-cols-1 gap-3">
-              {indexingInfo.map((index, idx) => (
-                <div key={idx} className="flex items-center gap-3 text-sm">
-                  <Award className="w-4 h-4 flex-shrink-0" style={{ color: '#a0522d' }} />
-                  <span className="body-text" style={{ color: '#2d4a6f' }}>{index.name}</span>
-                  <span className="text-xs ml-auto" style={{ color: '#a0522d' }}>{index.status}</span>
-                </div>
+            <h4 className="text-lg font-semibold mb-4" style={{ color: '#1a2f4a' }}>Indexing Databases</h4>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {indexingDatabases.slice(0, 12).map((db, idx) => (
+                <a 
+                  key={idx} 
+                  href={db.url !== '#' ? db.url : undefined}
+                  target={db.url !== '#' ? '_blank' : undefined}
+                  rel={db.url !== '#' ? 'noopener noreferrer' : undefined}
+                  className={`flex items-center gap-2 text-sm p-2 transition-colors ${db.url !== '#' ? 'hover:bg-[#e8dcc8] cursor-pointer' : ''}`}
+                  style={{ backgroundColor: '#f5f0e8' }}
+                >
+                  <Database className="w-3 h-3 flex-shrink-0" style={{ color: '#a0522d' }} />
+                  <span className="body-text truncate" style={{ color: '#2d4a6f' }}>{db.name}</span>
+                </a>
               ))}
             </div>
+            <a 
+              href={`${OJS_URL}/Indexing`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 mt-4 text-sm font-medium transition-colors"
+              style={{ color: '#a0522d' }}
+            >
+              View all indexing databases
+              <ArrowRight className="w-3 h-3" />
+            </a>
           </div>
         </div>
       </div>
