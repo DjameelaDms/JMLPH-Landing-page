@@ -1181,9 +1181,9 @@ const Footer = () => {
       />
       <footer className="py-16" style={{ backgroundColor: '#1a2f4a' }} data-testid="footer">
         <div className="max-w-7xl mx-auto px-6 md:px-12">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
             {/* Brand */}
-            <div className="lg:col-span-2">
+            <div>
               <div className="flex items-center gap-4 mb-6">
                 <img src={LOGO_URL} alt="JMLPH Logo" className="h-12 w-auto bg-white p-1" />
                 <span className="logo-text text-xl" style={{ color: '#faf8f5' }}>JMLPH</span>
@@ -1204,10 +1204,11 @@ const Footer = () => {
               <ul className="space-y-3">
                 {[
                   { name: 'OJS Portal', url: OJS_URL },
-                  { name: 'Submit Manuscript', url: `${OJS_URL}/about/submissions` },
+                  { name: 'Submit Your Article', url: SUBMIT_URL },
                   { name: 'Archives', url: `${OJS_URL}/issue/archive` },
                   { name: 'Editorial Team', url: `${OJS_URL}/about/editorialTeam` },
-                  { name: 'For Authors', url: `${OJS_URL}/information/authors` }
+                  { name: 'For Authors', url: `${OJS_URL}/information/authors` },
+                  { name: 'Indexing Databases', url: `${OJS_URL}/Indexing` }
                 ].map((link, idx) => (
                   <li key={idx}>
                     <a href={link.url} target="_blank" rel="noopener noreferrer" className="footer-link text-sm body-text">
@@ -1215,33 +1216,6 @@ const Footer = () => {
                     </a>
                   </li>
                 ))}
-              </ul>
-            </div>
-
-            {/* Policies */}
-            <div>
-              <h4 className="font-semibold mb-6" style={{ color: '#faf8f5' }}>Policies</h4>
-              <ul className="space-y-3">
-                <li>
-                  <a href={`${OJS_URL}/about`} target="_blank" rel="noopener noreferrer" className="footer-link text-sm body-text">
-                    About the Journal
-                  </a>
-                </li>
-                <li>
-                  <button onClick={() => setActivePolicy('privacyNotice')} className="footer-link text-sm body-text">
-                    Privacy Notice
-                  </button>
-                </li>
-                <li>
-                  <button onClick={() => setActivePolicy('termsOfUse')} className="footer-link text-sm body-text">
-                    Terms of Use
-                  </button>
-                </li>
-                <li>
-                  <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="footer-link text-sm body-text">
-                    CC BY 4.0 License
-                  </a>
-                </li>
               </ul>
             </div>
           </div>
@@ -1255,7 +1229,7 @@ const Footer = () => {
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
                 <button 
                   onClick={() => setActivePolicy('privacyNotice')}
-                  className="text-sm transition-colors body-text"
+                  className="text-sm transition-colors body-text hover:text-[#c9a77d]"
                   style={{ color: '#d4b896' }}
                   data-testid="footer-privacy-notice"
                 >
@@ -1264,7 +1238,7 @@ const Footer = () => {
                 <span style={{ color: '#2d4a6f' }} className="hidden md:inline">|</span>
                 <button 
                   onClick={() => setActivePolicy('termsOfUse')}
-                  className="text-sm transition-colors body-text"
+                  className="text-sm transition-colors body-text hover:text-[#c9a77d]"
                   style={{ color: '#d4b896' }}
                   data-testid="footer-terms-of-use"
                 >
@@ -1273,7 +1247,7 @@ const Footer = () => {
                 <span style={{ color: '#2d4a6f' }} className="hidden md:inline">|</span>
                 <button 
                   onClick={() => setActivePolicy('codeOfConduct')}
-                  className="text-sm transition-colors body-text"
+                  className="text-sm transition-colors body-text hover:text-[#c9a77d]"
                   style={{ color: '#d4b896' }}
                   data-testid="footer-code-of-conduct"
                 >
@@ -1282,7 +1256,7 @@ const Footer = () => {
                 <span style={{ color: '#2d4a6f' }} className="hidden md:inline">|</span>
                 <button 
                   onClick={() => setActivePolicy('antiBriberyPolicy')}
-                  className="text-sm transition-colors body-text"
+                  className="text-sm transition-colors body-text hover:text-[#c9a77d]"
                   style={{ color: '#d4b896' }}
                   data-testid="footer-anti-bribery"
                 >
@@ -1296,7 +1270,7 @@ const Footer = () => {
                 href="https://aretion.co.uk/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-xs transition-colors body-text"
+                className="text-xs transition-colors body-text hover:text-[#c9a77d]"
                 style={{ color: '#6b8ab0' }}
               >
                 An Aretion Publishing Group Journal
