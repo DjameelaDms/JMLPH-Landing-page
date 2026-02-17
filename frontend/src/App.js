@@ -1231,121 +1231,122 @@ const Footer = () => {
               </p>
             </div>
 
-        {/* Quick Links */}
-        <div>
-          <h4 className="text-white font-semibold mb-6">Quick Links</h4>
-          <ul className="space-y-3">
-            <li>
-              <a href={OJS_URL} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                OJS Portal
-              </a>
-            </li>
-            <li>
-              <a href={`${OJS_URL}/about/submissions`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                Submit Manuscript
-              </a>
-            </li>
-            <li>
-              <a href={`${OJS_URL}/issue/archive`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                Archives
-              </a>
-            </li>
-            <li>
-              <a href={`${OJS_URL}/about/editorialTeam`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                Editorial Team
-              </a>
-            </li>
-            <li>
-              <a href={`${OJS_URL}/information/authors`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                For Authors
-              </a>
-            </li>
-          </ul>
-        </div>
+            {/* Quick Links */}
+            <div>
+              <h4 className="text-white font-semibold mb-6">Quick Links</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href={OJS_URL} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    OJS Portal
+                  </a>
+                </li>
+                <li>
+                  <a href={`${OJS_URL}/about/submissions`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    Submit Manuscript
+                  </a>
+                </li>
+                <li>
+                  <a href={`${OJS_URL}/issue/archive`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    Archives
+                  </a>
+                </li>
+                <li>
+                  <a href={`${OJS_URL}/about/editorialTeam`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    Editorial Team
+                  </a>
+                </li>
+                <li>
+                  <a href={`${OJS_URL}/information/authors`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    For Authors
+                  </a>
+                </li>
+              </ul>
+            </div>
 
-        {/* Policies */}
-        <div>
-          <h4 className="text-white font-semibold mb-6">Policies</h4>
-          <ul className="space-y-3">
-            <li>
-              <a href={`${OJS_URL}/about`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                About the Journal
-              </a>
-            </li>
-            <li>
-              <a href="#" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">Publication Ethics</a>
-            </li>
-            <li>
-              <a href="#" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">Privacy Policy</a>
-            </li>
-            <li>
-              <a href="#" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">Terms of Service</a>
-            </li>
-            <li>
-              <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
-                CC BY 4.0 License
-              </a>
-            </li>
-          </ul>
-        </div>
-      </div>
+            {/* Policies */}
+            <div>
+              <h4 className="text-white font-semibold mb-6">Policies</h4>
+              <ul className="space-y-3">
+                <li>
+                  <a href={`${OJS_URL}/about`} target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    About the Journal
+                  </a>
+                </li>
+                <li>
+                  <button onClick={() => setActivePolicy('privacyNotice')} className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    Privacy Notice
+                  </button>
+                </li>
+                <li>
+                  <button onClick={() => setActivePolicy('termsOfUse')} className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    Terms of Use
+                  </button>
+                </li>
+                <li>
+                  <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="text-slate-400 hover:text-amber-500 text-sm transition-colors">
+                    CC BY 4.0 License
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
 
-      {/* Bottom */}
-      <div className="pt-8 border-t border-slate-800">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-          <p className="text-slate-400 text-sm">
-            © 2026 ARETION & Company. All rights reserved.
-          </p>
-          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
-            <button 
-              onClick={() => setActivePolicy('privacyNotice')}
-              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
-              data-testid="footer-privacy-notice"
-            >
-              Privacy Notice
-            </button>
-            <span className="text-slate-700 hidden md:inline">|</span>
-            <button 
-              onClick={() => setActivePolicy('termsOfUse')}
-              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
-              data-testid="footer-terms-of-use"
-            >
-              Terms of Use
-            </button>
-            <span className="text-slate-700 hidden md:inline">|</span>
-            <button 
-              onClick={() => setActivePolicy('codeOfConduct')}
-              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
-              data-testid="footer-code-of-conduct"
-            >
-              Code of Conduct
-            </button>
-            <span className="text-slate-700 hidden md:inline">|</span>
-            <button 
-              onClick={() => setActivePolicy('antiBriberyPolicy')}
-              className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
-              data-testid="footer-anti-bribery"
-            >
-              Anti-Bribery Policy
-            </button>
+          {/* Bottom */}
+          <div className="pt-8 border-t border-slate-800">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
+              <p className="text-slate-400 text-sm">
+                © 2026 ARETION & Company. All rights reserved.
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
+                <button 
+                  onClick={() => setActivePolicy('privacyNotice')}
+                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  data-testid="footer-privacy-notice"
+                >
+                  Privacy Notice
+                </button>
+                <span className="text-slate-700 hidden md:inline">|</span>
+                <button 
+                  onClick={() => setActivePolicy('termsOfUse')}
+                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  data-testid="footer-terms-of-use"
+                >
+                  Terms of Use
+                </button>
+                <span className="text-slate-700 hidden md:inline">|</span>
+                <button 
+                  onClick={() => setActivePolicy('codeOfConduct')}
+                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  data-testid="footer-code-of-conduct"
+                >
+                  Code of Conduct
+                </button>
+                <span className="text-slate-700 hidden md:inline">|</span>
+                <button 
+                  onClick={() => setActivePolicy('antiBriberyPolicy')}
+                  className="text-slate-400 hover:text-amber-500 text-sm transition-colors"
+                  data-testid="footer-anti-bribery"
+                >
+                  Anti-Bribery Policy
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800/50">
+              <span className="text-slate-500 text-xs">Registration No. {journalInfo.registrationNo}</span>
+              <a 
+                href="https://aretion.co.uk/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-slate-500 hover:text-amber-500 text-xs transition-colors"
+              >
+                An Aretion Publishing Group Journal
+              </a>
+            </div>
           </div>
         </div>
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-800/50">
-          <span className="text-slate-500 text-xs">Registration No. {journalInfo.registrationNo}</span>
-          <a 
-            href="https://aretion.co.uk/" 
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="text-slate-500 hover:text-amber-500 text-xs transition-colors"
-          >
-            An Aretion Publishing Group Journal
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
-  </>
-);
+      </footer>
+    </>
+  );
 };
 
 // Back to Top Button
