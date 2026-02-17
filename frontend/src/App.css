@@ -1,18 +1,30 @@
-/* JMLPH Landing Page Styles */
+/* JMLPH Landing Page Styles - Aretion Brand */
 
-/* Hero section background overlay */
-.hero-overlay {
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(15, 23, 42, 0.85) 100%);
+/* Brand Colors */
+:root {
+  --navy-dark: #1a2f4a;
+  --navy-primary: #1e3a5f;
+  --navy-light: #2d4a6f;
+  --copper-dark: #8b4513;
+  --copper-primary: #a0522d;
+  --copper-light: #b8733d;
+  --beige-dark: #c9a77d;
+  --beige-primary: #d4b896;
+  --beige-light: #e8dcc8;
+  --burgundy-dark: #3d1a1a;
+  --burgundy-primary: #5c2626;
+  --cream: #faf8f5;
+  --cream-dark: #f5f0e8;
 }
 
 /* Article card hover effect */
 .article-card {
-  transition: all 0.5s ease;
+  transition: all 0.4s ease;
 }
 
 .article-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.1);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px -12px rgba(26, 47, 74, 0.15);
 }
 
 /* Navigation link underline animation */
@@ -27,7 +39,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background-color: #d97706;
+  background-color: var(--copper-primary);
   transition: width 0.3s ease;
 }
 
@@ -42,7 +54,7 @@
 
 .btn-lift:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 25px -5px rgba(217, 119, 6, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(160, 82, 45, 0.25);
 }
 
 /* Section fade in animation */
@@ -61,12 +73,21 @@
   animation: fadeInUp 0.6s ease forwards;
 }
 
-/* Staggered animation delay */
-.stagger-1 { animation-delay: 0.1s; }
-.stagger-2 { animation-delay: 0.2s; }
-.stagger-3 { animation-delay: 0.3s; }
-.stagger-4 { animation-delay: 0.4s; }
-.stagger-5 { animation-delay: 0.5s; }
+/* Counter animation */
+@keyframes countUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.counter-animate {
+  animation: countUp 0.5s ease-out forwards;
+}
 
 /* Profile card hover */
 .profile-card {
@@ -74,8 +95,8 @@
 }
 
 .profile-card:hover {
-  background-color: #ffffff;
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+  background-color: var(--cream);
+  box-shadow: 0 10px 30px -10px rgba(26, 47, 74, 0.1);
 }
 
 /* Input focus styles */
@@ -85,39 +106,18 @@
 }
 
 .input-academic:focus {
-  border-color: #d97706;
-  box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.1);
-}
-
-/* OJS Portal banner gradient */
-.ojs-gradient {
-  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  border-color: var(--copper-primary);
+  box-shadow: 0 0 0 3px rgba(160, 82, 45, 0.1);
 }
 
 /* Feature border accent */
 .feature-border {
-  border-left: 2px solid #e2e8f0;
+  border-left: 3px solid var(--beige-dark);
   transition: border-color 0.3s ease;
 }
 
 .feature-border:hover {
-  border-color: #d97706;
-}
-
-/* Bento grid article layout */
-.bento-main {
-  grid-column: span 12;
-}
-
-@media (min-width: 768px) {
-  .bento-main {
-    grid-column: span 7;
-    grid-row: span 2;
-  }
-  
-  .bento-secondary {
-    grid-column: span 5;
-  }
+  border-color: var(--copper-primary);
 }
 
 /* Mobile menu animation */
@@ -136,95 +136,93 @@
   }
 }
 
-/* Scroll progress indicator */
-.scroll-progress {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 3px;
-  background-color: #d97706;
-  z-index: 9999;
-  transition: width 0.1s ease;
-}
-
-/* Back to top button */
-.back-to-top {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.3s ease;
-}
-
-.back-to-top.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
 /* Category badge */
 .category-badge {
-  font-size: 0.75rem;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
   font-weight: 600;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  padding: 0.25rem 0.75rem;
-  background-color: rgba(217, 119, 6, 0.1);
-  color: #b45309;
-  border: 1px solid rgba(217, 119, 6, 0.2);
+  padding: 0.35rem 0.85rem;
+  background-color: rgba(160, 82, 45, 0.1);
+  color: var(--copper-dark);
+  border: 1px solid rgba(160, 82, 45, 0.2);
 }
 
 /* Stats counter */
 .stat-number {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
-  color: #0f172a;
+  color: var(--navy-dark);
   line-height: 1;
 }
 
 .stat-label {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #64748b;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--navy-light);
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
 }
 
 /* Footer link hover */
 .footer-link {
-  color: #94a3b8;
+  color: var(--beige-dark);
   transition: color 0.3s ease;
 }
 
 .footer-link:hover {
-  color: #d97706;
-}
-
-/* Noise texture overlay */
-.noise-overlay::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-  z-index: 1;
+  color: var(--copper-light);
 }
 
 /* Logo text style */
 .logo-text {
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+/* Subheader style */
+.subheader-text {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+/* Body text */
+.body-text {
+  font-family: 'Source Sans 3', sans-serif;
 }
 
 /* Accent underline */
 .accent-underline {
   text-decoration: underline;
-  text-decoration-color: #d97706;
+  text-decoration-color: var(--copper-primary);
   text-decoration-thickness: 2px;
   text-underline-offset: 4px;
+}
+
+/* Metric card styling */
+.metric-card {
+  background: linear-gradient(135deg, var(--cream) 0%, var(--cream-dark) 100%);
+  border: 1px solid var(--beige-light);
+  transition: all 0.4s ease;
+}
+
+.metric-card:hover {
+  border-color: var(--copper-primary);
+  transform: translateY(-4px);
+  box-shadow: 0 15px 35px -10px rgba(26, 47, 74, 0.1);
+}
+
+/* Number counter animation keyframes */
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+.counting {
+  animation: pulse 0.1s ease-in-out;
 }
