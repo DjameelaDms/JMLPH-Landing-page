@@ -614,10 +614,13 @@ const HeroSection = () => (
             & Public Health
           </h1>
           
-          <p className="text-lg max-w-xl mb-8 leading-relaxed body-text" style={{ color: '#2d4a6f' }}>
+          <p className="text-lg max-w-xl mb-4 leading-relaxed body-text" style={{ color: '#2d4a6f' }}>
             An interdisciplinary peer-reviewed journal exploring the intersection of 
-            healthcare, legal frameworks, and public health policy. Published in partnership 
-            with Riyadh Second Health Cluster Research Center.
+            healthcare, legal frameworks, and public health policy. {publisherInfo.statement}
+          </p>
+          
+          <p className="text-sm max-w-xl mb-8 leading-relaxed body-text" style={{ color: '#6b8ab0' }}>
+            {publisherInfo.acquisition}
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4">
