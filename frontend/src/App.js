@@ -49,11 +49,18 @@ const OJS_URL = "https://www.jmlph.net/index.php/jmlph";
 const SUBMIT_URL = "https://www.jmlph.net/index.php/jmlph/login";
 
 // Logo URL
-const LOGO_URL = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/bi964nle_A_Logo-09%20copy%202.jpg";
+const LOGO_URL = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/hw85cjoi_A_Logo-09.png";
 
 // Library Images
 const LIBRARY_IMAGE_1 = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/emwzjfeh_Beautifully%20captured%20by%20%40ruiaugusto%20-%20NATIONAL%20LIBRARY%20OF%20FINLAND%20-%20Tucked%20in%20the%20heart%20of%20Helsi.jpg";
 const LIBRARY_IMAGE_2 = "https://customer-assets.emergentagent.com/job_jmlph-landing/artifacts/1hwguk53_La%20bibliothe%CC%80que%20de%20l%E2%80%99Assemble%CC%81e%20nationale%20%21%20%F0%9F%93%9ACre%CC%81e%CC%81e%20par%20la%20Loi%20du%2014%20Vento%CC%82se%20an%20IV%20%284%20mars%201796%29%2C.jpg";
+
+// Publisher info
+const publisherInfo = {
+  name: "ARETION Publishing Group",
+  statement: "Published by the ARETION Publishing Group.",
+  acquisition: "The journal was acquired by Aretion Publishing Group at the end of 2025, with a full transition taking place at the beginning of 2026. The journal will maintain its strong academic standards and rigorous peer review process, ensuring impartiality and independence. It will continue to serve the academic community, particularly for policymakers in the fields of medicine, public health, and medical law and legislation."
+};
 
 // Journal Data
 const journalInfo = {
