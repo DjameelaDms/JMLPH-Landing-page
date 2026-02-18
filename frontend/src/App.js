@@ -677,9 +677,10 @@ const MetricsSection = () => (
     <div className="max-w-7xl mx-auto px-6 md:px-12">
       <div className="text-center mb-16">
         <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>Performance</span>
-        <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+        <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-2" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
           Journal Metrics
         </h2>
+        <p className="text-sm body-text mb-4" style={{ color: '#a0522d' }}>(as of 2026)</p>
         <p className="text-lg max-w-2xl mx-auto body-text" style={{ color: '#2d4a6f' }}>
           Transparency in our editorial process and publication statistics
         </p>
