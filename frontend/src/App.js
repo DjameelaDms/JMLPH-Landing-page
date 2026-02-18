@@ -498,9 +498,9 @@ const Header = ({ scrolled }) => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-4" data-testid="logo">
-            <img src={LOGO_URL} alt="JMLPH Logo" className="h-14 w-auto" />
+            <img src={LOGO_URL} alt="Aretion Publishing Group Logo" className="h-14 w-auto" />
             <div className="hidden sm:block">
-              <span className="logo-text text-xl block leading-tight" style={{ color: '#1a2f4a' }}>JMLPH</span>
+              <span className="logo-text text-lg block leading-tight" style={{ color: '#1a2f4a' }}>ARETION Publishing Group</span>
               <span className="text-xs subheader-text" style={{ color: '#a0522d', letterSpacing: '0.08em' }}>Medicine • Law • Public Health</span>
             </div>
           </a>
