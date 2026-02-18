@@ -989,17 +989,24 @@ const SubmissionSection = () => (
           <div className="mt-10 pt-8" style={{ borderTop: '1px solid #e8dcc8' }}>
             <h4 className="text-lg font-semibold mb-4" style={{ color: '#1a2f4a' }}>Indexing Databases</h4>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {indexingDatabases.slice(0, 12).map((db, idx) => (
+              {indexingDatabases.map((db, idx) => (
                 <a 
                   key={idx} 
-                  href={db.url !== '#' ? db.url : undefined}
-                  target={db.url !== '#' ? '_blank' : undefined}
-                  rel={db.url !== '#' ? 'noopener noreferrer' : undefined}
-                  className={`flex items-center gap-2 text-sm p-2 transition-colors ${db.url !== '#' ? 'hover:bg-[#e8dcc8] cursor-pointer' : ''}`}
-                  style={{ backgroundColor: '#f5f0e8' }}
+                  href={db.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-sm p-3 transition-all hover:shadow-md cursor-pointer group"
+                  style={{ backgroundColor: '#faf8f5', border: '1px solid #e8dcc8' }}
                 >
-                  <Database className="w-3 h-3 flex-shrink-0" style={{ color: '#a0522d' }} />
-                  <span className="body-text truncate" style={{ color: '#2d4a6f' }}>{db.name}</span>
+                  <div className="w-8 h-8 flex-shrink-0 flex items-center justify-center bg-white rounded overflow-hidden">
+                    <img 
+                      src={db.logo} 
+                      alt={db.name}
+                      className="w-6 h-6 object-contain"
+                      onError={(e) => { e.target.style.display = 'none'; e.target.parentElement.innerHTML = '<span style="font-size:10px;color:#a0522d;font-weight:600">' + db.name.charAt(0) + '</span>'; }}
+                    />
+                  </div>
+                  <span className="body-text truncate group-hover:text-[#a0522d] transition-colors" style={{ color: '#2d4a6f' }}>{db.name}</span>
                 </a>
               ))}
             </div>
@@ -1007,7 +1014,7 @@ const SubmissionSection = () => (
               href={`${OJS_URL}/Indexing`}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 mt-4 text-sm font-medium transition-colors"
+              className="inline-flex items-center gap-1 mt-4 text-sm font-medium transition-colors hover:underline"
               style={{ color: '#a0522d' }}
             >
               View all indexing databases
