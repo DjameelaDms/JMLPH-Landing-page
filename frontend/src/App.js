@@ -91,23 +91,20 @@ const contactInfo = {
   }
 };
 
-// Indexing Databases
+// Indexing Databases with logos
 const indexingDatabases = [
-  { name: "DOAJ", url: "https://doaj.org/toc/2788-791X" },
-  { name: "MIAR", url: "https://miar.ub.edu/issn/2788-791X" },
-  { name: "Google Scholar", url: "https://scholar.google.com/citations?hl=en&user=cLVVO24AAAAJ" },
-  { name: "Crossref", url: "https://search.crossref.org/?q=+2788-791X" },
-  { name: "OpenAlex", url: "https://openalex.org/sources/S4210209193" },
-  { name: "WorldCat", url: "https://search.worldcat.org/title/1427524091" },
-  { name: "BASE", url: "https://www.base-search.net/Search/Results?lookfor=The+Journal+of+Medicine%2C+Law+%26+Public+Health" },
-  { name: "Sherpa Romeo", url: "https://v2.sherpa.ac.uk/id/publication/42301" },
-  { name: "EuroPub", url: "https://europub.co.uk/journals/the-journal-of-medicine-law-public-health-jmlph-J-30910" },
-  { name: "Scilit", url: "https://www.scilit.net/publishers/17465" },
-  { name: "Semantic Scholar", url: "https://www.semanticscholar.org/search?q=The%20Journal%20of%20Medicine%2C%20Law%20Public%20Health" },
-  { name: "Internet Archive", url: "https://archive.org/details/@editorial_board_jmlph_" },
-  { name: "Ulrichsweb", url: "#" },
-  { name: "ROAD", url: "#" },
-  { name: "Academia", url: "#" }
+  { name: "DOAJ", url: "https://doaj.org/toc/2788-791X", logo: "https://doaj.org/static/doaj/images/logo-small.jpg" },
+  { name: "MIAR", url: "https://miar.ub.edu/issn/2788-791X", logo: "https://miar.ub.edu/MIAR/images/logo-miar.svg" },
+  { name: "Google Scholar", url: "https://scholar.google.com/citations?hl=en&user=cLVVO24AAAAJ", logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Google_Scholar_logo.svg/512px-Google_Scholar_logo.svg.png" },
+  { name: "Crossref", url: "https://search.crossref.org/?q=+2788-791X", logo: "https://www.crossref.org/images/logo_small.svg" },
+  { name: "OpenAlex", url: "https://openalex.org/sources/S4210209193", logo: "https://openalex.org/img/openalex-logo-icon.png" },
+  { name: "WorldCat", url: "https://search.worldcat.org/title/1427524091", logo: "https://www.worldcat.org/static/images/wc-logo.svg" },
+  { name: "BASE", url: "https://www.base-search.net/Search/Results?lookfor=The+Journal+of+Medicine%2C+Law+%26+Public+Health", logo: "https://www.base-search.net/interface/images/base_logo.svg" },
+  { name: "Sherpa Romeo", url: "https://v2.sherpa.ac.uk/id/publication/42301", logo: "https://v2.sherpa.ac.uk/static/images/logos/sherpa-logo.png" },
+  { name: "EuroPub", url: "https://europub.co.uk/journals/the-journal-of-medicine-law-public-health-jmlph-J-30910", logo: "https://europub.co.uk/images/europub-logo.png" },
+  { name: "Scilit", url: "https://www.scilit.net/publishers/17465", logo: "https://www.scilit.net/images/scilit-logo.svg" },
+  { name: "Semantic Scholar", url: "https://www.semanticscholar.org/search?q=The%20Journal%20of%20Medicine%2C%20Law%20Public%20Health", logo: "https://www.semanticscholar.org/img/semantic_scholar_logo.svg" },
+  { name: "Internet Archive", url: "https://archive.org/details/@editorial_board_jmlph_", logo: "https://archive.org/images/glogo.jpg" }
 ];
 
 // Journal Metrics
