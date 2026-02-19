@@ -1091,24 +1091,6 @@ const ContactSection = () => (
             </div>
           </div>
 
-          {/* Gulf Office */}
-          <div className="mb-8">
-            <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.gulfOffice.name}</h3>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
-                <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.gulfOffice.address}</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
-                <a href={`tel:${contactInfo.gulfOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
-                  {contactInfo.gulfOffice.phone}
-                </a>
-              </div>
-              <p className="text-sm pl-8 body-text" style={{ color: '#a0522d' }}>Tax Number: {contactInfo.gulfOffice.taxNumber}</p>
-            </div>
-          </div>
-
           {/* Email */}
           <div className="flex items-center gap-3">
             <Mail className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
