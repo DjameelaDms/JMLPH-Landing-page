@@ -59,7 +59,7 @@ const LIBRARY_IMAGE_2 = "https://customer-assets.emergentagent.com/job_jmlph-lan
 const publisherInfo = {
   name: "ARETION Publishing Group",
   statement: "Published by the ARETION Publishing Group.",
-  acquisition: "The journal was acquired by Aretion Publishing Group at the end of 2025, with a full transition taking place at the beginning of 2026. The journal will maintain its strong academic standards and rigorous peer review process, ensuring impartiality and independence. It will continue to serve the academic community, particularly for policymakers in the fields of medicine, public health, and medical law and legislation."
+  acquisition: "The journal was acquired by ARETION Publishing Group at the end of 2025, with a full transition taking place at the beginning of 2026. The journal will maintain its strong academic standards and rigorous peer review process, ensuring impartiality and independence. It will continue to serve the academic community, particularly for policymakers in the fields of medicine, public health, and medical law and legislation."
 };
 
 // Journal Data
@@ -492,7 +492,7 @@ const Header = ({ scrolled }) => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <a href="#home" className="flex items-center gap-4" data-testid="logo">
-            <img src={LOGO_URL} alt="Aretion Publishing Group Logo" className="h-14 w-auto" />
+            <img src={LOGO_URL} alt="ARETION Publishing Group Logo" className="h-14 w-auto" />
             <div className="hidden sm:block">
               <span className="logo-text text-lg block leading-tight" style={{ color: '#1a2f4a' }}>ARETION Publishing Group</span>
               <span className="text-xs subheader-text" style={{ color: '#a0522d', letterSpacing: '0.08em' }}>Medicine • Law • Public Health</span>
@@ -1264,7 +1264,7 @@ const Footer = () => {
                 className="text-xs transition-colors body-text hover:text-[#c9a77d]"
                 style={{ color: '#6b8ab0' }}
               >
-                An Aretion Publishing Group Journal
+                An ARETION Publishing Group Journal
               </a>
             </div>
           </div>
