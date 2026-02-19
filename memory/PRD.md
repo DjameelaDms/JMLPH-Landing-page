@@ -68,8 +68,10 @@ Creating a professional landing page for JMLPH.net (Journal of Medicine, Law, an
 - Primary: Dark Slate (#0f172a)
 - Accent: Amber (#d97706)
 - Background: White/Light Gray
-- Fonts: Playfair Display (headings) + Inter (body)
+- Fonts: Cormorant Garamond (headings) + Source Sans 3 (body)
 - Sharp corners for academic aesthetic
+- Tab Title: ARETION Publishing Group
+- Branding: ARETION (fully capitalized)
 
 ## Prioritized Backlog
 
