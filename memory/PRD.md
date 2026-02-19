@@ -33,7 +33,7 @@ Creating a professional landing page for JMLPH.net (Journal of Medicine, Law, an
 - [x] Current Issue section with article cards (6 articles)
 - [x] Submission Information section with journal info
 - [x] Newsletter subscription form with backend integration
-- [x] Contact section with dual office locations (London + Gulf)
+- [x] Contact section with London office location only
 - [x] Policy modal pop-ups (Privacy Notice, Terms of Use, Code of Conduct, Anti-Bribery Policy)
 - [x] Footer with ARETION copyright and policy links
 - [x] Back to top button
@@ -57,7 +57,6 @@ Creating a professional landing page for JMLPH.net (Journal of Medicine, Law, an
 
 ### Contact Information
 - London Office: 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ | +44 20 3985 0907
-- Gulf Office: Innovation Boulevard, Al Aqeeq, KAFD, Building 7229, 13519, Riyadh, Saudi Arabia | +966 11 525 6458 | Tax: 3131020665
 
 ### Policy Documents (Modal Pop-ups)
 - Privacy Notice (Last updated: 9 Feb 2026)
