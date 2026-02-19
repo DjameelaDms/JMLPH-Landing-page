@@ -82,12 +82,6 @@ const contactInfo = {
     name: "London Office",
     address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ",
     phone: "+44 20 3985 0907"
-  },
-  gulfOffice: {
-    name: "Gulf Office",
-    address: "Innovation Boulevard, Al Aqeeq, King Abdullah Financial District, Building 7229, 13519, Riyadh, Saudi Arabia",
-    phone: "+966 11 525 6458",
-    taxNumber: "3131020665"
   }
 };
 
