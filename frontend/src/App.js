@@ -80,14 +80,8 @@ const journalInfo = {
 const contactInfo = {
   londonOffice: {
     name: "London Office",
-    address: "71-75 Shelton Street, Covent Garden, London, WC2H 9JQ",
+    address: "71-75, Shelton Street, Covent Garden, London, WC2H 9JQ",
     phone: "+44 20 3985 0907"
-  },
-  gulfOffice: {
-    name: "Gulf Office",
-    address: "Innovation Boulevard, Al Aqeeq, King Abdullah Financial District, Building 7229, 13519, Riyadh, Saudi Arabia",
-    phone: "+966 11 525 6458",
-    taxNumber: "3131020665"
   }
 };
 
@@ -1075,7 +1069,7 @@ const ContactSection = () => (
           </p>
 
           {/* London Office */}
-          <div className="mb-8 pb-8" style={{ borderBottom: '1px solid #e8dcc8' }}>
+          <div className="mb-8">
             <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.londonOffice.name}</h3>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
@@ -1088,24 +1082,6 @@ const ContactSection = () => (
                   {contactInfo.londonOffice.phone}
                 </a>
               </div>
-            </div>
-          </div>
-
-          {/* Gulf Office */}
-          <div className="mb-8">
-            <h3 className="font-semibold text-lg mb-4" style={{ color: '#1a2f4a' }}>{contactInfo.gulfOffice.name}</h3>
-            <div className="space-y-3">
-              <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
-                <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.gulfOffice.address}</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
-                <a href={`tel:${contactInfo.gulfOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
-                  {contactInfo.gulfOffice.phone}
-                </a>
-              </div>
-              <p className="text-sm pl-8 body-text" style={{ color: '#a0522d' }}>Tax Number: {contactInfo.gulfOffice.taxNumber}</p>
             </div>
           </div>
 
@@ -1200,8 +1176,8 @@ const Footer = () => {
             {/* Brand */}
             <div>
               <div className="flex items-center gap-4 mb-6">
-                <img src={LOGO_URL} alt="JMLPH Logo" className="h-12 w-auto bg-white p-1" />
-                <span className="logo-text text-xl" style={{ color: '#faf8f5' }}>JMLPH</span>
+                <img src={LOGO_URL} alt="Aretion Publishing Group Logo" className="h-12 w-auto" />
+                <span className="logo-text text-lg" style={{ color: '#faf8f5' }}>ARETION Publishing Group</span>
               </div>
               <p className="leading-relaxed mb-6 max-w-md body-text" style={{ color: '#d4b896' }}>
                 The Journal of Medicine, Law & Public Health is an interdisciplinary, 
@@ -1209,7 +1185,7 @@ const Footer = () => {
                 legal considerations, and public health policy.
               </p>
               <p className="text-sm body-text" style={{ color: '#6b8ab0' }}>
-                Published in partnership with Riyadh Second Health Cluster Research Center
+                {publisherInfo.statement}
               </p>
             </div>
 
