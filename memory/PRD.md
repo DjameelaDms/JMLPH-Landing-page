@@ -14,91 +14,74 @@ Creating a professional landing page for JMLPH.net (Journal of Medicine, Law, an
 - Professional academic journal landing page
 - Clear navigation to OJS portal (https://www.jmlph.net/index.php/jmlph)
 - Display current issue articles with links to full content
-- Animated journal metrics with count-up
+- Animated journal metrics with count-up and "(as of 2026)" subtitle
 - Submission information and guidelines
-- Newsletter subscription functionality
-- Contact form with dual office locations
-- Policy documents in modal pop-ups
+- Contact/Newsletter via mailto links to Editorial.Board@JMLPH.net
+- Contact section with London Office only (Gulf Office removed)
+- London address: 71-75, Shelton Street, Covent Garden, London, WC2H 9JQ
+- Policy documents in modal pop-ups (Privacy Notice, Terms of Use, Code of Conduct, Anti-Bribery)
 - Mobile responsive design
-- Aretion-inspired color scheme (amber/orange accent with clean professional aesthetic)
+- Aretion branding with ARETION Publishing Group logo
+- Acquisition statement about transition in 2025/2026
+- 12 indexing database logos with links
+- Emergent badge hidden
 
-## What's Been Implemented (February 2026)
+## What's Been Implemented (February-March 2026)
 
 ### Frontend (React + Tailwind CSS + shadcn/ui)
-- [x] Clean white header with navigation and mobile menu
-- [x] Hero section with compelling tagline and CTAs
-- [x] Journal Metrics section with animated count-up (6 metrics)
+- [x] Clean white header with Aretion Publishing Group logo and navigation
+- [x] Hero section with acquisition statement and CTAs
+- [x] Journal Metrics section with animated count-up and "(as of 2026)" subtitle
 - [x] About the Journal section with 4 feature cards
-- [x] OJS Portal access section with prominent links
-- [x] Current Issue section with article cards (6 articles)
-- [x] Submission Information section with journal info
-- [x] Newsletter subscription form with backend integration
-- [x] Contact section with dual office locations (London + Gulf)
-- [x] Policy modal pop-ups (Privacy Notice, Terms of Use, Code of Conduct, Anti-Bribery Policy)
+- [x] OJS Portal access section
+- [x] Current Issue section with 6 article cards
+- [x] Submission Information section with publication info
+- [x] 12 Indexing databases with clickable logos
+- [x] Newsletter section (mailto link)
+- [x] Contact section with London Office only (Gulf Office removed)
+- [x] Policy modal pop-ups with proper accessibility (DialogDescription)
 - [x] Footer with ARETION copyright and policy links
 - [x] Back to top button
 - [x] Framer Motion animations
-- [x] Fully responsive design
+- [x] Fully responsive design with mobile menu
+- [x] Emergent badge hidden via CSS
 
-### Backend (FastAPI + MongoDB)
-- [x] Newsletter subscription endpoint (POST /api/newsletter/subscribe)
-- [x] Newsletter unsubscribe endpoint (DELETE /api/newsletter/unsubscribe/{email})
-- [x] Contact form endpoint (POST /api/contact)
-- [x] Admin endpoints for viewing subscriptions and messages
-- [x] Health check endpoint
-
-### Journal Metrics Displayed
-- Total Submissions: 231
-- Desk Rejections: 35
-- Declined After Review: 43
-- Days to First Decision: 19
-- Days to Accept: 109
-- Acceptance Rate: 46%
-
-### Contact Information
-- London Office: 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ | +44 20 3985 0907
-- Gulf Office: Innovation Boulevard, Al Aqeeq, KAFD, Building 7229, 13519, Riyadh, Saudi Arabia | +966 11 525 6458 | Tax: 3131020665
-
-### Policy Documents (Modal Pop-ups)
-- Privacy Notice (Last updated: 9 Feb 2026)
-- Terms of Use (Last updated: 7 Feb 2026)
-- Code of Conduct (Last updated: 10 Feb 2026)
-- Anti-Bribery and Anti-Corruption Policy (Last updated: 14 Feb 2026)
+### Backend (FastAPI)
+- [x] Health check endpoint (GET /api/health)
 
 ## Design System
-- Primary: Dark Slate (#0f172a)
-- Accent: Amber (#d97706)
-- Background: White/Light Gray
-- Fonts: Playfair Display (headings) + Inter (body)
-- Sharp corners for academic aesthetic
+- Primary: Dark Slate (#1a2f4a, #1e3a5f)
+- Accent: Sienna (#a0522d), Gold (#c9a77d)
+- Background: Warm White (#faf8f5), Cream (#f5f0e8)
+- Fonts: Cormorant Garamond (headings) + body text
+- Aretion-inspired professional academic aesthetic
 
 ## Prioritized Backlog
 
-### P0 (Critical) - COMPLETED
+### P0 (Critical) - ALL COMPLETED
 - All core landing page sections
 - OJS portal integration
-- Newsletter and contact forms
-- Policy document modals
-- Animated metrics
+- Mailto links for contact/newsletter
+- Policy document modals with accessibility
+- Animated metrics with "(as of 2026)"
+- Gulf Office removal, London address update
+- Aretion branding and logo
 
 ### P1 (High Priority) - Future
-- SEO optimization (meta tags, structured data)
-- Admin dashboard for newsletter/contact management
-- Analytics integration
+- SEO optimization (meta tags, Open Graph, structured data)
+- Google Scholar structured data markup
 
 ### P2 (Medium Priority) - Future
+- Recent Publications section with RSS feed from OJS
+- Refactoring App.js into smaller component files
 - Multi-language support
 - Article search functionality
-- RSS feed integration
-
-## Next Tasks
-1. Add meta tags and Open Graph data for SEO
-2. Implement admin dashboard for managing subscriptions
-3. Add structured data markup for Google Scholar
-4. Consider adding article abstract previews
 
 ## Technical Stack
 - Frontend: React 19, Tailwind CSS, shadcn/ui, Framer Motion
-- Backend: FastAPI, Motor (async MongoDB driver)
-- Database: MongoDB
+- Backend: FastAPI
 - Deployment: Kubernetes (Emergent Platform)
+
+## Testing Status
+- Iteration 1: Previous fork testing
+- Iteration 2: 100% pass rate (16/16 tests) - All features verified

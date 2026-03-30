@@ -37,6 +37,7 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import axios from "axios";
@@ -1143,7 +1144,7 @@ const PolicyModal = ({ isOpen, onClose, policy }) => {
       <DialogContent className="max-w-3xl max-h-[85vh] p-0" style={{ backgroundColor: '#faf8f5' }}>
         <DialogHeader className="p-6 pb-0">
           <DialogTitle className="text-2xl" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>{policy.title}</DialogTitle>
-          <p className="text-sm body-text" style={{ color: '#a0522d' }}>Last updated: {policy.lastUpdated}</p>
+          <DialogDescription className="text-sm body-text" style={{ color: '#a0522d' }}>Last updated: {policy.lastUpdated}</DialogDescription>
         </DialogHeader>
         <ScrollArea className="h-[60vh] px-6 pb-6">
           <div className="prose prose-slate prose-sm max-w-none">
