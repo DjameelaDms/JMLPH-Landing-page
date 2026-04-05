@@ -112,65 +112,38 @@ const journalMetrics = [
   { value: 46, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
 ];
 
-// Current Issue Articles (Vol. 6 No. 1 - 2026)
+// Current Issue Articles (Vol. 6 No. 2 - 2026)
 const currentIssue = {
-  volume: "Vol. 6 No. 1 (2026)",
-  subtitle: "Jan-Mar",
-  published: "2025-12-16",
+  volume: "Vol. 6 No. 2 (2026)",
+  subtitle: "Apr-Jun",
+  published: "2026-03-17",
   articles: [
     {
       id: 1,
-      category: "Original Articles",
-      title: "Prevalence of Probable Generalised Anxiety Disorder Among Master of Public Health Students at the University of Ibadan, Nigeria",
-      authors: "Ayobami Joseph Osho, Oyediran Emmanuel Oyewole",
-      pages: "869-875",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/240",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/240/284"
+      category: "Reviews",
+      title: "Male Breast Adenoid Cystic Carcinoma \u2013 A Narrative Review of a Rare Disorder",
+      authors: "Sajad Ahmad Salati",
+      pages: "876-886",
+      url: "https://jmlph.net/index.php/jmlph/article/view/274",
+      pdfUrl: "https://jmlph.net/index.php/jmlph/article/view/274/285"
     },
     {
       id: 2,
-      category: "Original Articles",
-      title: "Safety and Effectiveness of Intravenous Ferric Carboxymaltose for Moderate Anaemia in Pregnancy",
-      authors: "Fiza Amin, Angraz Singh, Peerzada Ajaz Ahmad Shah, Shakir Rasool Khan, Tavseef Ahmad Tali",
-      pages: "862-868",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/272",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/272/283"
+      category: "Law and Ethics",
+      title: "Quest for Legislative Intervention in Stem Cell Research and Therapy in Nigeria: Lessons from United Kingdom and South Africa",
+      authors: "Folakemi Ajagunna, Omolade Olomola",
+      pages: "887-905",
+      url: "https://jmlph.net/index.php/jmlph/article/view/251",
+      pdfUrl: "https://jmlph.net/index.php/jmlph/article/view/251/286"
     },
     {
       id: 3,
-      category: "Original Articles",
-      title: "Translation, Validity, and Reliability of the Arabic Version of the Patient-Experienced Continuity of Care Questionnaire (PECQ)",
-      authors: "Dalal Alshathri, Abdulmunim Alsuhaimi, Refal Albaijan, Dlal Almazrou, Khalid Alkhurayji",
-      pages: "831-841",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/239",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/239/203"
-    },
-    {
-      id: 4,
-      category: "Case Report",
-      title: "Methotrexate-Induced Hepatotoxicity in a Patient with a History of Alcohol Abuse: Case Report",
-      authors: "Fatih Kaya, Mohammad Jamal Abunawas, Manar Al-Suleh, Ghayda Jarrar, Yare Sahin",
-      pages: "857-861",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/223",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/223/206"
-    },
-    {
-      id: 5,
-      category: "Law and Ethics",
-      title: "Clinical Practice Guidelines as Part of Evidence-Based Medicine and Related Legal Implications: An Analysis",
-      authors: "Ayodhya Prabhashini Rathnayake",
-      pages: "842-848",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/258",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/258/205"
-    },
-    {
-      id: 6,
-      category: "Law and Ethics",
-      title: "Intellectual Property Rights and Public Health: A Critical Examination of the AfCFTA Framework",
-      authors: "Chimdessa Tsega",
-      pages: "849-856",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/248",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/248/207"
+      category: "Commentary",
+      title: "Digital Health Strategies for GDM Postpartum Care and Type 2 Diabetes Prevention Among Saudi Women \u2013 A New Proposed Digital Health Initiative",
+      authors: "Nawaf Alnuwaysir, Kady Alsarhan",
+      pages: "906-912",
+      url: "https://jmlph.net/index.php/jmlph/article/view/249",
+      pdfUrl: "https://jmlph.net/index.php/jmlph/article/view/249/287"
     }
   ]
 };
@@ -656,7 +629,7 @@ const HeroSection = () => (
               className="w-full h-96 object-cover"
             />
             <div className="absolute -bottom-6 -right-6 p-6" style={{ backgroundColor: '#1e3a5f' }}>
-              <p className="text-3xl font-bold" style={{ color: '#c9a77d', fontFamily: "'Cormorant Garamond', serif" }}>Vol. 6</p>
+              <p className="text-3xl font-bold" style={{ color: '#c9a77d', fontFamily: "'Cormorant Garamond', serif" }}>Vol. 6 No. 2</p>
               <p className="text-sm" style={{ color: '#d4b896' }}>Current Issue</p>
             </div>
           </div>
