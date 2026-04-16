@@ -124,8 +124,8 @@ const currentIssue = {
       title: "Male Breast Adenoid Cystic Carcinoma \u2013 A Narrative Review of a Rare Disorder",
       authors: "Sajad Ahmad Salati",
       pages: "876-886",
-      url: "https://jmlph.net/index.php/jmlph/article/view/274",
-      pdfUrl: "https://jmlph.net/index.php/jmlph/article/view/274/285"
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/274",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/274/285"
     },
     {
       id: 2,
@@ -133,8 +133,8 @@ const currentIssue = {
       title: "Quest for Legislative Intervention in Stem Cell Research and Therapy in Nigeria: Lessons from United Kingdom and South Africa",
       authors: "Folakemi Ajagunna, Omolade Olomola",
       pages: "887-905",
-      url: "https://jmlph.net/index.php/jmlph/article/view/251",
-      pdfUrl: "https://jmlph.net/index.php/jmlph/article/view/251/286"
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/251",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/251/286"
     },
     {
       id: 3,
@@ -142,8 +142,53 @@ const currentIssue = {
       title: "Digital Health Strategies for GDM Postpartum Care and Type 2 Diabetes Prevention Among Saudi Women \u2013 A New Proposed Digital Health Initiative",
       authors: "Nawaf Alnuwaysir, Kady Alsarhan",
       pages: "906-912",
-      url: "https://jmlph.net/index.php/jmlph/article/view/249",
-      pdfUrl: "https://jmlph.net/index.php/jmlph/article/view/249/287"
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/249",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/249/287"
+    },
+    {
+      id: 4,
+      category: "Original Articles",
+      title: "Awareness of the Effect of Environmental Factors on Skin Among Students at Jouf University, Saudi Arabia",
+      authors: "Ziad Mansour Alshaalan, Amany Ghazy, Sara Abdulaziz Alenizi, Maha Mohammed Alsahli, Rawan Zaidan Alrasheedi, Lojain Abdulsalam Alkhaldi, Misk Talal Alderaan, Renad Muhawish Alanazi, Salma Ahmed Fathy Shatara, Youssef Ahmed Shatara",
+      pages: "913-919",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/281",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/281/293"
+    },
+    {
+      id: 5,
+      category: "Original Articles",
+      title: "Assessment of Water Quality in Public Hospitals in Hail City, Saudi Arabia 2021-2024",
+      authors: "Eman Suliman Aljeloud, Abdullah Salem Al-Rasheed",
+      pages: "920-937",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/253",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/253/292"
+    },
+    {
+      id: 6,
+      category: "Original Articles",
+      title: "The Newfoundland and Labrador Geriatric Health Index (NLGHI): Design, Implementation, and Clinical Workflow-Oriented Features for Community Geriatrics",
+      authors: "Mirza Niaz Zaman Elin",
+      pages: "938-945",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/266",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/266/289"
+    },
+    {
+      id: 7,
+      category: "Case Series",
+      title: "Button Battery Code: A Case Series of Button Battery Ingestions in Children at a Tertiary Referral Center and Proposed Management Protocol",
+      authors: "Dhafer Ghurman Alshehri, Abdulrahman Mohammed Alwahbi, Sharafaldeen Bin Nafisah",
+      pages: "946-951",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/285",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/285/290"
+    },
+    {
+      id: 8,
+      category: "Original Articles",
+      title: "Exploring Nurses Perception of iAudit: A Qualitative Study",
+      authors: "Cyrian Lumuma, Diosa Cueto, Zainab Jafary, Cellanie Janson, Eddylyn O'santos, Diana Lalithabai",
+      pages: "952-963",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/268",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/268/288"
     }
   ]
 };
