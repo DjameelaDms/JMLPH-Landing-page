@@ -18,7 +18,6 @@ import {
   Calendar,
   Mail,
   MapPin,
-  Phone,
   ArrowRight,
   Clock,
   BarChart3,
@@ -82,7 +81,6 @@ const contactInfo = {
   londonOffice: {
     name: "London Office",
     address: "71-75, Shelton Street, Covent Garden, London, WC2H 9JQ",
-    phone: "+44 20 3985 0907"
   }
 };
 
@@ -1094,12 +1092,6 @@ const ContactSection = () => (
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: '#a0522d' }} />
                 <p className="body-text" style={{ color: '#2d4a6f' }}>{contactInfo.londonOffice.address}</p>
-              </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-5 h-5 flex-shrink-0" style={{ color: '#a0522d' }} />
-                <a href={`tel:${contactInfo.londonOffice.phone}`} className="body-text transition-colors hover:underline" style={{ color: '#2d4a6f' }}>
-                  {contactInfo.londonOffice.phone}
-                </a>
               </div>
             </div>
           </div>
