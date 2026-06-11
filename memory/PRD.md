@@ -49,9 +49,14 @@ Creating a professional landing page for JMLPH.net (Journal of Medicine, Law, an
 - [x] SEO meta tags: description, keywords, author, robots, canonical, Open Graph (7 tags), Twitter Card (4 tags)
 - [x] Google Scholar structured data: JSON-LD schemas for Periodical and PublicationIssue
 - [x] Enhanced SEO: Citation meta tags, Dublin Core metadata, max-snippet/max-image-preview directives
-- [x] GEO: 6 JSON-LD schemas (Organization, Periodical, PublicationIssue with 8 ScholarlyArticles, WebSite with SearchAction, BreadcrumbList, FAQPage)
-- [x] GEO: Semantic HTML (<main> wrapper, WebPage itemScope, entity-rich content)
+- [x] GEO: 9 JSON-LD schemas (Organization w/ sameAs, Periodical w/ sameAs to 7 indexing DBs, PublicationIssue w/ 8 ScholarlyArticles, WebSite w/ SearchAction, BreadcrumbList, FAQPage, HowTo for submissions, WebPage w/ Speakable, ItemList for Most Read)
+- [x] GEO: Semantic HTML (<main> wrapper, WebPage itemScope, <article> w/ ScholarlyArticle microdata, <time> elements, <nav> aria-labels)
+- [x] GEO: Most Read Articles section (top 5 trending articles with view counts)
+- [x] GEO: Visible "Page last updated" date in footer (trust signal)
+- [x] GEO: robots.txt and sitemap.xml (15 URLs covering all pages and current articles)
 - [x] AEO: FAQ section with 8 collapsible Q&As, microdata attributes, accordion animations
+- [x] AEO: HowTo schema (5-step manuscript submission guide)
+- [x] AEO: Speakable schema targeting hero, about, and FAQ sections for voice search
 
 ### Backend (FastAPI)
 - [x] Health check endpoint (GET /api/health)
