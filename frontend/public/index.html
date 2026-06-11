@@ -95,7 +95,16 @@
             "audience": {
                 "@type": "Audience",
                 "audienceType": "Healthcare providers, legal experts, public health practitioners, researchers, policymakers, academic institutions"
-            }
+            },
+            "sameAs": [
+                "https://doaj.org/toc/2788-791X",
+                "https://scholar.google.com/citations?hl=en&user=cLVVO24AAAAJ",
+                "https://search.crossref.org/?q=+2788-791X",
+                "https://openalex.org/sources/S4210209193",
+                "https://search.worldcat.org/title/1427524091",
+                "https://v2.sherpa.ac.uk/id/publication/42301",
+                "https://miar.ub.edu/issn/2788-791X"
+            ]
         }
         </script>
 
@@ -339,6 +348,159 @@
                     "acceptedAnswer": {
                         "@type": "Answer",
                         "text": "The current issue is Vol. 6 No. 2 (2026), covering April to June, published on March 17, 2026. It features 8 articles spanning original research, reviews, law and ethics, commentary, and case series on topics including geriatric health, environmental dermatology, stem cell legislation, digital health strategies, and clinical auditing."
+                    }
+                }
+            ]
+        }
+        </script>
+
+        <!-- HowTo Schema for AEO - Manuscript Submission -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "HowTo",
+            "name": "How to Submit a Manuscript to JMLPH",
+            "description": "Step-by-step guide to submitting a research manuscript to the Journal of Medicine, Law & Public Health (JMLPH) through the Open Journal Systems portal.",
+            "totalTime": "PT30M",
+            "tool": [
+                {"@type": "HowToTool", "name": "JMLPH OJS Portal account"},
+                {"@type": "HowToTool", "name": "Manuscript in supported format"}
+            ],
+            "step": [
+                {
+                    "@type": "HowToStep",
+                    "position": 1,
+                    "name": "Create an Author Account",
+                    "text": "Visit the JMLPH OJS portal at jmlph.net and register for an author account. Provide your full name, institutional affiliation, and contact details.",
+                    "url": "https://www.jmlph.net/index.php/jmlph/user/register"
+                },
+                {
+                    "@type": "HowToStep",
+                    "position": 2,
+                    "name": "Prepare Your Manuscript",
+                    "text": "Ensure your manuscript follows JMLPH submission guidelines. The journal accepts original research, reviews, case reports, commentaries, and law and ethics analyses. Manuscripts must be original work not under consideration elsewhere.",
+                    "url": "https://www.jmlph.net/index.php/jmlph/about/submissions"
+                },
+                {
+                    "@type": "HowToStep",
+                    "position": 3,
+                    "name": "Submit Through OJS",
+                    "text": "Log into your account and navigate to the 'Make a Submission' page. Upload your manuscript and supplementary files, enter metadata including title, abstract, keywords, and author details.",
+                    "url": "https://www.jmlph.net/index.php/jmlph/about/submissions"
+                },
+                {
+                    "@type": "HowToStep",
+                    "position": 4,
+                    "name": "Double-Blind Peer Review",
+                    "text": "Your manuscript will undergo rigorous double-blind peer review. Average time to first editorial decision is 19 days. You may receive requests for revisions from reviewers."
+                },
+                {
+                    "@type": "HowToStep",
+                    "position": 5,
+                    "name": "Acceptance and Publication",
+                    "text": "Upon acceptance, your article will be published in the next available quarterly issue. Average time from submission to acceptance is 109 days. All articles are published open access."
+                }
+            ]
+        }
+        </script>
+
+        <!-- Speakable Schema for Voice Search AEO -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "JMLPH - The Journal of Medicine, Law & Public Health",
+            "speakable": {
+                "@type": "SpeakableSpecification",
+                "cssSelector": [
+                    "[data-testid='hero-section'] h1",
+                    "[data-testid='hero-section'] p",
+                    "[data-testid='about-section'] h2",
+                    "[data-testid='about-section'] p",
+                    "[data-testid='faq-section']"
+                ]
+            },
+            "url": "https://www.jmlph.net"
+        }
+        </script>
+
+        <!-- ItemList Schema for Most Read Articles - GEO -->
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": "Most Read Articles in JMLPH",
+            "description": "Top 5 most viewed articles in the Journal of Medicine, Law & Public Health",
+            "numberOfItems": 5,
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "item": {
+                        "@type": "ScholarlyArticle",
+                        "headline": "Failure Rate of Oral Nitrofurantoin in Treating UTIs caused by ESBL-Producing Escherichia coli and Klebsiella pneumoniae: A Retrospective Cohort Study",
+                        "url": "https://www.jmlph.net/index.php/jmlph/article/view/233",
+                        "interactionStatistic": {
+                            "@type": "InteractionCounter",
+                            "interactionType": "https://schema.org/ReadAction",
+                            "userInteractionCount": 365
+                        }
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "item": {
+                        "@type": "ScholarlyArticle",
+                        "headline": "Non-Pharmacological Interventions for Chronic Pain Management: A Narrative Review",
+                        "url": "https://www.jmlph.net/index.php/jmlph/article/view/207",
+                        "interactionStatistic": {
+                            "@type": "InteractionCounter",
+                            "interactionType": "https://schema.org/ReadAction",
+                            "userInteractionCount": 301
+                        }
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "item": {
+                        "@type": "ScholarlyArticle",
+                        "headline": "Optimizing Paediatric Paracetamol Dosing: Transitioning from Age-Based to Automated Weight-Based Calculations in Saudi Arabia",
+                        "url": "https://www.jmlph.net/index.php/jmlph/article/view/187",
+                        "interactionStatistic": {
+                            "@type": "InteractionCounter",
+                            "interactionType": "https://schema.org/ReadAction",
+                            "userInteractionCount": 202
+                        }
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 4,
+                    "item": {
+                        "@type": "ScholarlyArticle",
+                        "headline": "Effects of Bans on Prostitution on Prevalence of Induced Abortions",
+                        "url": "https://www.jmlph.net/index.php/jmlph/article/view/167",
+                        "interactionStatistic": {
+                            "@type": "InteractionCounter",
+                            "interactionType": "https://schema.org/ReadAction",
+                            "userInteractionCount": 195
+                        }
+                    }
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 5,
+                    "item": {
+                        "@type": "ScholarlyArticle",
+                        "headline": "Prevalence of Probable Generalised Anxiety Disorder Among Master of Public Health Students at the University of Ibadan, Nigeria",
+                        "url": "https://www.jmlph.net/index.php/jmlph/article/view/240",
+                        "interactionStatistic": {
+                            "@type": "InteractionCounter",
+                            "interactionType": "https://schema.org/ReadAction",
+                            "userInteractionCount": 191
+                        }
                     }
                 }
             ]

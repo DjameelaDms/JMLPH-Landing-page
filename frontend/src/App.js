@@ -201,6 +201,35 @@ const indexingInfo = [
   { name: "Scopus", status: "Applied" }
 ];
 
+// Most Read Articles (from live site data)
+const mostReadArticles = [
+  {
+    title: "Failure Rate of Oral Nitrofurantoin in Treating UTIs caused by ESBL-Producing Escherichia coli and Klebsiella pneumoniae: A Retrospective Cohort Study",
+    views: 365,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/233"
+  },
+  {
+    title: "Non-Pharmacological Interventions for Chronic Pain Management: A Narrative Review",
+    views: 301,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/207"
+  },
+  {
+    title: "Optimizing Paediatric Paracetamol Dosing: Transitioning from Age-Based to Automated Weight-Based Calculations in Saudi Arabia",
+    views: 202,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/187"
+  },
+  {
+    title: "Effects of Bans on Prostitution on Prevalence of Induced Abortions",
+    views: 195,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/167"
+  },
+  {
+    title: "Prevalence of Probable Generalised Anxiety Disorder Among Master of Public Health Students at the University of Ibadan, Nigeria",
+    views: 191,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/240"
+  }
+];
+
 // FAQ Data for AEO/GEO
 const faqData = [
   {
@@ -555,7 +584,7 @@ const Header = ({ scrolled }) => {
           </a>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-8" data-testid="desktop-nav">
+          <nav className="hidden lg:flex items-center gap-8" data-testid="desktop-nav" aria-label="Main navigation">
             {navItems.map((item) => (
               <a
                 key={item.name}
@@ -909,7 +938,7 @@ const CurrentIssueSection = () => (
           <span className="w-1 h-1 rounded-full" style={{ backgroundColor: '#c9a77d' }} />
           <span className="flex items-center gap-1">
             <Calendar className="w-4 h-4" />
-            Published: {currentIssue.published}
+            Published: <time dateTime={currentIssue.published}>{currentIssue.published}</time>
           </span>
         </div>
       </div>
@@ -932,18 +961,20 @@ const CurrentIssueSection = () => (
               style={{ backgroundColor: '#f5f0e8', border: '1px solid #e8dcc8' }}
               data-testid={`article-${article.id}`}
             >
-              <span className="category-badge">{article.category}</span>
-              <h3 className="text-lg font-semibold mt-4 mb-3 leading-snug transition-colors line-clamp-3" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
-                {article.title}
-              </h3>
-              <p className="text-sm mb-4 line-clamp-1 body-text" style={{ color: '#2d4a6f' }}>{article.authors}</p>
-              <div className="flex items-center justify-between mt-auto pt-4" style={{ borderTop: '1px solid #e8dcc8' }}>
-                <span className="text-xs" style={{ color: '#a0522d' }}>Pages {article.pages}</span>
-                <span className="flex items-center gap-1 text-sm font-medium transition-colors" style={{ color: '#1e3a5f' }}>
-                  <FileText className="w-4 h-4" />
-                  Read
-                </span>
-              </div>
+              <article itemScope itemType="https://schema.org/ScholarlyArticle">
+                <span className="category-badge">{article.category}</span>
+                <h3 itemProp="headline" className="text-lg font-semibold mt-4 mb-3 leading-snug transition-colors line-clamp-3" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+                  {article.title}
+                </h3>
+                <p itemProp="author" className="text-sm mb-4 line-clamp-1 body-text" style={{ color: '#2d4a6f' }}>{article.authors}</p>
+                <div className="flex items-center justify-between mt-auto pt-4" style={{ borderTop: '1px solid #e8dcc8' }}>
+                  <span className="text-xs" style={{ color: '#a0522d' }}>Pages <span itemProp="pagination">{article.pages}</span></span>
+                  <span className="flex items-center gap-1 text-sm font-medium transition-colors" style={{ color: '#1e3a5f' }}>
+                    <FileText className="w-4 h-4" />
+                    Read
+                  </span>
+                </div>
+              </article>
             </a>
           </motion.div>
         ))}
@@ -962,6 +993,54 @@ const CurrentIssueSection = () => (
             <ExternalLink className="w-4 h-4 ml-2" />
           </Button>
         </a>
+      </div>
+    </div>
+  </section>
+);
+
+// Most Read Section - GEO authority signal
+const MostReadSection = () => (
+  <section className="py-16 md:py-20" style={{ backgroundColor: '#f5f0e8' }} data-testid="most-read-section">
+    <div className="max-w-4xl mx-auto px-6 md:px-12">
+      <div className="text-center mb-12">
+        <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>TRENDING</span>
+        <h2 className="text-3xl md:text-4xl font-bold mt-4" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+          Most Read Articles
+        </h2>
+      </div>
+
+      <div className="space-y-3" itemScope itemType="https://schema.org/ItemList">
+        <meta itemProp="name" content="Most Read Articles in JMLPH" />
+        {mostReadArticles.map((article, idx) => (
+          <a
+            key={idx}
+            href={article.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-5 p-4 md:p-5 group transition-all hover:shadow-md"
+            style={{ backgroundColor: '#faf8f5', border: '1px solid #e8dcc8' }}
+            data-testid={`most-read-${idx}`}
+            itemProp="itemListElement"
+            itemScope
+            itemType="https://schema.org/ListItem"
+          >
+            <span
+              className="flex-shrink-0 w-10 h-10 flex items-center justify-center text-lg font-bold"
+              style={{ backgroundColor: idx === 0 ? '#a0522d' : '#1e3a5f', color: '#faf8f5', fontFamily: "'Cormorant Garamond', serif" }}
+            >
+              <meta itemProp="position" content={String(idx + 1)} />
+              {idx + 1}
+            </span>
+            <div className="flex-1 min-w-0">
+              <h3 itemProp="name" className="text-sm md:text-base font-semibold leading-snug line-clamp-2 group-hover:text-[#a0522d] transition-colors" style={{ color: '#1a2f4a' }}>
+                {article.title}
+              </h3>
+            </div>
+            <span className="flex-shrink-0 text-xs font-semibold px-3 py-1" style={{ backgroundColor: '#f5f0e8', color: '#a0522d' }}>
+              {article.views} reads
+            </span>
+          </a>
+        ))}
       </div>
     </div>
   </section>
@@ -1308,6 +1387,7 @@ const Footer = () => {
             {/* Quick Links */}
             <div>
               <h4 className="font-semibold mb-6" style={{ color: '#faf8f5' }}>Quick Links</h4>
+              <nav aria-label="Footer navigation">
               <ul className="space-y-3">
                 {[
                   { name: 'OJS Portal', url: OJS_URL },
@@ -1324,15 +1404,21 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
+              </nav>
             </div>
           </div>
 
           {/* Bottom */}
           <div className="pt-8" style={{ borderTop: '1px solid #2d4a6f' }}>
             <div className="flex flex-col md:flex-row items-center justify-between gap-6 mb-6">
-              <p className="text-sm body-text" style={{ color: '#c9a77d' }}>
-                © 2026 ARETION & Company. All rights reserved.
-              </p>
+              <div>
+                <p className="text-sm body-text" style={{ color: '#c9a77d' }}>
+                  © 2026 ARETION & Company. All rights reserved.
+                </p>
+                <p className="text-xs body-text mt-1" style={{ color: '#6b8ab0' }}>
+                  Page last updated: <time dateTime="2026-03-17">March 17, 2026</time>
+                </p>
+              </div>
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">
                 <button 
                   onClick={() => setActivePolicy('privacyNotice')}
@@ -1434,6 +1520,7 @@ function App() {
         <AboutSection />
         <OJSPortalSection />
         <CurrentIssueSection />
+        <MostReadSection />
         <SubmissionSection />
         <NewsletterSection />
         <FAQSection />

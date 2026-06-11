@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://www.jmlph.net/sitemap.xml
+
+# JMLPH - The Journal of Medicine, Law & Public Health
+# Published by ARETION Publishing Group
+# ISSN: 2788-791X (Online), 2788-9815 (Print)
