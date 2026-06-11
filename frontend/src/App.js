@@ -24,7 +24,9 @@ import {
   TrendingUp,
   XCircle,
   FileCheck,
-  Database
+  Database,
+  HelpCircle,
+  ChevronDown
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -197,6 +199,42 @@ const indexingInfo = [
   { name: "Directory of Open Access Journals (DOAJ)", status: "Applied" },
   { name: "PubMed Central", status: "In Progress" },
   { name: "Scopus", status: "Applied" }
+];
+
+// FAQ Data for AEO/GEO
+const faqData = [
+  {
+    question: "What is the Journal of Medicine, Law & Public Health (JMLPH)?",
+    answer: "JMLPH is an interdisciplinary, peer-reviewed, open access journal published by ARETION Publishing Group. It explores the critical intersection of medical practice, legal frameworks, and public health policy. The journal publishes original research articles, comprehensive reviews, case studies, and commentaries, all subject to rigorous double-blind peer review. ISSN: 2788-791X (Online), 2788-9815 (Print)."
+  },
+  {
+    question: "How do I submit a manuscript to JMLPH?",
+    answer: "Manuscripts can be submitted through the JMLPH Open Journal Systems (OJS) portal at jmlph.net. Navigate to the submissions page, create an author account, and follow the step-by-step submission process. All submissions undergo double-blind peer review. Ensure your manuscript is original work and not under consideration by another journal."
+  },
+  {
+    question: "Is JMLPH an open access journal?",
+    answer: "Yes, JMLPH is a fully open access journal. All published articles are freely available to read, download, and share under Creative Commons licensing. There are no subscription fees or paywalls for readers, ensuring maximum dissemination of research."
+  },
+  {
+    question: "What is the acceptance rate and review timeline?",
+    answer: "As of 2026, JMLPH has a 46% acceptance rate. The average time to first editorial decision is 19 days, and the average time from submission to final acceptance is 109 days. The journal has received 231 total submissions with 35 desk rejections and 43 declined after peer review."
+  },
+  {
+    question: "Where is JMLPH indexed?",
+    answer: "JMLPH is indexed in DOAJ, Google Scholar, Crossref, OpenAlex, WorldCat, BASE (Bielefeld Academic Search Engine), Sherpa Romeo, EuroPub, Scilit, Semantic Scholar, Internet Archive, and MIAR. The journal continuously works to expand its indexing and abstracting coverage."
+  },
+  {
+    question: "Who publishes JMLPH?",
+    answer: "JMLPH is published by ARETION Publishing Group, headquartered at 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom. The journal was acquired by ARETION Publishing Group at the end of 2025, with a full transition completed in early 2026."
+  },
+  {
+    question: "What topics and article types does JMLPH publish?",
+    answer: "JMLPH covers medicine, medical law and ethics, and public health policy. Article types include original research articles, systematic and narrative reviews, case reports and case series, commentaries, and law and ethics analyses. Topics span clinical research, health policy, medical legislation, healthcare ethics, epidemiology, and health systems."
+  },
+  {
+    question: "What is the current issue of JMLPH?",
+    answer: "The current issue is Vol. 6 No. 2 (2026), covering April to June, published on March 17, 2026. It features 8 peer-reviewed articles including original research on geriatric health indexing, environmental dermatology, hospital water quality, clinical auditing, as well as reviews, commentaries on digital health, and law and ethics analyses on stem cell legislation."
+  }
 ];
 
 // Policy Documents Content
@@ -1070,6 +1108,73 @@ const NewsletterSection = () => (
   </section>
 );
 
+// FAQ Section for AEO/GEO
+const FAQSection = () => {
+  const [openIndex, setOpenIndex] = useState(null);
+  
+  return (
+    <section className="py-20 md:py-28" style={{ backgroundColor: '#ffffff' }} data-testid="faq-section" id="faq" itemScope itemType="https://schema.org/FAQPage">
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
+        <div className="text-center mb-16">
+          <span className="subheader-text text-sm font-semibold tracking-widest" style={{ color: '#a0522d' }}>FREQUENTLY ASKED QUESTIONS</span>
+          <h2 className="text-4xl md:text-5xl font-bold mt-4 mb-4" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+            About JMLPH
+          </h2>
+          <p className="text-lg body-text" style={{ color: '#2d4a6f' }}>
+            Everything you need to know about the Journal of Medicine, Law & Public Health
+          </p>
+        </div>
+
+        <div className="space-y-3">
+          {faqData.map((faq, idx) => (
+            <div
+              key={idx}
+              itemScope
+              itemProp="mainEntity"
+              itemType="https://schema.org/Question"
+              className="border transition-all"
+              style={{ borderColor: openIndex === idx ? '#a0522d' : '#e8dcc8', backgroundColor: openIndex === idx ? '#faf8f5' : '#ffffff' }}
+              data-testid={`faq-item-${idx}`}
+            >
+              <button
+                onClick={() => setOpenIndex(openIndex === idx ? null : idx)}
+                className="w-full flex items-center justify-between p-5 md:p-6 text-left gap-4"
+                data-testid={`faq-toggle-${idx}`}
+              >
+                <h3 itemProp="name" className="text-base md:text-lg font-semibold pr-4" style={{ color: '#1a2f4a', fontFamily: "'Cormorant Garamond', serif" }}>
+                  {faq.question}
+                </h3>
+                <ChevronDown
+                  className="w-5 h-5 flex-shrink-0 transition-transform duration-300"
+                  style={{ color: '#a0522d', transform: openIndex === idx ? 'rotate(180deg)' : 'rotate(0deg)' }}
+                />
+              </button>
+              <AnimatePresence>
+                {openIndex === idx && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.25 }}
+                    className="overflow-hidden"
+                    itemScope
+                    itemProp="acceptedAnswer"
+                    itemType="https://schema.org/Answer"
+                  >
+                    <p itemProp="text" className="px-5 md:px-6 pb-5 md:pb-6 body-text leading-relaxed" style={{ color: '#2d4a6f' }}>
+                      {faq.answer}
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // Contact Section - Links to email
 const ContactSection = () => (
   <section className="py-20 md:py-28" style={{ backgroundColor: '#faf8f5' }} data-testid="contact-section">
@@ -1320,17 +1425,20 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
+    <div className="App" itemScope itemType="https://schema.org/WebPage">
       <Toaster position="top-right" richColors />
       <Header scrolled={scrolled} />
-      <HeroSection />
-      <MetricsSection />
-      <AboutSection />
-      <OJSPortalSection />
-      <CurrentIssueSection />
-      <SubmissionSection />
-      <NewsletterSection />
-      <ContactSection />
+      <main>
+        <HeroSection />
+        <MetricsSection />
+        <AboutSection />
+        <OJSPortalSection />
+        <CurrentIssueSection />
+        <SubmissionSection />
+        <NewsletterSection />
+        <FAQSection />
+        <ContactSection />
+      </main>
       <Footer />
       <BackToTop visible={showBackToTop} />
     </div>
