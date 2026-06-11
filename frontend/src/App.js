@@ -82,7 +82,7 @@ const journalInfo = {
 const contactInfo = {
   londonOffice: {
     name: "London Office",
-    address: "71-75, Shelton Street, Covent Garden, London, WC2H 9JQ",
+    address: "Shelton Street, Covent Garden, London, WC2H 9JQ",
   }
 };
 
@@ -225,7 +225,7 @@ const faqData = [
   },
   {
     question: "Who publishes JMLPH?",
-    answer: "JMLPH is published by ARETION Publishing Group, headquartered at 71-75 Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom. The journal was acquired by ARETION Publishing Group at the end of 2025, with a full transition completed in early 2026."
+    answer: "JMLPH is published by ARETION Publishing Group, headquartered at Shelton Street, Covent Garden, London, WC2H 9JQ, United Kingdom. The journal was acquired by ARETION Publishing Group at the end of 2025, with a full transition completed in early 2026."
   },
   {
     question: "What topics and article types does JMLPH publish?",
