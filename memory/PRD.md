@@ -48,6 +48,10 @@ Creating a professional landing page for JMLPH.net (Journal of Medicine, Law, an
 - [x] Browser tab title: "ARETION Publishing Group"
 - [x] SEO meta tags: description, keywords, author, robots, canonical, Open Graph (7 tags), Twitter Card (4 tags)
 - [x] Google Scholar structured data: JSON-LD schemas for Periodical and PublicationIssue
+- [x] Enhanced SEO: Citation meta tags, Dublin Core metadata, max-snippet/max-image-preview directives
+- [x] GEO: 6 JSON-LD schemas (Organization, Periodical, PublicationIssue with 8 ScholarlyArticles, WebSite with SearchAction, BreadcrumbList, FAQPage)
+- [x] GEO: Semantic HTML (<main> wrapper, WebPage itemScope, entity-rich content)
+- [x] AEO: FAQ section with 8 collapsible Q&As, microdata attributes, accordion animations
 
 ### Backend (FastAPI)
 - [x] Health check endpoint (GET /api/health)
