@@ -104,12 +104,12 @@ const indexingDatabases = [
 
 // Journal Metrics
 const journalMetrics = [
-  { value: 231, label: "Total Submissions", suffix: "", icon: FileText },
-  { value: 35, label: "Desk Rejections", suffix: "", icon: XCircle },
-  { value: 43, label: "Declined After Review", suffix: "", icon: FileCheck },
-  { value: 19, label: "Days to First Decision", suffix: "", icon: Clock },
-  { value: 109, label: "Days to Accept", suffix: "", icon: TrendingUp },
-  { value: 46, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
+  { value: 265, label: "Total Submissions", suffix: "", icon: FileText },
+  { value: 48, label: "Desk Rejections", suffix: "", icon: XCircle },
+  { value: 58, label: "Declined After Review", suffix: "", icon: FileCheck },
+  { value: 18, label: "Days to First Decision", suffix: "", icon: Clock },
+  { value: 105, label: "Days to Accept", suffix: "", icon: TrendingUp },
+  { value: 52, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
 ];
 
 // Current Issue Articles (Vol. 6 No. 3 - 2026)
@@ -210,7 +210,7 @@ const faqData = [
   },
   {
     question: "What is the acceptance rate and review timeline?",
-    answer: "As of 2026, JMLPH has a 46% acceptance rate. The average time to first editorial decision is 19 days, and the average time from submission to final acceptance is 109 days. The journal has received 231 total submissions with 35 desk rejections and 43 declined after peer review."
+    answer: "As of 2026, JMLPH has a 52% acceptance rate. The average time to first editorial decision is 18 days, and the average time from submission to final acceptance is 105 days. The journal has received 265 total submissions with 48 desk rejections and 58 declined after peer review."
   },
   {
     question: "Where is JMLPH indexed?",
