@@ -112,83 +112,47 @@ const journalMetrics = [
   { value: 46, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
 ];
 
-// Current Issue Articles (Vol. 6 No. 2 - 2026)
+// Current Issue Articles (Vol. 6 No. 3 - 2026)
 const currentIssue = {
-  volume: "Vol. 6 No. 2 (2026)",
-  subtitle: "Apr-Jun",
-  published: "2026-03-17",
+  volume: "Vol. 6 No. 3 (2026)",
+  subtitle: "Jul-Sept",
+  published: "2026-06-30",
   articles: [
     {
       id: 1,
-      category: "Reviews",
-      title: "Male Breast Adenoid Cystic Carcinoma \u2013 A Narrative Review of a Rare Disorder",
-      authors: "Sajad Ahmad Salati",
-      pages: "876-886",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/274",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/274/285"
+      category: "Original Articles",
+      title: "Responses and Reproductive Outcomes Across Four Ovarian Stimulation Protocols in Poor Responders: A Retrospective Cohort Study",
+      authors: "Dania AlJaroudi, Aljazi M. Mnikhr, Amani Abu Shaheen, Motasim Badri",
+      pages: "964-975",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/196",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/196/294"
     },
     {
       id: 2,
-      category: "Law and Ethics",
-      title: "Quest for Legislative Intervention in Stem Cell Research and Therapy in Nigeria: Lessons from United Kingdom and South Africa",
-      authors: "Folakemi Ajagunna, Omolade Olomola",
-      pages: "887-905",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/251",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/251/286"
+      category: "Commentary",
+      title: "The Unit Commensurability Problem in the Nutri-Score Algorithm: a Construct Validity Analysis",
+      authors: "Jos\u00e9 A. Mart\u00ednez",
+      pages: "976-980",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/313",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/313/295"
     },
     {
       id: 3,
-      category: "Commentary",
-      title: "Digital Health Strategies for GDM Postpartum Care and Type 2 Diabetes Prevention Among Saudi Women \u2013 A New Proposed Digital Health Initiative",
-      authors: "Nawaf Alnuwaysir, Kady Alsarhan",
-      pages: "906-912",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/249",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/249/287"
+      category: "Original Articles",
+      title: "The Newfoundland and Labrador Population Health Index (NLPHI): A Computerized Framework for Population-Level Longitudinal Health Outcome Monitoring",
+      authors: "Mirza Niaz Zaman Elin",
+      pages: "981-988",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/264",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/264/297"
     },
     {
       id: 4,
       category: "Original Articles",
-      title: "Awareness of the Effect of Environmental Factors on Skin Among Students at Jouf University, Saudi Arabia",
-      authors: "Ziad Mansour Alshaalan, Amany Ghazy, Sara Abdulaziz Alenizi, Maha Mohammed Alsahli, Rawan Zaidan Alrasheedi, Lojain Abdulsalam Alkhaldi, Misk Talal Alderaan, Renad Muhawish Alanazi, Salma Ahmed Fathy Shatara, Youssef Ahmed Shatara",
-      pages: "913-919",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/281",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/281/293"
-    },
-    {
-      id: 5,
-      category: "Original Articles",
-      title: "Assessment of Water Quality in Public Hospitals in Hail City, Saudi Arabia 2021-2024",
-      authors: "Eman Suliman Aljeloud, Abdullah Salem Al-Rasheed",
-      pages: "920-937",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/253",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/253/292"
-    },
-    {
-      id: 6,
-      category: "Original Articles",
-      title: "The Newfoundland and Labrador Geriatric Health Index (NLGHI): Design, Implementation, and Clinical Workflow-Oriented Features for Community Geriatrics",
-      authors: "Mirza Niaz Zaman Elin",
-      pages: "938-945",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/266",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/266/289"
-    },
-    {
-      id: 7,
-      category: "Case Series",
-      title: "Button Battery Code: A Case Series of Button Battery Ingestions in Children at a Tertiary Referral Center and Proposed Management Protocol",
-      authors: "Dhafer Ghurman Alshehri, Abdulrahman Mohammed Alwahbi, Sharafaldeen Bin Nafisah",
-      pages: "946-951",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/285",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/285/290"
-    },
-    {
-      id: 8,
-      category: "Original Articles",
-      title: "Exploring Nurses Perception of iAudit: A Qualitative Study",
-      authors: "Cyrian Lumuma, Diosa Cueto, Zainab Jafary, Cellanie Janson, Eddylyn O'santos, Diana Lalithabai",
-      pages: "952-963",
-      url: "https://www.jmlph.net/index.php/jmlph/article/view/268",
-      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/268/288"
+      title: "Enhancing Cross-Level Coordination in Healthcare Incident Command Through Virtual Incident Command System (VICS) Integration",
+      authors: "Salem S. Alammi, Abdullah Alshareef, Ahmed Alyami, Ali Alammi, Abdullatif Bin Khunayn",
+      pages: "989-1003",
+      url: "https://www.jmlph.net/index.php/jmlph/article/view/312",
+      pdfUrl: "https://www.jmlph.net/index.php/jmlph/article/view/312/298"
     }
   ]
 };
@@ -204,29 +168,29 @@ const indexingInfo = [
 // Most Read Articles (from live site data)
 const mostReadArticles = [
   {
+    title: "Evaluating Patient Satisfaction With Nurse-Led Wound Care Services",
+    views: 400,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/130"
+  },
+  {
     title: "Failure Rate of Oral Nitrofurantoin in Treating UTIs caused by ESBL-Producing Escherichia coli and Klebsiella pneumoniae: A Retrospective Cohort Study",
-    views: 365,
+    views: 382,
     url: "https://www.jmlph.net/index.php/jmlph/article/view/233"
   },
   {
     title: "Non-Pharmacological Interventions for Chronic Pain Management: A Narrative Review",
-    views: 301,
+    views: 294,
     url: "https://www.jmlph.net/index.php/jmlph/article/view/207"
   },
   {
-    title: "Optimizing Paediatric Paracetamol Dosing: Transitioning from Age-Based to Automated Weight-Based Calculations in Saudi Arabia",
-    views: 202,
-    url: "https://www.jmlph.net/index.php/jmlph/article/view/187"
-  },
-  {
     title: "Effects of Bans on Prostitution on Prevalence of Induced Abortions",
-    views: 195,
+    views: 281,
     url: "https://www.jmlph.net/index.php/jmlph/article/view/167"
   },
   {
-    title: "Prevalence of Probable Generalised Anxiety Disorder Among Master of Public Health Students at the University of Ibadan, Nigeria",
-    views: 191,
-    url: "https://www.jmlph.net/index.php/jmlph/article/view/240"
+    title: "White Coat Oversight of Black-Box Algorithms: Ethical Challenges in the Application of Artificial Intelligence in Healthcare",
+    views: 240,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/216"
   }
 ];
 
@@ -262,7 +226,7 @@ const faqData = [
   },
   {
     question: "What is the current issue of JMLPH?",
-    answer: "The current issue is Vol. 6 No. 2 (2026), covering April to June, published on March 17, 2026. It features 8 peer-reviewed articles including original research on geriatric health indexing, environmental dermatology, hospital water quality, clinical auditing, as well as reviews, commentaries on digital health, and law and ethics analyses on stem cell legislation."
+    answer: "The current issue is Vol. 6 No. 3 (2026), covering July to September, published on June 30, 2026. It features 4 peer-reviewed articles including original research on ovarian stimulation protocols in poor responders, population health index frameworks, healthcare incident command coordination, and a commentary on the Nutri-Score algorithm."
   }
 ];
 
@@ -739,7 +703,7 @@ const HeroSection = () => (
               className="w-full h-96 object-cover"
             />
             <div className="absolute -bottom-6 -right-6 p-6" style={{ backgroundColor: '#1e3a5f' }}>
-              <p className="text-3xl font-bold" style={{ color: '#c9a77d', fontFamily: "'Cormorant Garamond', serif" }}>Vol. 6 No. 2</p>
+              <p className="text-3xl font-bold" style={{ color: '#c9a77d', fontFamily: "'Cormorant Garamond', serif" }}>Vol. 6 No. 3</p>
               <p className="text-sm" style={{ color: '#d4b896' }}>Current Issue</p>
             </div>
           </div>
@@ -1416,7 +1380,7 @@ const Footer = () => {
                   © 2026 ARETION & Company. All rights reserved.
                 </p>
                 <p className="text-xs body-text mt-1" style={{ color: '#6b8ab0' }}>
-                  Page last updated: <time dateTime="2026-03-17">March 17, 2026</time>
+                  Page last updated: <time dateTime="2026-06-30">June 30, 2026</time>
                 </p>
               </div>
               <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6">

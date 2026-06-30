@@ -34,7 +34,7 @@ Creating a professional landing page for JMLPH.net (Journal of Medicine, Law, an
 - [x] Journal Metrics section with animated count-up and "(as of 2026)" subtitle
 - [x] About the Journal section with 4 feature cards
 - [x] OJS Portal access section
-- [x] Current Issue section with 8 articles (Vol. 6 No. 2, Apr-Jun 2026)
+- [x] Current Issue section with 4 articles (Vol. 6 No. 3, Jul-Sept 2026)
 - [x] Submission Information section with publication info
 - [x] 12 Indexing databases with clickable logos
 - [x] Newsletter section (mailto link)
