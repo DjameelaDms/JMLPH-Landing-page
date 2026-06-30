@@ -104,12 +104,12 @@ const indexingDatabases = [
 
 // Journal Metrics
 const journalMetrics = [
-  { value: 265, label: "Total Submissions", suffix: "", icon: FileText },
-  { value: 48, label: "Desk Rejections", suffix: "", icon: XCircle },
-  { value: 58, label: "Declined After Review", suffix: "", icon: FileCheck },
-  { value: 18, label: "Days to First Decision", suffix: "", icon: Clock },
-  { value: 105, label: "Days to Accept", suffix: "", icon: TrendingUp },
-  { value: 52, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
+  { value: 265, prev: 231, label: "Total Submissions", suffix: "", icon: FileText },
+  { value: 48, prev: 35, label: "Desk Rejections", suffix: "", icon: XCircle },
+  { value: 58, prev: 43, label: "Declined After Review", suffix: "", icon: FileCheck },
+  { value: 18, prev: 19, label: "Days to First Decision", suffix: "", icon: Clock },
+  { value: 105, prev: 109, label: "Days to Accept", suffix: "", icon: TrendingUp },
+  { value: 52, prev: 46, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
 ];
 
 // Current Issue Articles (Vol. 6 No. 3 - 2026)
@@ -494,8 +494,10 @@ const useCountUp = (end, duration = 2500, startOnView = true) => {
 };
 
 // Metric Card Component with enhanced Count Up
-const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0 }) => {
+const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0, prev }) => {
   const { count, ref, isAnimating } = useCountUp(value, 2500);
+  const diff = value - prev;
+  const isUp = diff > 0;
   
   return (
     <motion.div
@@ -509,9 +511,20 @@ const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0 }) => {
       <div className="w-14 h-14 bg-[#1e3a5f] flex items-center justify-center mx-auto mb-5">
         <Icon className="w-7 h-7 text-[#c9a77d]" />
       </div>
-      <div className={`stat-number text-5xl md:text-6xl mb-3 ${isAnimating ? 'counting' : ''}`} style={{ color: '#1a2f4a' }}>
+      <div className={`stat-number text-5xl md:text-6xl mb-2 ${isAnimating ? 'counting' : ''}`} style={{ color: '#1a2f4a' }}>
         {count}{suffix}
       </div>
+      <span
+        className="inline-flex items-center gap-1 text-xs font-semibold mb-3 px-2 py-0.5"
+        style={{
+          color: isUp ? '#2d8a4e' : '#a0522d',
+          backgroundColor: isUp ? '#e6f4ea' : '#fdf0e6'
+        }}
+        data-testid={`metric-trend-${label.toLowerCase().replace(/\s+/g, '-')}`}
+      >
+        <span style={{ fontSize: '10px' }}>{isUp ? '▲' : '▼'}</span>
+        {Math.abs(diff)}{suffix}
+      </span>
       <p className="stat-label">{label}</p>
     </motion.div>
   );
@@ -733,6 +746,7 @@ const MetricsSection = () => (
           <MetricCard
             key={metric.label}
             value={metric.value}
+            prev={metric.prev}
             label={metric.label}
             suffix={metric.suffix}
             icon={metric.icon}
