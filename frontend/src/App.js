@@ -104,12 +104,12 @@ const indexingDatabases = [
 
 // Journal Metrics
 const journalMetrics = [
-  { value: 265, prev: 231, label: "Total Submissions", suffix: "", icon: FileText },
-  { value: 48, prev: 35, label: "Desk Rejections", suffix: "", icon: XCircle },
-  { value: 58, prev: 43, label: "Declined After Review", suffix: "", icon: FileCheck },
-  { value: 18, prev: 19, label: "Days to First Decision", suffix: "", icon: Clock },
-  { value: 105, prev: 109, label: "Days to Accept", suffix: "", icon: TrendingUp },
-  { value: 52, prev: 46, label: "Acceptance Rate", suffix: "%", icon: BarChart3 }
+  { value: 265, prev: 231, label: "Total Submissions", suffix: "", icon: FileText, goodWhen: "up", doubleArrow: true },
+  { value: 48, prev: 35, label: "Desk Rejections", suffix: "", icon: XCircle, goodWhen: "down" },
+  { value: 58, prev: 43, label: "Declined After Review", suffix: "", icon: FileCheck, goodWhen: "down" },
+  { value: 18, prev: 19, label: "Days to First Decision", suffix: "", icon: Clock, goodWhen: "down" },
+  { value: 105, prev: 109, label: "Days to Accept", suffix: "", icon: TrendingUp, goodWhen: "down" },
+  { value: 52, prev: 46, label: "Acceptance Rate", suffix: "%", icon: BarChart3, goodWhen: "up" }
 ];
 
 // Current Issue Articles (Vol. 6 No. 3 - 2026)
@@ -168,29 +168,29 @@ const indexingInfo = [
 // Most Read Articles (from live site data)
 const mostReadArticles = [
   {
-    title: "Evaluating Patient Satisfaction With Nurse-Led Wound Care Services",
-    views: 400,
-    url: "https://www.jmlph.net/index.php/jmlph/article/view/130"
-  },
-  {
     title: "Failure Rate of Oral Nitrofurantoin in Treating UTIs caused by ESBL-Producing Escherichia coli and Klebsiella pneumoniae: A Retrospective Cohort Study",
-    views: 382,
+    views: 426,
     url: "https://www.jmlph.net/index.php/jmlph/article/view/233"
   },
   {
+    title: "Digital Health Strategies for GDM Postpartum Care and Type 2 Diabetes Prevention Among Saudi Women",
+    views: 383,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/249"
+  },
+  {
     title: "Non-Pharmacological Interventions for Chronic Pain Management: A Narrative Review",
-    views: 294,
+    views: 325,
     url: "https://www.jmlph.net/index.php/jmlph/article/view/207"
   },
   {
-    title: "Effects of Bans on Prostitution on Prevalence of Induced Abortions",
-    views: 281,
-    url: "https://www.jmlph.net/index.php/jmlph/article/view/167"
+    title: "Use of Diphenhydramine for Pain Management in the Emergency Department: A Systematic Review and Meta-analysis",
+    views: 322,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/216"
   },
   {
-    title: "White Coat Oversight of Black-Box Algorithms: Ethical Challenges in the Application of Artificial Intelligence in Healthcare",
-    views: 240,
-    url: "https://www.jmlph.net/index.php/jmlph/article/view/216"
+    title: "Snake Bites in The Arabian Peninsula: A Scoping Review",
+    views: 310,
+    url: "https://www.jmlph.net/index.php/jmlph/article/view/167"
   }
 ];
 
@@ -494,10 +494,11 @@ const useCountUp = (end, duration = 2500, startOnView = true) => {
 };
 
 // Metric Card Component with enhanced Count Up
-const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0, prev }) => {
+const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0, prev, goodWhen, doubleArrow }) => {
   const { count, ref, isAnimating } = useCountUp(value, 2500);
   const diff = value - prev;
   const isUp = diff > 0;
+  const isGood = (isUp && goodWhen === 'up') || (!isUp && goodWhen === 'down');
   
   return (
     <motion.div
@@ -517,12 +518,12 @@ const MetricCard = ({ value, label, suffix, icon: Icon, delay = 0, prev }) => {
       <span
         className="inline-flex items-center gap-1 text-xs font-semibold mb-3 px-2 py-0.5"
         style={{
-          color: isUp ? '#2d8a4e' : '#a0522d',
-          backgroundColor: isUp ? '#e6f4ea' : '#fdf0e6'
+          color: isGood ? '#2d8a4e' : '#c0392b',
+          backgroundColor: isGood ? '#e6f4ea' : '#fde8e8'
         }}
         data-testid={`metric-trend-${label.toLowerCase().replace(/\s+/g, '-')}`}
       >
-        <span style={{ fontSize: '10px' }}>{isUp ? '▲' : '▼'}</span>
+        <span style={{ fontSize: '10px' }}>{doubleArrow ? (isUp ? '▲▲' : '▼▼') : (isUp ? '▲' : '▼')}</span>
         {Math.abs(diff)}{suffix}
       </span>
       <p className="stat-label">{label}</p>
@@ -751,6 +752,8 @@ const MetricsSection = () => (
             suffix={metric.suffix}
             icon={metric.icon}
             delay={idx * 0.1}
+            goodWhen={metric.goodWhen}
+            doubleArrow={metric.doubleArrow}
           />
         ))}
       </div>
