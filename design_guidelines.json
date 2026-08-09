@@ -1,0 +1,92 @@
+{
+  "theme": "light",
+  "art_direction": "Award-winning Editorial / Modern Academic. High-craft, typography-driven, sophisticated. Emphasizes authority through deep navy and teal accents on a warm bone-white background. It uses generous whitespace, strict grids, and premium purposeful motion.",
+  "typography": {
+    "heading_font": "Playfair Display",
+    "body_font": "Outfit",
+    "mono_font": "JetBrains Mono",
+    "hierarchy": {
+      "h1": "text-5xl md:text-6xl lg:text-7xl tracking-tighter leading-[1.1]",
+      "h2": "text-3xl md:text-4xl lg:text-5xl tracking-tight leading-snug",
+      "h3": "text-xl md:text-2xl tracking-tight leading-snug",
+      "body_lg": "text-lg md:text-xl leading-relaxed",
+      "body": "text-base leading-relaxed",
+      "overline": "text-xs uppercase tracking-[0.2em] font-bold",
+      "stats": "text-4xl md:text-5xl font-light"
+    },
+    "rules": "Headings must use Playfair Display with tight tracking. Body text uses Outfit for a clean, modern geometric feel. Never center-align paragraphs. Use italics selectively in headings for an editorial 'magazine' feel."
+  },
+  "colors": {
+    "background": "#F7F5F0",
+    "surface": "#FFFFFF",
+    "surface_secondary": "#EAE7DF",
+    "primary": "#0A192F",
+    "primary_hover": "#112240",
+    "accent": "#0F4C5C",
+    "text_primary": "#0A192F",
+    "text_secondary": "#4A5568",
+    "border": "#D1CFC7",
+    "rules": "Avoid pure black and pure white where possible. The background should be a warm 'bone' or 'paper' color to reduce eye strain and feel like a physical journal. Accents are deep navy and teal, conveying academic trust."
+  },
+  "visual_enhancers": {
+    "borders": "Use 1px solid borders with the defined border color (#D1CFC7) to create a structured, academic grid. Avoid soft, diffuse drop-shadows; prefer crisp lines.",
+    "radius": "Minimal. Use rounded-none or rounded-sm for a sharp, 'printed' look.",
+    "textures": "Subtle grain overlay (pointer-events-none) across the entire page to kill digital flatness and enhance the editorial feel."
+  },
+  "layouts": {
+    "hero": "Kinetic typography. Split layout or dynamic overlapping grid. A massive H1 that reveals line-by-line on load. A spotlight/clipped image frame taking up a portion of the grid.",
+    "current_issue": "Strict Swiss grid. A 'Bento' or multi-column layout where 'Original Articles', 'Commentary', and 'Law & Ethics' form distinct, heavily structured sections. Cards should not look like floating blobs, but structured table-like rows.",
+    "most_read": "Numbered manifesto style. Massive serif numbers (e.g., 01, 02) taking up the left column, with the article title and view count spanning the right.",
+    "general": "Mobile-first. Use generous padding (py-24 to py-32 for sections on desktop)."
+  },
+  "motion": {
+    "hero_reveal": "Framer Motion: masked line-by-line reveal for the main heading (staggered translateY from 100% to 0% with overflow-hidden on parent lines).",
+    "scroll": "Lenis smooth momentum scrolling is MANDATORY. It gives the site the premium 'weight'.",
+    "parallax": "Subtle parallax on the hero image or background abstract elements using Framer Motion useScroll.",
+    "micro_interactions": "Hover states on article rows should feature a subtle background color shift and an arrow icon translation (translate-x-1)."
+  },
+  "components": {
+    "header": "Sticky glassmorphism nav (backdrop-blur-xl bg-[#F7F5F0]/80 border-b border-black/5). Prominent pill-shaped 'Make a Submission' CTA in primary color.",
+    "marquee": "Slow-moving editorial marquee (using react-fast-marquee) displaying the Journal At-a-Glance stats separated by bullets or small ornaments.",
+    "publication_fee_card": "Highlighted notice card. Dark background (primary) with white text, creating a strong contrast block in the middle of the flow.",
+    "article_row": "A clean flex or grid row. Author names in secondary color, Title in primary, page numbers in mono-font. A 'PDF' download button that is minimal (icon + text)."
+  },
+  "media": {
+    "images": [
+      {
+        "url": "https://images.pexels.com/photos/3137050/pexels-photo-3137050.jpeg",
+        "category": "hero",
+        "description": "Modern architecture abstract, treated deliberately (spotlight, clipped frames) for the Hero section."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1728506972831-193841eb2961",
+        "category": "about",
+        "description": "Dark academia library, used as a structural visual in the 'About the Journal' section."
+      },
+      {
+        "url": "https://images.unsplash.com/photo-1526930382372-67bf22c0fce2",
+        "category": "authors_or_information",
+        "description": "Lab microscope representing medical research, for the Authors/Information sections."
+      }
+    ]
+  },
+  "3d_libraries_and_extras": {
+    "lenis": "yarn add @studio-freight/react-lenis",
+    "framer_motion": "yarn add framer-motion",
+    "marquee": "yarn add react-fast-marquee",
+    "icons": "yarn add lucide-react"
+  },
+  "instructions_to_main_agent": [
+    "Install required dependencies: framer-motion, @studio-freight/react-lenis, react-fast-marquee, lucide-react.",
+    "Set up Tailwind configuration to include the custom fonts (Playfair Display, Outfit, JetBrains Mono) and the color palette specified.",
+    "Implement Lenis smooth scrolling at the root level of the application.",
+    "Build the Hero section with the 'masked line-by-line on-load reveal'. Wrap each line of text in an overflow-hidden span, and animate the inner text sliding up.",
+    "Create the 'Publication Fee Announcement' as a stark, high-contrast dark card (using the #0A192F color) to draw attention.",
+    "Structure the 'Current Issue' section using a rigorous grid. Avoid standard floating cards; use 1px borders to separate articles like a high-end printed index.",
+    "Build the 'Most Read' section as 'numbered manifesto chapters'. Use huge serif numbers (e.g., text-6xl or larger, light weight) alongside the article titles.",
+    "Include the slow editorial marquee using react-fast-marquee for the 'Journal At-a-Glance' stats.",
+    "Ensure all interactive elements have data-testid attributes.",
+    "DO NOT use raw transparent backgrounds on the sticky header; use backdrop-blur and a semi-transparent background."
+  ],
+  "UNIVERSAL GUIDELINES FOR MAIN AGENT": "You tend to converge toward generic, 'on distribution' outputs. In frontend design, this creates what users call the 'AI slop' aesthetic. Avoid this: make creative, distinctive frontends that surprise and delight. Don't make generic centered layouts, simplistic gradients, and uniform styling. Create depth through layered design elements with z-index hierarchy. Use 2-3x more spacing than feels comfortable. Cramped designs look cheap. Add a subtle noise texture overlay to the entire app to give it an editorial, physical paper feel. Ensure typography drives the design—large, carefully tracked serif headings paired with clean, legible sans-serif body text."
+}
