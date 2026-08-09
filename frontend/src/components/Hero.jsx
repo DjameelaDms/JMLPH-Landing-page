@@ -101,7 +101,7 @@ export const Hero = () => {
               className="w-full h-[120%] object-cover grayscale-[0.15]"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-ink/50 via-transparent to-transparent" />
-            <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-between">
+            <div className="absolute bottom-0 left-0 right-0 p-6 flex items-end justify-end gap-6">
               <div className="font-mono text-[11px] uppercase tracking-[0.2em] text-paper/90">
                 Vol. 6 · No. 3 · 2026
               </div>
