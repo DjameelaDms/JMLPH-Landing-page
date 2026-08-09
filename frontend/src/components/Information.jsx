@@ -4,7 +4,6 @@ import { Reveal, Overline } from "./Reveal";
 import { INFORMATION, FEEDS, SUBMIT_URL } from "../data/journal";
 
 const INFO_ICONS = { "For Readers": Users, "For Authors": PenLine, "For Librarians": Library };
-const INFO_IMG = "https://images.unsplash.com/photo-1526930382372-67bf22c0fce2?auto=format&fit=crop&w=900&q=80";
 
 export const Information = () => (
   <section data-testid="information-section" className="py-24 md:py-32 bg-ink text-paper">
@@ -33,11 +32,6 @@ export const Information = () => (
                 <Rss className="w-3.5 h-3.5" /> {f.label}
               </a>
             ))}
-          </div>
-        </Reveal>
-        <Reveal delay={0.3}>
-          <div className="mt-8 overflow-hidden border border-white/10 hidden lg:block">
-            <img src={INFO_IMG} alt="Microscope research" className="w-full h-56 object-cover grayscale opacity-80" />
           </div>
         </Reveal>
       </div>
